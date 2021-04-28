@@ -33,13 +33,6 @@ class Cliente {
     Boolean verificado = false
     String token = ""
 
-    // Relaciones
-    static hasMany = [
-            cestas: Cesta,
-            pedidos: Pedido,
-            valoraciones: Valoracion
-    ]
-
     // Restricciones
     static constraints = {
         nombre size: 1..30, blank: false
