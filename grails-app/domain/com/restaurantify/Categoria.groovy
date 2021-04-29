@@ -1,24 +1,24 @@
-package restaurantify
+package com.restaurantify
 
 import groovy.transform.ToString
 
 /**
- * Clase dominio, que representa el Alergeno que contiene el Plato.
+ * Clase dominio, que representa la Categoría en la que esta el Plato.
  * Este sera gestionado por el administrador del restaurante.
- * Un plato puede tener varios Alergenos.
+ * Un plato solo tiene una Categoría.
  * @author Martín Jesús Mañas Rivas
  * @since 5/04/2021
  * @version 1.0
  */
 @ToString
-class Alergeno {
+class Categoria {
     // Columnas
     String nombre
-    String imagen = "img_alergeno.png"
+    Integer orden
 
     // Restricciones
     static constraints = {
-        nombre size: 1..50 , blank: false
-        imagen blank: false
+        nombre size: 1..30, blank: false
+        orden min: 1
     }
 }

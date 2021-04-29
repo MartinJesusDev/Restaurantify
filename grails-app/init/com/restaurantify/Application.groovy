@@ -1,4 +1,4 @@
-package restaurantify
+package com.restaurantify
 
 import grails.boot.GrailsApp
 import grails.boot.config.GrailsAutoConfiguration

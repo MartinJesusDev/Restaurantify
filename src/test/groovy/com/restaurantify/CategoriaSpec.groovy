@@ -1,9 +1,9 @@
-package restaurantify
+package com.restaurantify
 
 import grails.testing.gorm.DomainUnitTest
 import spock.lang.Specification
 
-class CestaSpec extends Specification implements DomainUnitTest<Cesta> {
+class CategoriaSpec extends Specification implements DomainUnitTest<Categoria> {
 
     def setup() {
     }

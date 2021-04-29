@@ -1,4 +1,4 @@
-package restaurantify
+package com.restaurantify
 
 class UrlMappings {
 

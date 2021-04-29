@@ -1,4 +1,4 @@
-package restaurantify
+package com.restaurantify
 
 import groovy.transform.ToString
 
