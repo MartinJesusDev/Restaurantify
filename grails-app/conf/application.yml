@@ -8,6 +8,8 @@ grails:
             # Whether to translate GORM events into Reactor events
             # Disabled by default for performance reasons
             events: false
+        failOnError: true
+
 info:
     app:
         name: '@info.app.name@'
@@ -95,6 +97,7 @@ dataSource:
     username: postgres
     password: '0709'
     dialect: org.hibernate.dialect.PostgreSQLDialect
+    logSql: true
 
 environments:
     development:
