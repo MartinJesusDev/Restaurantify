@@ -2,7 +2,7 @@
 <html>
     <head>
         <title>Page Not Found</title>
-        <meta name="layout" content="main">
+        <meta name="layout" content="cabecera">
         <g:if env="development"><asset:stylesheet src="errors.css"/></g:if>
     </head>
     <body>
@@ -10,5 +10,6 @@
             <li>Error: Page Not Found (404)</li>
             <li>Path: ${request.forwardURI}</li>
         </ul>
+        <g:applyLayout name="pie" />
     </body>
 </html>
