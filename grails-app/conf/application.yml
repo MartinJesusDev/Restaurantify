@@ -9,6 +9,8 @@ grails:
             # Disabled by default for performance reasons
             events: false
         failOnError: true
+    config:
+        assetsPath: D:\xdddd\Documents\Trabajo\TFG\Restaurantify\grails-app\assets\
 
 info:
     app:

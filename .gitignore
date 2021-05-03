@@ -10,3 +10,6 @@ out/
 .project
 .settings
 .classpath
+grails-app/assets/images/alergenos
+grails-app/assets/images/platos
+grails-app/assets/images/clientes
