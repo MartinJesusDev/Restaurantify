@@ -38,7 +38,7 @@ class Cliente {
         nombre size: 1..30, blank: false
         apellidos size: 1..30, blank: false
         email maxSize: 320, email: true, blank: false, unique: true
-        password size: 6..30, blank: false, password: true
+        password size: 6..255, blank: false, password: true
         dni blank: false, unique: true, display: false
         provincia blank: false
         localidad blank: false
@@ -46,6 +46,6 @@ class Cliente {
         fechaDeNacimiento date: true, max: LocalDate.now(), blank: false
         fechaDeAlta date: true, max: LocalDate.now()
         rol blank: false, inList: [0, 1] // 0 = usuario, 1 = admin
-        token maxSize: 30
+        token maxSize: 32
     }
 }
