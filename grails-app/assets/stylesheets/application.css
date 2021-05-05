@@ -11,5 +11,6 @@
 *= require main
 *= require mobile
 *= require bootstrap.min
+*= require all.min
 *= require_self
 */
