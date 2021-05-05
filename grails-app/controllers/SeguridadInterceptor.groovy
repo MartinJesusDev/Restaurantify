@@ -23,7 +23,7 @@ class SeguridadInterceptor {
         }
 
         // Comprobamos si accede a la parte de administrador, y no es administrador
-        if(controllerName == "administrador" && session.cliente.rol != 1){
+        if(controllerName == "admin" && session.cliente.rol != 1){
             redirect(uri: "/")
             return false
         }

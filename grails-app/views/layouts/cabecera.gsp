@@ -39,27 +39,28 @@
             <g:if test="${session.cliente}" >
             <!-- Panel para cliente identificados -->
                 <div class="btn-group">
-                    <div>
-                        <a class="btn btn-primary" id="enlaceCarrito" href="carrito"><i class="fas fa-shopping-cart"></i>Carrito<span class="p-1" id="contadorArticulos">(0)</span>
-                            <div class="bg-white p-2 position-absolute d-none" style="z-index: 2;top:38px;left: 0px;" id="cajaPopUpProductos">
-                                <div class="list-group"></div>
-                            </div>
-                        </a>
 
-                    </div>
+                    <g:link class="btn btn-primary" controller="carrito" action="index" ><i class="fas fa-shopping-cart mr-2"></i>(0)</span>
+                        <div class="bg-white p-2 position-absolute d-none" style="z-index: 2;top:38px;left: 0px;" id="cajaPopUpProductos">
+                            <div class="list-group"></div>
+                        </div>
+                    </g:link>
 
-                    <g:if test="${session.cliente.rol == 1}" >
+                    <g:if test="${session.cliente.rol}" >
                         <!-- Boton para administrador -->
-                        <a class="btn btn-warning" href="admin"><i class="fa fa-tools pr-2"></i>Admin panel</a>
+                        <g:link controller="admin" class="btn btn-warning">
+                            <i class="fas fa-tools mr-2"></i><g:message code="default.button.admin.panel.message" />
+                        </g:link>
                     </g:if>
 
                     <!-- Menu herramientas cliente -->
                     <div class="dropdown">
                         <a class="btn btn-dark dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fa fa-user pr-2"></i>${session.cliente.nombre}
+                            <asset:image src="clientes/${session.cliente.imagen}" class="rounded" width="30px" />
+                            ${session.cliente.nombre}
                         </a>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                            <g:link controller="cliente" action="perfil" class="dropdown-item">
+                            <g:link controller="cliente" action="perfil" class="dropdown-item" >
                                 <g:message code="default.button.cliente.perfil.message" />
                             </g:link>
                             <g:link controller="cliente" action="pedidos" class="dropdown-item">
@@ -73,9 +74,6 @@
                             </g:link>
                         </div>
                     </div>
-                    <g:link controller="cliente" action="logout" class="btn btn-danger">
-                        <g:message code="default.button.cliente.cerrarSesion.message" />
-                    </g:link>
                 </div>
                 </g:if>
                 <g:else>
@@ -87,9 +85,7 @@
                 </g:else>
             </div>
         </nav>
-
-        <!-- Contenido de la página --->
-        <main>
+    
     <g:layoutBody/>
 </body>
 </html>
