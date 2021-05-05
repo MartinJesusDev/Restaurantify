@@ -67,7 +67,7 @@
                 <th><g:message code="default.input.seleccionar.label"/> </th>
             </tr>
             <g:each in="${listadoAlergenos}" var="a">
-                <tr>
+                <tr class="${a.id == alergeno?.id ? "table-active" : ""}">
                     <td><asset:image src="alergenos/${a.imagen}" width="35px" /> </td>
                     <td>${a.nombre}</td>
                     <td>
