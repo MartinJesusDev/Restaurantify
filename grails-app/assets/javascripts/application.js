@@ -8,4 +8,5 @@
 //= require jquery.min
 //= require popper.min
 //= require bootstrap.min
+//= require select2.min
 //= require_self

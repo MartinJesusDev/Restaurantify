@@ -12,5 +12,6 @@
 *= require mobile
 *= require bootstrap.min
 *= require all.min
+*= require select2.min
 *= require_self
 */
