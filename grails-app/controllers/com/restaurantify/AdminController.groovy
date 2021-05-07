@@ -25,4 +25,15 @@ class AdminController {
     def categorias(Categoria categoria) {
         render(view: "../categoria/Categorias", model: [listadoCategorias: categoriaService.listarCategorias(), categoria: categoria])
     }
+
+    /**
+     * Controla la vista de platos.
+     */
+    def platos(Plato plato){
+        render(view: "../plato/platos", model: [
+                listadoPlatos: Plato.findAll(),
+                listadoAlergenos: Alergeno.findAll(),
+                listadoCategorias: categoriaService.listarCategorias(),
+                plato: plato])
+    }
 }

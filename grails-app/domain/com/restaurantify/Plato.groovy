@@ -18,7 +18,7 @@ class Plato {
     Float descuento
     String elaboracion
     Float iva
-    Integer tiempoElaboracion // Tiempo en segundos
+    Integer tiempoElaboracion // Tiempo en minutos
     Boolean disponible = true
 
     // Relaciones
@@ -28,7 +28,6 @@ class Plato {
 
     static hasMany = [
             alergenos: Alergeno,
-            valoraciones: Valoracion
     ]
 
     // Restricciones
