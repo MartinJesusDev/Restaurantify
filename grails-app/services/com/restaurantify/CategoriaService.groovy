@@ -34,6 +34,6 @@ class CategoriaService {
      * @return
      */
     List<Categoria> listarCategorias(){
-        return Categoria.list([sort: "orden"])
+        return Categoria.listOrderByOrden()
     }
 }

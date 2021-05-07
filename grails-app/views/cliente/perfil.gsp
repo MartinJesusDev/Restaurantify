@@ -150,7 +150,7 @@
 
             <div class="form-row">
                 <div class="form-group d-flex justify-content-center align-items-center border rounded col-auto mr-2">
-                    <asset:image src="clientes/${cliente.imagen}" class="p-2" width="50px" heigh="50px" />
+                    <asset:image src="clientes/${cliente.imagen}" class="p-2 pop" width="50px" heigh="50px" />
                 </div>
                 <div class="form-group col">
                     <label for="imagenPerfil"><g:message code="default.input.profilePicture.label"/></label>

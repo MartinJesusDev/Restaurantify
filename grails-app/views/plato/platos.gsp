@@ -97,18 +97,6 @@
             </div>
             <div class="form-group d-flex justify-content-center align-items-center border rounded col-auto mx-2">
                 <asset:image src="platos/${plato?.imagen ?: "img_plato.png"}" class="p-2 pop" width="50px" heigh="50px" />
-
-                <!-- Modal para mostrar la imagen del plato -->
-                <div class="modal fade" id="imagemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-body">
-                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                                <img src="" class="imagepreview" style="width: 100%;" >
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
             <div class="form-group col">
                 <label for="imagenPlato"><g:message code="default.input.platoPicture.label"/></label>
@@ -172,15 +160,6 @@
         $('#alergenos').select2({
             selectOnClose: true,
             closeOnSelect: false
-        });
-    });
-
-
-    // Modal para imagen
-    $(function() {
-        $('.pop').on('click', function() {
-            $('.imagepreview').attr('src', $(this).find('img').prevObject.attr('src'));
-            $('#imagemodal').modal('show');
         });
     });
 </g:javascript>

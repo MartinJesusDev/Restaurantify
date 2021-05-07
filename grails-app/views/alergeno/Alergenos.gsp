@@ -37,7 +37,7 @@
                 </g:hasErrors>
             </div>
             <div class="form-group d-flex justify-content-center align-items-center border rounded col-auto mx-2">
-                <asset:image src="alergenos/${alergeno?.imagen ?: "img_alergeno.png"}" class="p-2" width="50px" heigh="50px" />
+                <asset:image src="alergenos/${alergeno?.imagen ?: "img_alergeno.png"}" class="p-2 pop" width="50px" heigh="50px" />
             </div>
             <div class="form-group col">
                 <label for="imagenAlergeno"><g:message code="default.input.alergenoPicture.label"/></label>
@@ -68,7 +68,7 @@
             </tr>
             <g:each in="${listadoAlergenos}" var="a">
                 <tr class="${a.id == alergeno?.id ? "table-active" : ""}">
-                    <td><asset:image src="alergenos/${a.imagen}" width="35px" /> </td>
+                    <td><asset:image class="pop" src="alergenos/${a.imagen}" width="35px" /> </td>
                     <td>${a.nombre}</td>
                     <td>
                         <g:link class="btn btn-primary" controller="admin" action="alergenos" params="[id: a.id]">
