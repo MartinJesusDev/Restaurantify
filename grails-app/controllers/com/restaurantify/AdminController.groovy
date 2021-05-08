@@ -1,7 +1,21 @@
 package com.restaurantify
 
+import groovy.transform.CompileStatic
+import org.grails.web.servlet.mvc.GrailsWebRequest
+
+/**
+ * Clase controlador para la administración, que contrala las peticiones y errores.
+ * Gestiona varios Dominios ya que se trada de la clase de Administrador.
+ * Utiliza varios servicios.
+ * @author Martín Jesús Mañas Rivas
+ * @since 10/04/2021
+ * @version 1.0
+ */
+@CompileStatic
 class AdminController {
     CategoriaService categoriaService
+    AlergenoService alergenoService
+    PlatoService platoService
 
     /**
      * Controla la vista de estadisticas.
@@ -12,10 +26,14 @@ class AdminController {
 
     /**
      * Controla la vista de alergenos.
-     * @param id
+     * @param alergeno
      */
     def alergenos(Alergeno alergeno){
-        render(view: "../alergeno/Alergenos", model: [listadoAlergenos: Alergeno.findAll(), alergeno: alergeno])
+        render(view: "alergenos",
+                model: [
+                        listadoAlergenos: alergenoService.listar(),
+                        alergeno: alergeno
+                ])
     }
 
     /**
@@ -23,17 +41,24 @@ class AdminController {
      * @param categoria
      */
     def categorias(Categoria categoria) {
-        render(view: "../categoria/Categorias", model: [listadoCategorias: categoriaService.listarCategorias(), categoria: categoria])
+        render(view: "categorias",
+                model: [
+                        listadoCategorias: categoriaService.listar(),
+                        categoria: categoria
+                ])
     }
 
     /**
      * Controla la vista de platos.
+     * @param plato
      */
     def platos(Plato plato){
-        render(view: "../plato/platos", model: [
-                listadoPlatos: Plato.findAll(),
-                listadoAlergenos: Alergeno.findAll(),
-                listadoCategorias: categoriaService.listarCategorias(),
-                plato: plato])
+        render(view: "platos",
+                model: [
+                    listadoPlatos: platoService.listar(),
+                    listadoAlergenos: alergenoService.listar(),
+                    listadoCategorias: categoriaService.listar(),
+                    plato: plato
+                ])
     }
 }

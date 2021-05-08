@@ -1,18 +1,21 @@
 package com.restaurantify
 
-import grails.validation.ValidationException
-import org.springframework.web.multipart.MultipartFile
+import groovy.transform.CompileStatic
 
-
-import static org.springframework.http.HttpStatus.*
-
+/**
+ * Clase controlador para los Clientes, que contrala las peticiones y errores.
+ * Utiliza el servicio cliente para su funcionamiento.
+ * @author Martín Jesús Mañas Rivas
+ * @since 10/04/2021
+ * @version 1.0
+ */
+@CompileStatic
 class ClienteController {
     ClienteService clienteService
 
     /**
      * Presenta la vista del registro.
      * Controla el registro del cliente.
-     * @return
      */
     def registro(Cliente cliente) {
         // Muestra la vista del registro
@@ -20,39 +23,19 @@ class ClienteController {
             return
         }
 
-        try {
-            // Comprobamos si hay errores
-            if(cliente.hasErrors()) {
-                render(view: "registro", model: [cliente : cliente])
-                return
-            }
-
-            // Guardamos el fichero si existe
-            MultipartFile f = request.getFile('imagenPerfil')
-            if (!f.empty) {
-                String imageUpload = grailsApplication.config.getProperty("grails.config.assetsPath")
-                imageUpload += "images/clientes/"
-                f.transferTo(new File("${imageUpload}${f.originalFilename}"))
-                cliente.imagen = f.originalFilename
-            }
-
-            // Intentamos crear el cliente
-            clienteService.crearCliente(cliente)
-
-
-        } catch (ValidationException e) {
-            // Si hubo error cambiamos a la contraseña sin hash
-            cliente.password = params.password
-
-            render(view: "registro", model: [cliente : cliente])
+        // Comprobamos si hay errores
+        if(cliente.hasErrors()) {
+            render(view: "registro",
+                    model: [cliente : cliente])
             return
         }
 
-        // Redirigimos y mostramos mensaje correcto
-        flash.message = message(code: "default.cliente.registrado.message")
-        redirect(action: "registro")
+        // Intentamos crear el cliente
+        clienteService.crear(cliente)
 
-        //render(view: "registro", params: new Cliente(params))
+        // Redirigimos y mostramos mensaje correcto
+        flash.message = "default.cliente.registrado.message"
+        redirect(action: "registro")
     }
 
     /**
@@ -64,48 +47,26 @@ class ClienteController {
         // Muestra la vista del perfil
         if (request.get) {
             // Obtenemos los datos del cliente dado el id en la sesión
-            cliente = Cliente.findById(session.cliente.getId())
+            cliente = clienteService.clienteSession()
 
-            render(view: "perfil", model: [cliente : cliente])
+            render(view: "perfil",
+                    model: [cliente : cliente])
             return
         }
 
-
-        try {
-            // Comprobamos si hay errores
-            if(cliente.hasErrors()) {
-                render(view: "perfil", model: [cliente : cliente])
-                return
-            }
-
-            // Guardamos el fichero si existe
-            MultipartFile f = request.getFile('imagenPerfil')
-            if (!f.empty) {
-                String imageUpload = grailsApplication.config.getProperty("grails.config.assetsPath")
-                imageUpload += "images/clientes/"
-                f.transferTo(new File("${imageUpload}${f.originalFilename}"))
-                cliente.imagen = f.originalFilename
-            } else {
-                cliente.imagen = Cliente.findById(cliente.id).imagen
-            }
-
-            // Intentamos crear el cliente
-            clienteService.actualizarCliente(cliente, params)
-
-
-        } catch (ValidationException e) {
-            // Si hubo error cambiamos a la contraseña sin hash
-            cliente.password = params.password
-
-            render(view: "perfil", model: [cliente : cliente])
+        // Comprobamos si hay errores
+        if(cliente.hasErrors()) {
+            render(view: "perfil",
+                    model: [cliente : cliente])
             return
         }
+
+        // Intentamos crear el cliente
+        clienteService.actualizar(cliente)
 
         // Redirigimos y mostramos mensaje correcto
-        flash.message = message(code: "default.cliente.actualizado.message")
+        flash.message = "default.cliente.actualizado.message"
         redirect(action: "perfil", model: [cliente: cliente])
-
-        //render(view: "registro", params: new Cliente(params))
     }
 
     /**
@@ -128,12 +89,11 @@ class ClienteController {
         Boolean logueado = clienteService.iniciarSesion(cl)
         flash.error = !logueado
         if(logueado) {
-            session.setAttribute("cliente", Cliente.findByEmail(cl.email))
-            flash.message = message(code: "default.cliente.sesionIniciada.message")
+            flash.message = "default.cliente.sesionIniciada.message"
             redirect(uri: "/")
             return
         } else {
-            flash.message = message(code: "default.cliente.sesionNoIniciada.message" )
+            flash.message = "default.cliente.sesionNoIniciada.message"
         }
 
         // Redirigimos al login
@@ -154,27 +114,18 @@ class ClienteController {
      */
     def verificar() {
         // Verificamos el cliente
-        Boolean verificado = clienteService.verificarCliente(params.email, params.token)
+        Boolean verificado = clienteService.verificar()
 
         // Mostramos un mensaje según su verificación
         flash.verificado = verificado
         if(verificado) {
-            flash.message = message(code: "default.cliente.verificado.message")
+            flash.message = "default.cliente.verificado.message"
         } else {
-            flash.message = message(code: "default.cliente.no.verificado.message")
+            flash.message = "default.cliente.no.verificado.message"
         }
 
         render view: "verificado", model: flash
     }
-
-    /**
-     * Imprime pantalla que indica que no se encontro el recurso.
-     */
-    protected void notFound() {
-        flash.message = message(code: 'default.not.found.message', args: [message(code: 'cliente.label', default: 'Cliente'), params.id])
-        redirect(action: "index", render(status: NOT_FOUND))
-    }
-
 }
 
 /**

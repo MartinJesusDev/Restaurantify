@@ -1,71 +1,82 @@
 package com.restaurantify
 
-import grails.validation.ValidationException
+import groovy.transform.CompileStatic
 
+/**
+ * Clase controlador para las categorías, que contrala las peticiones y errores.
+ * Utiliza los servicios correspondientes para su funcionamiento.
+ * @author Martín Jesús Mañas Rivas
+ * @since 10/04/2021
+ * @version 1.0
+ */
+@CompileStatic
 class CategoriaController {
     CategoriaService categoriaService
 
     /**
-     * Controla la creación del categoría.
+     * Controla la creación de la categoría.
+     * @param categoria
      */
     def crear(Categoria categoria) {
-        try {
-            // Comprobamos si hay errores
-            if(categoria.hasErrors()) {
-                render(view: "Categorias", model: [categoria : categoria, listadoCategorias: categoriaService.listarCategorias()])
-                return
-            }
 
-            // Intentamos crear el categoria
-            categoriaService.crearCategoria(categoria)
-
-        } catch (ValidationException e) {
-            render(view: "Categorias", model: [categoria : categoria, listadoCategorias: categoriaService.listarCategorias()])
+        // Comprobamos si hay errores
+        if(categoria.hasErrors()) {
+            render(view: "/admin/categorias",
+                    model: [
+                            categoria: categoria,
+                            listadoCategorias: categoriaService.listar()
+                    ])
             return
         }
 
+        // Creamos la categoría
+        categoriaService.crear(categoria)
+
         // Redirigimos y mostramos mensaje correcto
-        flash.message = message(code: "default.categoria.creado.message")
+        flash.message = "default.categoria.creado.message"
         redirect(controller: "admin", action: "categorias")
     }
 
     /**
      * Controla la eliminación del categoría.
+     * @param categoria
      */
     def eliminar(Categoria categoria){
         if(!categoria.id) {
-            render(view: "Categorias", model: [listadoCategorias: categoriaService.listarCategorias()])
+            render(view: "/admin/categorias",
+                    model: [listadoCategorias: categoriaService.listar()])
             return
         }
 
-        // Elimina la categoria e imprime mensaje
-        categoriaService.eliminarCategoria(categoria)
-        flash.message = message(code: "default.categoria.eliminada.message")
+        // Elimina la categoría
+        categoriaService.eliminar(categoria)
+
+        // Redirigimos y mostramos mensaje de eliminación
+        flash.message = "default.categoria.eliminada.message"
         redirect(controller: "admin", action: "categorias")
     }
 
     /**
      * Controla la actualización de la categoría.
+     * @param categoria
      */
     def actualizar (Categoria categoria) {
-        try {
-            // Comprobamos si hay errores
-            if(categoria.hasErrors()) {
-                render(view: "Categorias", model: [categoria : categoria, listadoCategorias: categoriaService.listarCategorias()])
-                return
-            }
 
-            // Intentamos actualizar la categoría
-            categoriaService.actualizarCategoria(categoria)
-
-
-        } catch (ValidationException e) {
-            render(view: "Categorias", model: [categoria : categoria, listadoCategorias: categoriaService.listarCategorias()])
+        // Comprobamos si hay errores
+        if(categoria.hasErrors()) {
+            render(view: "/admin/categorias",
+                    model: [
+                            categoria: categoria,
+                            listadoCategorias: categoriaService.listar()
+                    ])
             return
         }
 
+        // Actualizamos la categoría
+        categoriaService.actualizar(categoria)
+
         // Redirigimos y mostramos mensaje correcto
-        flash.message = message(code: "default.categoria.actualizada.message")
+        flash.message = "default.categoria.actualizada.message"
         redirect(controller: "admin", action: "categorias")
     }
 

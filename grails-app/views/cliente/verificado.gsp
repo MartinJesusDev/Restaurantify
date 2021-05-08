@@ -17,7 +17,7 @@
 
         <!-- Tarjeta estado de la verificación -->
         <div class="jumbotron bg-light" >
-            <h2 class=" ${flash.verificado ? "text-success" : "text-danger"}">${flash.message}</h2>
+            <h2 class=" ${flash.verificado ? "text-success" : "text-danger"}"><g:message code="${flash.message}" /></h2>
         </div>
 
     </section>

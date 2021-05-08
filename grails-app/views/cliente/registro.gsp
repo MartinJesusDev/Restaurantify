@@ -17,7 +17,7 @@
 
         <!-- Mensaje informativo --->
         <g:if test="${flash.message}">
-            <div class="message rounded col-md-4" role="status">${flash.message}</div>
+            <div class="message rounded col-md-4" role="status"><g:message code="${flash.message}" /></div>
         </g:if>
 
         <!-- Formulario de registro -->

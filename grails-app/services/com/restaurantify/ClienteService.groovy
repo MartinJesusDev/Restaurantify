@@ -3,8 +3,15 @@ package com.restaurantify
 import at.favre.lib.crypto.bcrypt.BCrypt
 import grails.gorm.transactions.Transactional
 import grails.plugins.mail.MailService
+import org.springframework.web.multipart.MultipartFile
 
-class ClienteService {
+/**
+ * Clase servicios que controla el acceso a base de datos para el Dominio Cliente.
+ * @author Martín Jesús Mañas Rivas
+ * @since 10/04/2021
+ * @version 1.0
+ */
+class ClienteService  extends DefaultService{
     MailService mailService
 
     /**
@@ -16,7 +23,7 @@ class ClienteService {
      * @return
      */
     @Transactional
-    void crearCliente(Cliente cliente) {
+    void crear(Cliente cliente) {
         // Generamos un token aleatorio
         String token = cliente.email.encodeAsMD5()
         cliente.token = token
@@ -24,6 +31,9 @@ class ClienteService {
         // Encriptamos la contraseña del cliente
         String passwordHash = BCrypt.withDefaults().hashToString(12, cliente.password.toCharArray())
         cliente.password = passwordHash
+
+        // Comprobamos si subío imagen
+        uploadFileCliente(cliente)
 
         // Guardamos el cliente
         cliente.save()
@@ -44,7 +54,7 @@ class ClienteService {
      * @return
      */
     @Transactional
-    void actualizarCliente(Cliente cliente, def params) {
+    void actualizar(Cliente cliente) {
         // Obtenemos el antiguo cliente
         Cliente oldCli = Cliente.findById(cliente.id)
 
@@ -52,8 +62,10 @@ class ClienteService {
         if(params.oldPassword != cliente.password) {
             String passwordHash = BCrypt.withDefaults().hashToString(12, cliente.password.toCharArray())
             cliente.password = passwordHash
-            println passwordHash
         }
+
+        // Comprobamos si subío imagen
+        uploadFileCliente(cliente)
 
         // Guardamos el cliente
         cliente.save()
@@ -69,17 +81,22 @@ class ClienteService {
                         " <a href='http://localhost:8080/cliente/verificar?email=${cliente.email}&token=${cliente.token}'>Enlace verificación</a>"
             }
         }
+
+        // Comprobamos si la actualización la hizo el usuario para actualizar los datos en sessión
+        if(session?.cliente?.id == cliente.id){
+            session.setAttribute("cliente", Cliente.findById(cliente.id))
+        }
     }
 
     /**
      * Verifica el correo del cliente.
      */
     @Transactional
-    Boolean verificarCliente(String email, String token){
+    Boolean verificar(){
         Boolean verificado = false
 
         // Buscamos el cliente
-        Cliente cliente = Cliente.findByEmailAndToken(email, token)
+        Cliente cliente = Cliente.findByEmailAndToken(params?.email, params?.token)
 
         // Lo verificamos si existe
         if(cliente) {
@@ -90,7 +107,6 @@ class ClienteService {
 
         return  verificado
     }
-
 
     /**
      * Comprueba si el cliente es valido.
@@ -109,8 +125,45 @@ class ClienteService {
             logueado = result.verified
         }
 
+        // Si se logueo lo guardamos en sessión
+        if (logueado) {
+            session.setAttribute("cliente", Cliente.findByEmail(cl.email))
+        }
+
 
         return logueado
+    }
+
+    /**
+     * Controla la subida de una imagén del cliente.
+     */
+    void uploadFileCliente(Cliente cliente) {
+        try {
+            // Guardamos el fichero si existe
+            MultipartFile f = request.getFile('imagenPerfil')
+            if (!f.empty) {
+                String imageUpload = grailsApplication.config.getProperty("grails.config.assetsPath")
+                imageUpload += "images/clientes/"
+                f.transferTo(new File("${imageUpload}${f.originalFilename}"))
+                cliente.imagen = f.originalFilename
+            }
+        } catch(Exception e) {}
+    }
+
+    /**
+     * Retorna el cliente que se ha guardado en la session.
+     * @return Cliente
+     */
+    Cliente clienteSession(){
+        return Cliente.findById(session?.cliente?.id)
+    }
+
+    /**
+     * Retorna una lista con todos los clientes.
+     * @return Cliente
+     */
+    List<Cliente> listar () {
+        return Cliente.findAll()
     }
 
 }
