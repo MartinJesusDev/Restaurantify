@@ -23,19 +23,41 @@
 </head>
 <body>
     <!-- Contenedor principal -->
-    <div class="container-fluid min-vh-100 p-0">
+    <div class="container-fluid p-0">
 
         <!-- Barra de navegación clientes -->
-        <nav class="navbar navbar-expand-lg navbar-light bg-white px-3">
+        <nav class="navbar navbar-expand-lg navbar-dark  bg-dark px-3 sticky-top">
             <!-- Logo página -->
             <div class="d-flex">
                 <asset:image src="restaurante/logotipo.jpg" class="mr-1" alt="Logo web" width="50px" height="50px"/>
                 <h1>
-                    <g:link class="text-dark" uri="/">Restaurantify</g:link>
+                    <g:link class="text-light" uri="/">Restaurantify</g:link>
                 </h1>
             </div>
 
-            <div class="ml-3 align-menu w-100">
+            <!-- Menu navegación -->
+            <div class="collapse navbar-collapse ml-3 w-100" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item active">
+                        <g:link class="nav-link ${request.forwardURI.matches("/") ? "active" : "" }" uri="/" >
+                            <g:message code="default.title.inicio.label"/>
+                        </g:link>
+                    </li>
+                    <li class="nav-item">
+                        <g:link class="nav-link ${request.forwardURI.matches("/plato/lista") ? "active" : "" }" controller="plato" action="lista" >
+                            <g:message code="default.title.platos.label"/>
+                        </g:link>
+                    </li>
+                    <li class="nav-item">
+                        <g:link class="nav-link ${request.forwardURI == "/cliente/contacto" ? "active" : "" }" controller="cliente" action="contacto" >
+                            <g:message code="default.title.contacto.label"/>
+                        </g:link>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Panel de herraminetas -->
+            <div class="ml-3">
             <g:if test="${session.cliente}" >
             <!-- Panel para cliente identificados -->
                 <div class="btn-group">
@@ -55,7 +77,7 @@
 
                     <!-- Menu herramientas cliente -->
                     <div class="dropdown">
-                        <a class="btn btn-dark dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a class="btn btn-primary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <asset:image src="clientes/${session.cliente.imagen}" class="rounded" width="30px" />
                             ${session.cliente.nombre}
                         </a>
@@ -69,6 +91,7 @@
                             <g:link controller="cliente" action="login" class="dropdown-item">
                                 <g:message code="default.button.cliente.relogin.message" />
                             </g:link>
+                            <div class="dropdown-divider"></div>
                             <g:link controller="cliente" action="logout" class="dropdown-item">
                                 <g:message code="default.button.cliente.cerrarSesion.message" />
                             </g:link>

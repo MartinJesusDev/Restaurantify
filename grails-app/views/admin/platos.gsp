@@ -91,8 +91,7 @@
             <div class="form-group col">
                 <label for="alergenos"><g:message code="default.input.plato.alergenos.selectdefault.label"/></label>
                 <g:select class="custom-select" name="alergenos" optionKey="id" optionValue="nombre" from="${listadoAlergenos}"
-                          multiple="multiple" noSelection="['': message(code: 'default.input.plato.alergenos.noselectdefault.label')]"
-                          value="${plato?.alergenos*.id}"
+                          multiple="multiple" value="${plato?.alergenos*.id}"
                 />
             </div>
             <div class="form-group d-flex justify-content-center align-items-center border rounded col-auto mx-2">
@@ -131,8 +130,9 @@
                 <th><g:message code="default.input.platoPicture.label" /> </th>
                 <th><g:message code="default.input.name.label" /></th>
                 <th><g:message code="default.input.precio.label" /> </th>
-                <th><g:message code="default.input.plato.iva.label" /> </th>
                 <th><g:message code="default.input.plato.descuento.label" /> </th>
+                <th><g:message code="default.input.plato.iva.label" /> </th>
+                <th><g:message code="default.input.plato.total.label"/></th>
                 <th><g:message code="default.input.seleccionar.label"/> </th>
             </tr>
             <g:each in="${listadoPlatos}" var="p">
@@ -140,8 +140,9 @@
                     <td><asset:image class="pop" src="platos/${p.imagen}" width="35px" /> </td>
                     <td>${p.nombre}</td>
                     <td>${p.precio}€</td>
-                    <td>${p.iva}%</td>
                     <td>${p.descuento}%</td>
+                    <td>${p.iva}%</td>
+                    <td>${p.total}€</td>
                     <td>
                         <g:link class="btn btn-primary" controller="admin" action="platos" params="[id: p.id]">
                             <i class="fas fa-pen"></i>
@@ -158,7 +159,6 @@
     // Select2 desplegable
     $(document).ready(function() {
         $('#alergenos').select2({
-            selectOnClose: true,
             closeOnSelect: false
         });
     });

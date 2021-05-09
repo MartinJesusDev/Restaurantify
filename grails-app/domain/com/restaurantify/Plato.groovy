@@ -15,6 +15,7 @@ class Plato {
     String nombre
     String imagen = 'img_plato.png'
     Float precio
+    Float total = 0
     Float descuento
     String elaboracion
     Float iva

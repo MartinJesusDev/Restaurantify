@@ -1,6 +1,7 @@
 package com.restaurantify
 
 import grails.gorm.transactions.Transactional
+import org.hibernate.Criteria
 import org.springframework.web.multipart.MultipartFile
 
 /**
@@ -20,6 +21,9 @@ class PlatoService extends DefaultService {
         // Comprueba la foto del plato
         uploadFilePlato(p)
 
+        // Calcula el total del plato
+        p.total = calcularTotal(p)
+
         // Guarda el plato
         p.save()
     }
@@ -32,6 +36,11 @@ class PlatoService extends DefaultService {
     void actualizarPlato(Plato p) {
         // Comprueba si se actualizo el plato
         uploadFilePlato(p)
+
+        // Calcula el total del plato
+        p.total = calcularTotal(p)
+
+        println p.total
 
         // Guarda el plato
         p.save()
@@ -106,4 +115,14 @@ class PlatoService extends DefaultService {
         return  platos
     }
 
+
+
+    /**
+     * Calcula el total del plato.
+     * @param p
+     * @return float
+     */
+    Float calcularTotal(Plato p) {
+        return ((p.precio * ( 1 - (p.descuento / 100 ))) * (1 + (p.iva / 100))).round(2)
+    }
 }
