@@ -71,5 +71,39 @@ class PlatoService extends DefaultService {
         return Plato.findAll()
     }
 
+    List<Plato> listadoFiltrado(FiltroPlatos filtro){
+        // Consulta sin alergenos
+         List<Plato> platos = Plato.findAllByCategoriaInListAndTotalBetween(
+                filtro.categorias, filtro.precioMin, filtro.precioMax)
+
+        // Eliminamos los platos que contengan alergenos
+        if(filtro.alergenos) {
+            List<Plato> platosConAlergenos = []
+
+            // Recorremos los platos
+            platos.each { Plato p ->
+                Boolean contieneAlergeno = false
+                p.alergenos.each {Alergeno a  ->
+                    // Intentamos encontrar el alergeno
+                    Boolean encontrado = filtro.alergenos.contains(a)
+
+                    // Si encontro uno salimos
+                    if(encontrado){
+                        contieneAlergeno = true
+                        return
+                    }
+                }
+                if(contieneAlergeno){
+                    println "###Plato con alergenos --> $p.nombre"
+                    platosConAlergenos.add(p)
+                }
+            }
+
+            // Eliminamos los platos con alergenos de los platos
+            platos.removeAll(platosConAlergenos)
+        }
+        // retornamos los platos
+        return  platos
+    }
 
 }

@@ -1,6 +1,6 @@
 package com.restaurantify
 
-import grails.validation.ValidationException
+
 import groovy.transform.CompileStatic
 
 /**
@@ -15,6 +15,45 @@ class PlatoController {
     PlatoService platoService
     CategoriaService categoriaService
     AlergenoService alergenoService
+
+
+    /**
+     * Lista los platos dado una páginación, filtros y rangos.
+     */
+    def lista(FiltroPlatos filtroPlatos){
+        // Obtenemos el listado de platos
+        List<Plato> listadoPlatos
+        try {
+            listadoPlatos = platoService.listadoFiltrado(filtroPlatos)
+        } catch(Exception e) {
+            println e
+            listadoPlatos = []
+        }
+
+        // Recorremos las categorias y le asignamos sus platos
+        List<CategoriaConPlatos> categoriaConPlatos = []
+        filtroPlatos.categorias.each {categoria ->
+            List<Plato> platosTmp
+            platosTmp = listadoPlatos.findAll {it.categoria.id == categoria.id}
+
+            // Si existe algún plato para la categoría
+            if(platosTmp) {
+                categoriaConPlatos += new CategoriaConPlatos(categoria, platosTmp)
+                println categoria.nombre
+            }
+        }
+
+        // Ordenamos según el orden de la categoria
+        categoriaConPlatos.sort({it.orden})
+
+        render(view: "listaPlatos",
+                model: [
+                        filtro: filtroPlatos,
+                        categoriasConPlatos: categoriaConPlatos,
+                        listadoAlergenos: alergenoService.listar(),
+                        listadoCategorias: categoriaService.listar(),
+                ])
+    }
 
     /**
      * Controla la creación del plato.
@@ -82,5 +121,27 @@ class PlatoController {
         // Redirigimos y mostramos mensaje correcto
         flash.message = "default.plato.actualizado.message"
         redirect(controller: "admin", action: "platos")
+    }
+}
+
+/**
+ * Clase command para el Filtro de platos.
+ */
+class FiltroPlatos {
+    List<Alergeno> alergenos = []
+    List<Categoria> categorias = Categoria.findAll()
+    Float precioMin = 0
+    Float precioMax = Plato.executeQuery("SELECT MAX(total) FROM Plato")[0] ?: 300
+}
+
+/**
+ * Clase categoría con lista de platos.
+ */
+class CategoriaConPlatos extends Categoria {
+    List<Plato> platos = []
+
+    CategoriaConPlatos(Categoria c, List<Plato> p = []){
+        super(nombre: c.nombre, orden: c.orden, id: c.id)
+        this.platos = p
     }
 }
