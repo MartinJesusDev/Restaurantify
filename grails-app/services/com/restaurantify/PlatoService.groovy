@@ -1,7 +1,6 @@
 package com.restaurantify
 
 import grails.gorm.transactions.Transactional
-import org.hibernate.Criteria
 import org.springframework.web.multipart.MultipartFile
 
 /**
@@ -17,7 +16,7 @@ class PlatoService extends DefaultService {
      * @param p
      */
     @Transactional
-    void crearPlato(Plato p) {
+    void crear(Plato p) {
         // Comprueba la foto del plato
         uploadFilePlato(p)
 
@@ -33,7 +32,7 @@ class PlatoService extends DefaultService {
      * @param p
      */
     @Transactional
-    void actualizarPlato(Plato p) {
+    void actualizar(Plato p) {
         // Comprueba si se actualizo el plato
         uploadFilePlato(p)
 
@@ -51,7 +50,7 @@ class PlatoService extends DefaultService {
      * @param p
      */
     @Transactional
-    void eliminarPlato(Plato p){
+    void eliminar(Plato p){
         // Elimina el plato
         p.delete()
     }
@@ -80,6 +79,11 @@ class PlatoService extends DefaultService {
         return Plato.findAll()
     }
 
+    /**
+     * Realiza un listado de platos dado el filtro pasado por parametro.
+     * @param filtro parametros de filtro
+     * @return
+     */
     List<Plato> listadoFiltrado(FiltroPlatos filtro){
         // Consulta sin alergenos
          List<Plato> platos = Plato.findAllByCategoriaInListAndTotalBetween(
@@ -115,8 +119,6 @@ class PlatoService extends DefaultService {
         return  platos
     }
 
-
-
     /**
      * Calcula el total del plato.
      * @param p
@@ -124,5 +126,14 @@ class PlatoService extends DefaultService {
      */
     Float calcularTotal(Plato p) {
         return ((p.precio * ( 1 - (p.descuento / 100 ))) * (1 + (p.iva / 100))).round(2)
+    }
+
+    /**
+     * Obtiene un plato dado el id.
+     * @param id
+     * @return
+     */
+    Plato findById(Long id){
+        return Plato.findById(id)
     }
 }

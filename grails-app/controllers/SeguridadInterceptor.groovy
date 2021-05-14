@@ -9,6 +9,7 @@ class SeguridadInterceptor {
         .except(controller: "cliente", action: "registro")
         .except(controller: "cliente", action: "verificar")
         .except(controller: "plato", action: "lista" )
+        .except(controller: "plato", action: "show")
         .except(uri: "/")
     }
 

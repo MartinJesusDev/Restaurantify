@@ -15,6 +15,8 @@ class PlatoController {
     PlatoService platoService
     CategoriaService categoriaService
     AlergenoService alergenoService
+    ValoracionService valoracionService
+    ClienteService clienteService
 
 
     /**
@@ -56,6 +58,33 @@ class PlatoController {
     }
 
     /**
+     * Muestra la vista del plato dado su id.
+     */
+    def show(Plato plato) {
+        // Comprueba si se dio el id del plato
+        if(plato?.id == null) {
+            redirect(controller: "plato", action: "lista")
+            return
+        }
+
+        // Obtenemos la valoración del cliente para el plato, si existe..
+        Cliente c = clienteService.clienteSession()
+        Valoracion vcli
+        if (c != null) {
+            vcli = valoracionService.findByClienteAndPlato(c, plato)
+        }
+
+        // IMprime la vista de valoraciones
+        render([view: "plato",
+            model: [
+                    plato: plato,
+                    valoraciones: valoracionService.listar(plato),
+                    miValoracion: vcli
+            ]
+        ])
+    }
+
+    /**
      * Controla la creación del plato.
      */
     def crear(Plato plato) {
@@ -72,7 +101,7 @@ class PlatoController {
         }
 
         // Intentamos crear el plato
-        platoService.crearPlato(plato)
+        platoService.crear(plato)
 
         // Redirigimos y mostramos mensaje correcto
         flash.message = "default.plato.creado.message"
@@ -93,7 +122,7 @@ class PlatoController {
             return
         }
 
-        platoService.eliminarPlato(plato)
+        platoService.eliminar(plato)
 
         flash.message = "default.plato.eliminado.message"
         redirect(controller: "admin", action: "platos")
@@ -116,7 +145,7 @@ class PlatoController {
         }
 
         // Intentamos crear el plato
-        platoService.actualizarPlato(plato)
+        platoService.actualizar(plato)
 
         // Redirigimos y mostramos mensaje correcto
         flash.message = "default.plato.actualizado.message"
