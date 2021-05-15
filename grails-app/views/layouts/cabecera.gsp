@@ -23,7 +23,7 @@
 </head>
 <body>
     <!-- Contenedor principal -->
-    <div class="container-fluid p-0">
+    <div class="container-fluid p-0" style="min-height: 100vh;">
 
         <!-- Barra de navegación clientes -->
         <nav class="navbar navbar-expand-lg navbar-dark  bg-dark px-3 sticky-top">
