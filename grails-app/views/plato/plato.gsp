@@ -74,25 +74,30 @@
         </article>
 
         <!-- Valoraciones del platos --->
-        <article class="d-flex">
-            <div class="col-12 ml-2">
+        <article class="d-flex flex-row flex-wrap">
+            <div class="col-lg-4 col-12 ml-lg-2">
             <!-- Titulo y valoraciones totales -->
-                <div class="col-lg-4 mb-4">
-                    <h2 class="mb-3"><g:message code="default.input.valoraciones.label" /></h2>
+                <div class="col mb-4">
+                    <h2 class="mb-3"><g:message code="default.input.valoracion.general.label" /></h2>
                     <div class="mb-2">
                         <div class="d-flex align-items-center">
                             <div class="starRatingContainer"><div class="update1.2"></div></div>
-                            <span class="ml-2"><h5 class="mb-0"><g:message code="default.input.valoraciones.final.label" args="[1]" /></h5></span>
+                            <span class="ml-2"><h5 class="mb-0"><g:message code="default.input.valoraciones.final.label" args="[valoraciones.pf.trunc(1)]" /></h5></span>
                         </div>
                     </div>
-                    <p><g:message code="default.input.valoraciones.totales.label" args="[10]"/></p>
+                    <g:if test="${valoraciones.total > 0}">
+                        <p><g:message code="default.input.valoraciones.totales.label" args="[valoraciones.total]"/></p>
+                    </g:if>
+                    <g:else>
+                        <p><g:message code="default.input.valoraciones.sinValorar.label"/></p>
+                    </g:else>
                     <hr>
                 </div>
 
                 <!-- Valoraciones -->
-                <div class="col-lg-4">
+                <div class="col">
                 <h4><g:message code="default.input.valoracionCliente.label"/> </h4>
-                <g:if test="${session.cliente}" >
+                <g:if test="${session?.cliente?.verificado}" >
                     <!-- Mensaje informativo plato --->
                     <g:if test="${flash?.valoracionMessage}">
                         <g:if test="${flash.error}" >
@@ -131,6 +136,9 @@
                         </div>
                     </g:form>
                 </g:if>
+                <g:elseif test="${session.cliente && !session?.cliente?.verificado}">
+                    <p><g:message code="default.input.valoracion.verificarCorreo.label" /></p>
+                </g:elseif>
                 <g:else>
                     <p><g:message code="default.input.valoracion.inicieSession.label" /></p>
                 </g:else>
@@ -138,8 +146,49 @@
             </div>
 
             <!-- Lista de valoraciones -->
-            <div>
+            <g:if test="${valoraciones.total > 0}">
+            <div class="col-lg-7 col-12 ml-lg-5">
+                <h2 class="mb-4"><g:message code="default.input.valoraciones.label" /></h2>
+                <g:each in="${valoraciones.lista}" var="v" status="i">
+                    <div class="card mb-3">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <div class="d-flex align-items-center">
+                                    <asset:image class="mr-3 rounded" src="clientes/${v.cliente.imagen}" width="50px"/>
+                                    <h4>${v.cliente.nombre} ${v.cliente.nombre}</h4>
+                                </div>
+                                <div class="">
+                                    <small class="mb-0 text-info"><g:message code="default.input.valoraciones.fecha.label"/> ${v.fecha}</small>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="starRatingContainer mb-2"><div class="oc${i}"></div></div>
+                                <p class="text-justify">${v.comentario}</p>
+                            </div>
+                    </div>
+                    <g:javascript>
+                    (function(){
+                    // Propiedades para selector de puntuación
+                    let imgStar = "${assetPath(src: "star.png")}"
+                    let imgStarBackground = "${assetPath(src: "backgroundStar.png")}"
+                    let properties2 = [
+                        {"rating":"${v.puntuacion}", "maxRating":"5", "minRating":"1", "readOnly":"yes", "starImage": imgStar, "backgroundStarImage": imgStarBackground, "starSize":"18", "step":"1"}
+                    ];
 
+                        try {rateSystem("oc${i}", [properties2[0]])} catch (e) {}}())
+                    </g:javascript>
+                </g:each>
+
+                <!-- Paginación -->
+                <nav class="mt-5" aria-label="Paginación de valoraciones">
+                    <tb:paginate class="mx-0 justify-content-center" controller="plato" action="show" params="${[id: p.id]}" total="${valoraciones.total}"/>
+                </nav>
+            </g:if>
+            <g:else>
+                <div class="col-lg-7 col-12 ml-lg-5">
+                    <h2 class="mb-4"><g:message code="default.input.valoraciones.label" /></h2>
+                    <p class="ml-2"><g:message code="default.input.valoraciones.sinOpiniones.label"/></p>
+                </div>
+            </g:else>
             </div>
         </article>
     </section>
@@ -166,7 +215,7 @@
     let imgStarBackground = "${assetPath(src: "backgroundStar.png")}"
     let properties2 = [
         {"rating":"${miValoracion?.puntuacion ?: valoracion?.puntuacion ?: 5}", "maxRating":"5", "minRating":"1", "readOnly":"no", "starImage": imgStar, "backgroundStarImage": imgStarBackground, "starSize":"30", "step":"1"},
-        {"rating":"1", "maxRating":"5", "minRating":"1", "readOnly":"yes", "starImage": imgStar, "backgroundStarImage": imgStarBackground, "starSize":"36", "step":"1"}
+        {"rating":"${valoraciones.pf}", "maxRating":"5", "minRating":"0", "readOnly":"yes", "starImage": imgStar, "backgroundStarImage": imgStarBackground, "starSize":"36", "step":"1"}
     ];
 
     try {

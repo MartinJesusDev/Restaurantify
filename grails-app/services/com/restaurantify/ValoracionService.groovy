@@ -73,7 +73,16 @@ class ValoracionService extends DefaultService {
      * @param p de plato
      * @return lista de valoraciones
      */
-    List<Valoracion> listar (Plato p) {
-        return Valoracion.findAllByPlato(p)
+    def listar (Plato p) {
+        List<Valoracion> lista = Valoracion.findAllByPlato(p, params)
+
+        Integer total = Valoracion.countByPlato(p) ?: 0
+
+        Integer puntuacionTotal = Valoracion.executeQuery(
+                "SELECT SUM(puntuacion) FROM Valoracion WHERE plato_id = :pId", [pId: p.id])[0] ?: 0
+
+        Float puntuacionFinal = (total != 0 && puntuacionTotal != 0) ? (puntuacionTotal / total) : 0
+
+        return [lista: lista, total: total, pf: puntuacionFinal]
     }
 }
