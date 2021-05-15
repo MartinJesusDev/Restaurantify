@@ -151,16 +151,16 @@
                 <h2 class="mb-4"><g:message code="default.input.valoraciones.label" /></h2>
                 <g:each in="${valoraciones.lista}" var="v" status="i">
                     <div class="card mb-3">
-                            <div class="card-header d-flex justify-content-between align-items-center">
+                            <div class="card-header p-2 d-flex justify-content-between align-items-center">
                                 <div class="d-flex align-items-center">
-                                    <asset:image class="mr-3 rounded" src="clientes/${v.cliente.imagen}" width="50px"/>
-                                    <h4>${v.cliente.nombre} ${v.cliente.nombre}</h4>
+                                    <asset:image class="mr-2 rounded" src="clientes/${v.cliente.imagen}" width="40px"/>
+                                    <h5>${v.cliente.nombre} ${v.cliente.apellidos}</h5>
                                 </div>
-                                <div class="">
+                                <div >
                                     <small class="mb-0 text-info"><g:message code="default.input.valoraciones.fecha.label"/> ${v.fecha}</small>
                                 </div>
                             </div>
-                            <div class="card-body">
+                            <div class="card-body p-3">
                                 <div class="starRatingContainer mb-2"><div class="oc${i}"></div></div>
                                 <p class="text-justify">${v.comentario}</p>
                             </div>
@@ -178,10 +178,12 @@
                     </g:javascript>
                 </g:each>
 
-                <!-- Paginación -->
-                <nav class="mt-5" aria-label="Paginación de valoraciones">
-                    <tb:paginate class="mx-0 justify-content-center" controller="plato" action="show" params="${[id: p.id]}" total="${valoraciones.total}"/>
-                </nav>
+                <g:if test="${valoraciones.total > valoraciones.lista.size()}">
+                    <!-- Paginación -->
+                    <nav class="mt-5" aria-label="Paginación de valoraciones">
+                        <tb:paginate class="mx-0 justify-content-center" controller="plato" action="show" params="${[id: p.id]}" total="${valoraciones.total}"/>
+                    </nav>
+                </g:if>
             </g:if>
             <g:else>
                 <div class="col-lg-7 col-12 ml-lg-5">

@@ -29,9 +29,11 @@ class ValoracionController {
         if(vc.hasErrors()) {
             flash.error = true
             flash.valoracionMessage = "default.valoracion.errorCrear.message"
+            Plato plato = platoService.findById(vc.idPlato)
             render(view: "/plato/plato", model: [
                     valoracion: vc,
-                    plato: platoService.findById(vc.idPlato)
+                    plato: plato,
+                    valoraciones: valoracionService.listar(plato)
             ])
             return
         }
@@ -58,9 +60,11 @@ class ValoracionController {
         if(vc.hasErrors()) {
             flash.error = true
             flash.valoracionMessage = "default.valoracion.errorCrear.message"
+            Plato plato = platoService.findById(vc.idPlato)
             render(view: "/plato/plato", model: [
                     valoracion: vc,
-                    plato: platoService.findById(vc.idPlato)
+                    plato: plato,
+                    valoraciones: valoracionService.listar(plato)
             ])
             return
         }

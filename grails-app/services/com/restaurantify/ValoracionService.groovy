@@ -73,7 +73,10 @@ class ValoracionService extends DefaultService {
      * @param p de plato
      * @return lista de valoraciones
      */
-    def listar (Plato p) {
+    def listar (Plato p, def Integer max = 10) {
+        // Limitamos la paginación maxima (para no poder editarse mediante URL)
+        params.max = max
+
         List<Valoracion> lista = Valoracion.findAllByPlato(p, params)
 
         Integer total = Valoracion.countByPlato(p) ?: 0
