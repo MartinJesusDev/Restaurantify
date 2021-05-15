@@ -76,72 +76,74 @@
         <!-- Valoraciones del platos --->
         <article class="d-flex flex-row flex-wrap">
             <div class="col-lg-4 col-12 ml-lg-2">
-            <!-- Titulo y valoraciones totales -->
-                <div class="col mb-4">
-                    <h2 class="mb-3"><g:message code="default.input.valoracion.general.label" /></h2>
-                    <div class="mb-2">
-                        <div class="d-flex align-items-center">
-                            <div class="starRatingContainer"><div class="update1.2"></div></div>
-                            <span class="ml-2"><h5 class="mb-0"><g:message code="default.input.valoraciones.final.label" args="[valoraciones.pf.trunc(1)]" /></h5></span>
-                        </div>
-                    </div>
-                    <g:if test="${valoraciones.total > 0}">
-                        <p><g:message code="default.input.valoraciones.totales.label" args="[valoraciones.total]"/></p>
-                    </g:if>
-                    <g:else>
-                        <p><g:message code="default.input.valoraciones.sinValorar.label"/></p>
-                    </g:else>
-                    <hr>
-                </div>
-
-                <!-- Valoraciones -->
-                <div class="col">
-                <h4><g:message code="default.input.valoracionCliente.label"/> </h4>
-                <g:if test="${session?.cliente?.verificado}" >
-                    <!-- Mensaje informativo plato --->
-                    <g:if test="${flash?.valoracionMessage}">
-                        <g:if test="${flash.error}" >
-                            <div class="ml-0 errors rounded" role="alert"><li><g:message code="${flash.valoracionMessage}" /></li></div>
-                        </g:if>
-                        <g:else>
-                            <div class="ml-0 message rounded" role="status"><g:message code="${flash.valoracionMessage}" /></div>
-                        </g:else>
-                    </g:if>
-
-                    <!-- Formulario de valoración -->
-                    <g:form  controller="valoracion" >
-                        <g:hiddenField name="puntuacion" value="${fieldValue(bean: valoracion, field: "puntuacion") ?: miValoracion?.puntuacion ?: 5}" />
-                        <g:hiddenField name="idPlato" value="${p.id}" />
-                        <g:hiddenField name="idValoracion" value="${miValoracion?.id}" />
-                        <div class="form-group">
-                            <div>
-                                <label class="col-form-label"><g:message code="default.input.valoracion.puntuacion.label"/>:
-                                    <span class="ratingHolder">${valoracion?.puntuacion ?: miValoracion?.puntuacion ?: 5}</span>
-                                </label>
-                                <div class="starRatingContainer"><div class="starValoration"></div></div>
+                <div class="position-sticky" style="top: 100px;">
+                    <!-- Titulo y valoraciones totales -->
+                    <div class="col mb-4">
+                        <h2 class="mb-3"><g:message code="default.input.valoracion.general.label" /></h2>
+                        <div class="mb-2">
+                            <div class="d-flex align-items-center">
+                                <div class="starRatingContainer"><div class="update1.2"></div></div>
+                                <span class="ml-2"><h5 class="mb-0"><g:message code="default.input.valoraciones.final.label" args="[valoraciones.pf.trunc(1)]" /></h5></span>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label for="comentario" class="col-form-label"><g:message code="default.input.valoraciones.opinion.label"/> </label>
-                            <g:textArea name="comentario" class="form-control" rows="4" value="${fieldValue(bean: valoracion, field: "comentario") ?: miValoracion?.comentario}"/>
-                        </div>
-                        <div class="form-group">
-                            <g:if test="${!miValoracion}" >
-                                <g:actionSubmit action="crear" class="btn btn-primary" value="${message(code: 'default.button.valoracion.guardar.message')}" />
+                        <g:if test="${valoraciones.total > 0}">
+                            <p><g:message code="default.input.valoraciones.totales.label" args="[valoraciones.total]"/></p>
+                        </g:if>
+                        <g:else>
+                            <p><g:message code="default.input.valoraciones.sinValorar.label"/></p>
+                        </g:else>
+                        <hr>
+                    </div>
+
+                    <!-- Valoraciones -->
+                    <div class="col">
+                    <h4><g:message code="default.input.valoracionCliente.label"/> </h4>
+                    <g:if test="${session?.cliente?.verificado}" >
+                        <!-- Mensaje informativo plato --->
+                        <g:if test="${flash?.valoracionMessage}">
+                            <g:if test="${flash.error}" >
+                                <div class="ml-0 errors rounded" role="alert"><li><g:message code="${flash.valoracionMessage}" /></li></div>
                             </g:if>
                             <g:else>
-                                <g:actionSubmit action="actualizar" class="btn btn-primary" value="${message(code: 'default.button.valoracion.actualizar.message')}" />
-                                <g:actionSubmit action="eliminar" class="btn btn-danger" value="${message(code: 'default.button.valoracion.eliminar.message')}" />
+                                <div class="ml-0 message rounded" role="status"><g:message code="${flash.valoracionMessage}" /></div>
                             </g:else>
-                        </div>
-                    </g:form>
-                </g:if>
-                <g:elseif test="${session.cliente && !session?.cliente?.verificado}">
-                    <p><g:message code="default.input.valoracion.verificarCorreo.label" /></p>
-                </g:elseif>
-                <g:else>
-                    <p><g:message code="default.input.valoracion.inicieSession.label" /></p>
-                </g:else>
+                        </g:if>
+
+                        <!-- Formulario de valoración -->
+                        <g:form  controller="valoracion" >
+                            <g:hiddenField name="puntuacion" value="${fieldValue(bean: valoracion, field: "puntuacion") ?: miValoracion?.puntuacion ?: 5}" />
+                            <g:hiddenField name="idPlato" value="${p.id}" />
+                            <g:hiddenField name="idValoracion" value="${miValoracion?.id}" />
+                            <div class="form-group">
+                                <div>
+                                    <label class="col-form-label"><g:message code="default.input.valoracion.puntuacion.label"/>:
+                                        <span class="ratingHolder">${valoracion?.puntuacion ?: miValoracion?.puntuacion ?: 5}</span>
+                                    </label>
+                                    <div class="starRatingContainer"><div class="starValoration"></div></div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="comentario" class="col-form-label"><g:message code="default.input.valoraciones.opinion.label"/> </label>
+                                <g:textArea name="comentario" class="form-control" rows="4" value="${fieldValue(bean: valoracion, field: "comentario") ?: miValoracion?.comentario}"/>
+                            </div>
+                            <div class="form-group">
+                                <g:if test="${!miValoracion}" >
+                                    <g:actionSubmit action="crear" class="btn btn-primary" value="${message(code: 'default.button.valoracion.guardar.message')}" />
+                                </g:if>
+                                <g:else>
+                                    <g:actionSubmit action="actualizar" class="btn btn-primary" value="${message(code: 'default.button.valoracion.actualizar.message')}" />
+                                    <g:actionSubmit action="eliminar" class="btn btn-danger" value="${message(code: 'default.button.valoracion.eliminar.message')}" />
+                                </g:else>
+                            </div>
+                        </g:form>
+                    </g:if>
+                    <g:elseif test="${session.cliente && !session?.cliente?.verificado}">
+                        <p><g:message code="default.input.valoracion.verificarCorreo.label" /></p>
+                    </g:elseif>
+                    <g:else>
+                        <p><g:message code="default.input.valoracion.inicieSession.label" /></p>
+                    </g:else>
+                    </div>
                 </div>
             </div>
 

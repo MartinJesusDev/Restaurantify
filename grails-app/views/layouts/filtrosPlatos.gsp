@@ -1,5 +1,5 @@
 <!-- Barra lateral filtro de platos -->
-<nav class="nav border rounded p-2 mt-2 h-auto bg-light">
+<nav class="nav border rounded p-2 mt-2 h-auto bg-light position-sticky" style="top: 80px;">
     <div>
         <h2>Filtrado</h2>
     </div>
