@@ -12,9 +12,9 @@
 
     <!-- Titulo de la página -->
     <div class="jumbotron mb-3">
-        <h1 class="align-titulo p-3">
+        <h2 class="align-titulo p-3 font-titulo">
             <g:message code="default.title.alergenos.label"/>
-        </h1>
+        </h2>
     </div>
 
 

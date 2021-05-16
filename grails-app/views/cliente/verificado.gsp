@@ -10,14 +10,14 @@
     <section class="p-2 bg-white">
         <!-- Titulo de la página -->
         <div class="col mb-3">
-            <h1 class="align-titulo p-3 bg-light">
+            <h2 class="align-titulo p-3 bg-light font-titulo">
                 <g:message code="default.title.cliente.verificacion.label"/>
-            </h1>
+            </h2>
         </div>
 
         <!-- Tarjeta estado de la verificación -->
         <div class="jumbotron bg-light" >
-            <h2 class=" ${flash.verificado ? "text-success" : "text-danger"}"><g:message code="${flash.message}" /></h2>
+            <h3 class=" ${flash.verificado ? "text-success" : "text-danger"}"><g:message code="${flash.message}" /></h3>
         </div>
 
     </section>

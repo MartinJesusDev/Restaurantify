@@ -10,9 +10,9 @@
     <section class="p-2 bg-white">
         <!-- Titulo de la página -->
         <div class="col mb-3">
-            <h1 class="align-titulo p-3 bg-light">
+            <h2 class="align-titulo p-3 bg-light font-titulo">
                 <g:message code="default.title.cliente.registro.label"/>
-            </h1>
+            </h2>
         </div>
 
         <!-- Formulario de registro -->

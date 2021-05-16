@@ -22,7 +22,7 @@
                     <h5 class="mb-0">
                         <button class="btn btn-link text-white" data-toggle="collapse" data-target="#collapse${i}"
                                 aria-expanded="true" aria-controls="collapse${i}">
-                            <h4>${c.nombre}</h4>
+                            <h2 class="font-elegante">${c.nombre}</h2>
                         </button>
                     </h5>
                 </div>
@@ -33,7 +33,7 @@
                         <g:each in="${c.platos}" var="p" >
                             <div class="d-flex align-items-center list-group-item list-group-item-action">
                                 <asset:image class="border mr-3 pop" src="platos/${p.imagen}" width="80px" height="auto" />
-                                <g:link class="btn btn-link" action="show" id="${p.id}"><h5>${p.nombre}</h5></g:link>
+                                <g:link class="btn-link mr-2" action="show" id="${p.id}"><h5>${p.nombre}</h5></g:link>
                                 <h5>${p.total}€</h5>
                             </div>
                         </g:each>

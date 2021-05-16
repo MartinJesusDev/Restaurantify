@@ -1,0 +1,254 @@
+/*** Estilos generales ***/
+:root {
+    /* Variables para colores */
+    --gris-oscuro: rgb(23, 23, 23);
+    --acento-primario: rgb(181, 167, 75);
+    --acento-primario-sombra: rgba(181, 167, 75, 0.5);
+    --acento-primario-transparente: rgba(181, 167, 75, 0.25);
+    --opacidad: 0.85
+}
+
+/* Importamos fuentes */
+@font-face {
+    font-family: 'DancingScript';
+    src: url('../webfonts/DancingScript.ttf');
+}
+
+.font-elegante {
+    font-family: "Dancing Script", serif;
+}
+
+.font-titulo {
+    text-transform: uppercase;
+}
+
+
+/* Sobreescribimos botones, links, de boostrap */
+.btn:hover {
+    color: var(--gris-oscuro);
+    text-decoration: none;
+}
+
+.btn:focus, .btn.focus {
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem var(--acento-primario-sombra);
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: var(--acento-primario);
+    border-color: var(--acento-primario);
+}
+
+.btn-primary:hover {
+    color: #fff;
+    opacity: var(--opacidad);
+    background-color: var(--acento-primario);
+    border-color: var(--acento-primario);
+}
+
+.btn-primary:focus, .btn-primary.focus {
+    color: #fff;
+    background-color: var(--acento-primario);
+    border-color: var(--acento-primario);
+    box-shadow: 0 0 0 0.2rem var(--acento-primario-sombra);
+}
+
+.btn-primary.disabled, .btn-primary:disabled {
+    color: #fff;
+    background-color: var(--acento-primario);
+    border-color: var(--acento-primario);
+}
+
+.btn-primary:not(:disabled):not(.disabled):active, .btn-primary:not(:disabled):not(.disabled).active,
+.show > .btn-primary.dropdown-toggle {
+    color: #fff;
+    background-color: var(--acento-primario);
+    border-color: var(--acento-primario);
+}
+
+.btn-primary:not(:disabled):not(.disabled):active:focus, .btn-primary:not(:disabled):not(.disabled).active:focus,
+.show > .btn-primary.dropdown-toggle:focus {
+    box-shadow: 0 0 0 0.2rem var(--acento-primario-sombra);
+}
+
+
+a {
+    color: var(--acento-primario);
+    text-decoration: none;
+    background-color: transparent;
+}
+
+a:hover {
+    color: var(--gris-oscuro);
+    text-decoration: underline;
+}
+
+.btn-link {
+    font-weight: 400;
+    color: var(--gris-oscuro);
+    text-decoration: none;
+}
+
+.btn-link:hover {
+    color: var(--acento-primario);
+    text-decoration: underline;
+}
+
+.dropdown-item.active, .dropdown-item:active {
+    color: #fff;
+    text-decoration: none;
+    background-color: var(--acento-primario);
+}
+
+.form-control:focus {
+    color: #495057;
+    background-color: #fff;
+    border-color: var(--acento-primario-transparente);
+    box-shadow: 0 0 0 0.2rem var(--acento-primario-sombra);
+}
+
+.custom-control-input:checked ~ .custom-control-label::before {
+    color: #fff;
+    border-color: var(--acento-primario);
+    background-color: var(--acento-primario);
+}
+
+.custom-control-input:focus ~ .custom-control-label::before {
+    box-shadow: 0 0 0 0.2rem var(--acento-primario-sombra)
+}
+
+
+.custom-checkbox .custom-control-input:indeterminate ~ .custom-control-label::before {
+    border-color: var(--acento-primario);
+    background-color: var(--acento-primario);
+}
+
+.custom-checkbox .custom-control-input:disabled:checked ~ .custom-control-label::before {
+    background-color: var(--acento-primario-sombra);
+}
+
+.custom-checkbox .custom-control-input:disabled:indeterminate ~ .custom-control-label::before {
+    background-color: var(--acento-primario-sombra);
+}
+
+
+.custom-radio .custom-control-input:disabled:checked ~ .custom-control-label::before {
+    background-color: var(--acento-primario-sombra)
+}
+
+.custom-switch .custom-control-input:disabled:checked ~ .custom-control-label::before {
+    background-color: var(--acento-primario-sombra)
+}
+
+.custom-select:focus {
+    border-color: var(--acento-primario);
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem var(--acento-primario-sombra);
+}
+
+.custom-file-input:focus ~ .custom-file-label {
+    border-color: var(--acento-primario);
+    box-shadow: 0 0 0 0.2rem var(--acento-primario-sombra);
+}
+
+.custom-range:focus::-webkit-slider-thumb {
+    box-shadow: 0 0 0 1px #fff, 0 0 0 0.2rem var(--acento-primario-sombra);
+}
+
+.custom-range:focus::-moz-range-thumb {
+    box-shadow: 0 0 0 1px #fff, 0 0 0 0.2rem var(--acento-primario-sombra);
+}
+
+.custom-range:focus::-ms-thumb {
+    box-shadow: 0 0 0 1px #fff, 0 0 0 0.2rem var(--acento-primario-sombra);
+}
+
+.custom-range::-webkit-slider-thumb {
+    background-color: var(--acento-primario);
+}
+
+.custom-range::-moz-range-thumb {
+    background-color: var(--acento-primario);
+}
+
+.custom-range::-ms-thumb {
+    background-color: var(--acento-primario);
+}
+
+.nav-pills .nav-link.active,
+.nav-pills .show > .nav-link {
+    color: #fff;
+    background-color: var(--acento-primario);
+}
+
+.page-link {
+    color: var(--acento-primario);
+    background-color: #fff;
+}
+
+.page-link:hover {
+    color: var(--acento-primario);
+    background-color: #e9ecef;
+    border-color: #dee2e6;
+}
+
+.page-link:focus {
+    box-shadow: 0 0 0 0.2rem var(--acento-primario-sombra);
+}
+
+.page-item.active .page-link {
+    z-index: 3;
+    color: #fff;
+    background-color: var(--acento-primario);
+    border-color: var(--acento-primario);
+}
+
+.badge-primary {
+    color: #fff;
+    background-color: var(--acento-primario);
+}
+
+a.badge-primary:hover, a.badge-primary:focus {
+    color: #fff;
+    background-color: var(--acento-primario);
+    opacity: var(--opacidad);
+}
+
+a.badge-primary:focus, a.badge-primary.focus {
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem var(--acento-primario-sombra);
+}
+.progress-bar {
+    color: #fff;
+    background-color: var(--acento-primario);
+}
+
+.list-group-item.active {
+    color: #fff;
+    background-color: var(--acento-primario);
+    border-color: var(--acento-primario);
+}
+.border-primary {
+    border-color: var(--acento-primario) !important;
+}
+
+.text-primary {
+    color: var(--acento-primario) !important;
+}
+
+/* Sobreescribimos fondos de bootsrap */
+.bg-dark {
+    background-color: var(--gris-oscuro) !important;
+}
+
+.bg-primary {
+    background-color: var(--acento-primario) !important;
+}
+
+a.bg-primary:hover, a.bg-primary:focus,
+button.bg-primary:hover,
+button.bg-primary:focus {
+    opacity: var(--opacidad);
+    background-color: var(--acento-primario) !important;
+}

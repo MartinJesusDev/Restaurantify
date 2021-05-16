@@ -118,7 +118,7 @@ async function imprimirCesta() {
                     <div class="d-flex align-items-center justify-content-between">
                         <div>
                             <img alt="${plato.imagen}" class="mr-2" src="/assets/platos/${plato.imagen}" width="50px" height="50px">
-                            <a href="/plato/show/${plato.id}">
+                            <a class="btn-link" href="/plato/show/${plato.id}">
                                 <span style="font-size:1.25em;">${plato.nombre} - ${plato.total}€</b></span>
                             </a>
                         </div>

@@ -10,9 +10,9 @@
     <section class="p-2 bg-white" style="min-height: 80vh">
         <!-- Titulo de la página -->
         <div class="col mb-3">
-            <h1 class="align-titulo p-3 bg-light">
+            <h2 class="align-titulo p-3 bg-light font-titulo">
                 <g:message code="default.title.cliente.login.label"/>
-            </h1>
+            </h2>
         </div>
 
         <!-- Formulario de login -->

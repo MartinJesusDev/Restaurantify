@@ -11,7 +11,7 @@
         <g:applyLayout name="adminNavbar" />
 
             <div class="jumbotron mb-3">
-                <h1 class="align-titulo p-3">Estadisticas</h1>
+                <h2 class="align-titulo p-3 font-titulo">Estadisticas</h2>
             </div>
         </section>
 

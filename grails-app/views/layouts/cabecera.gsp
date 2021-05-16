@@ -31,13 +31,13 @@
             <!-- Logo página -->
             <div class="d-flex">
                 <asset:image src="restaurante/logotipo.jpg" class="mr-2" alt="Logo web" width="50px" height="50px"/>
-                <h2 class="mt-1">
+                <h1 class="mt-1 font-elegante">
                     <g:link class="text-light" uri="/">Restaurantify</g:link>
-                </h2>
+                </h1>
             </div>
 
             <!-- Menu navegación -->
-            <div class="collapse navbar-collapse ml-3 w-100" id="navbarNav">
+            <div class="collapse navbar-collapse ml-3" id="navbarNav">
                 <ul class="navbar-nav" style="font-size: 1.2em;">
                     <li class="nav-item  ${request.forwardURI.matches("/") ? "active" : "" }">
                         <g:link class="nav-link" uri="/" >
@@ -54,43 +54,45 @@
                             <g:message code="default.title.contacto.label"/>
                         </g:link>
                     </li>
+                    <g:if test="${cliente?.rol}" >
+                    <li class="nav-item ${request.forwardURI.contains("admin") ? "active" : "" }">
+                        <g:link class="nav-link" controller="admin" action="index">
+                            <i class="fa fa-tools"></i>
+                            <g:message code="default.button.admin.panel.message"/>
+                        </g:link>
+                    </li>
+                    </g:if>
                 </ul>
             </div>
 
             <!-- Panel de herraminetas -->
-            <div class="ml-3">
+            <div class="btn-toolbar ml-3" role="toolbar">
             <g:if test="${cliente}" >
             <!-- Panel para cliente identificados -->
-                <div class="btn-group">
-                    <g:link class="btn btn-primary" controller="cesta" >
+                <div class="btn-group" role="group">
+                    <g:link class="btn btn-primary" controller="cesta" role="button">
                         <i class="fas fa-shopping-cart mr-2"></i><g:message code="default.button.cesta.message" />
                     </g:link>
 
-                    <g:if test="${cliente?.rol}" >
-                        <!-- Boton para administrador -->
-                        <g:link controller="admin" class="btn btn-warning">
-                            <i class="fas fa-tools mr-2"></i>
-                        </g:link>
-                    </g:if>
-
                     <!-- Menu herramientas cliente -->
-                    <div class="dropdown">
-                        <a class="btn btn-primary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <div class="dropdown btn-group" role="group">
+                        <button class="btn btn-primary dropdown-toggle" type="button" role="button" id="dropdownMenuLink"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <asset:image src="clientes/${cliente?.imagen}" class="rounded" width="30px" />
                             ${cliente?.nombre}
-                        </a>
+                        </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                            <g:link controller="cliente" action="perfil" class="dropdown-item" >
+                            <g:link controller="cliente" action="perfil" class="dropdown-item" role="button" >
                                 <g:message code="default.button.cliente.perfil.message" />
                             </g:link>
-                            <g:link controller="cliente" action="pedidos" class="dropdown-item">
+                            <g:link controller="cliente" action="pedidos" class="dropdown-item" role="button">
                                 <g:message code="default.button.cliente.pedidos.message" />
                             </g:link>
-                            <g:link controller="cliente" action="login" class="dropdown-item">
+                            <g:link controller="cliente" action="login" class="dropdown-item" role="button">
                                 <g:message code="default.button.cliente.relogin.message" />
                             </g:link>
                             <div class="dropdown-divider"></div>
-                            <g:link controller="cliente" action="logout" class="dropdown-item">
+                            <g:link controller="cliente" action="logout" class="dropdown-item" role="button">
                                 <g:message code="default.button.cliente.cerrarSesion.message" />
                             </g:link>
                         </div>
@@ -99,9 +101,9 @@
                 </g:if>
                 <g:else>
                 <!-- Panel para cliente no identificados -->
-                <div class="btn-group">
-                    <g:link controller="cliente" action="login" class="btn btn-dark" >Iniciar sesión</g:link>
-                    <g:link controller="cliente" action="registro" class="btn btn-primary" >Registrarse</g:link>
+                <div class="btn-group" role="group">
+                    <g:link controller="cliente" action="login" class="btn btn-dark" role="button">Iniciar sesión</g:link>
+                    <g:link controller="cliente" action="registro" class="btn btn-primary" role="button">Registrarse</g:link>
                 </div>
                 </g:else>
             </div>

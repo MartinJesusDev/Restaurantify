@@ -11,9 +11,9 @@
 <section class="p-2 bg-white" style="min-height: 80vh">
     <!-- Titulo de la página -->
     <div class="card mx-4">
-        <h1 class="card-header bg-dark text-white">
+        <h2 class="card-header bg-dark text-white font-titulo">
             <g:message code="default.title.cesta.label"/>
-        </h1>
+        </h2>
         <div class="card-body">
             <div class="d-none" id="cestaCompra"></div>
             <div class="d-none" id="cestaVacia">
@@ -31,12 +31,12 @@
         <div class="col p-4 d-none" id="cajaResumenPedido">
             <!-- Dirección de envio -->
             <div class="card mb-4">
-                <h3 class="card-header bg-dark text-white"><g:message code="default.input.cesta.infoEnvio.label"/></h3>
+                <h3 class="card-header bg-dark text-white font-titulo"><g:message code="default.input.cesta.infoEnvio.label"/></h3>
                 <div class="card-body">
                     <p class="mb-0"><b>${cliente?.nombre}, ${cliente?.email}</b></p>
                     <p class="mb-0">${cliente?.calle}</p>
                     <p class="mb-0">${cliente?.localidad}, ${cliente?.provincia}, ${cliente?.cp}</p>
-                    <g:link class="btn-link" controller="cliente" action="perfil" >
+                    <g:link controller="cliente" action="perfil" >
                         <g:message code="default.input.cesta.direccion.cambiar.label" />
                     </g:link>
                 </div>
@@ -44,7 +44,7 @@
 
             <!-- Metodo de pago -->
             <div class="card mb-4">
-                <h3 class="card-header bg-dark text-white">Método de pago</h3>
+                <h3 class="card-header bg-dark text-white font-titulo">Método de pago</h3>
                 <div class="card-body">
                     <div class="d-flex align-items-center mb-3">
                         <i class="fab fa-cc-paypal mr-3" style="font-size: 2em;"></i>
@@ -72,7 +72,7 @@
 
             <!-- Total del pedido -->
             <div class="card">
-                <h3 class="card-header bg-dark text-white"><g:message code="default.input.pedido.totalPedido.label"/></h3>
+                <h3 class="card-header bg-dark text-white font-titulo"><g:message code="default.input.pedido.totalPedido.label"/></h3>
                 <div class="card-body">
                     <ul class="list-unstyled">
                         <li><g:message code="default.input.pedido.gastosEnvio.label"/>: <span id="gastosEnvio"></span>€</li>

@@ -21,9 +21,11 @@
 
             <div class="col-lg-6 ml-lg-5">
         <!-- Info plato -->
-        <div class="col-10 text-justify mb-4">
-            <h1 class="mb-3">${p.nombre}</h1>
-            <p>${p.elaboracion}</p>
+        <div class="col mb-4">
+            <h1 class="mb-3 font-titulo">${p.nombre}</h1>
+                <div class="col-10 p-0">
+                    <p class="text-justify">${p.elaboracion}</p>
+                </div>
         </div>
 
         <!-- Información de alergenos -->
@@ -60,7 +62,7 @@
                 <b><label for="unidades"><g:message code="default.input.cesta.unidades.label"/> </label></b>
                 <div class="form-row">
                     <div class="form-group">
-                        <g:select class="custom-select" name="unidades" from="${1..10}" />
+                        <g:select class="custom-select" name="unidades" from="${1..10}" style="width: 100px;" />
                     </div>
                     <div class="form-group">
                         <button class="btn btn-primary" type="button"
@@ -83,7 +85,7 @@
                 <div class="position-sticky" style="top: 100px;">
                     <!-- Titulo y valoraciones totales -->
                     <div class="col mb-4">
-                        <h2 class="mb-3"><g:message code="default.input.valoracion.general.label" /></h2>
+                        <h3 class="mb-3 font-titulo"><g:message code="default.input.valoracion.general.label" /></h3>
                         <div class="mb-2">
                             <div class="d-flex align-items-center">
                                 <div class="starRatingContainer"><div class="update1.2"></div></div>
@@ -154,7 +156,7 @@
             <!-- Lista de valoraciones -->
             <g:if test="${valoraciones.total > 0}">
             <div class="col-lg-7 col-12 ml-lg-5">
-                <h2 class="mb-4"><g:message code="default.input.valoraciones.label" /></h2>
+                <h3 class="mb-4 font-titulo"><g:message code="default.input.valoraciones.label" /></h3>
                 <g:each in="${valoraciones.lista}" var="v" status="i">
                     <div class="card mb-3">
                             <div class="card-header bg-dark text-white p-2 d-flex justify-content-between align-items-center">
