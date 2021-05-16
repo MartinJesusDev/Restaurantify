@@ -1,0 +1,19 @@
+import com.restaurantify.Cesta
+
+model {
+    Cesta cesta
+}
+
+json {
+    id cesta.id
+    unidades cesta.unidades
+
+    plato {
+        id cesta.plato.id
+        nombre cesta.plato.nombre
+        imagen cesta.plato.imagen
+        precio cesta.plato.precio
+        iva cesta.plato.iva
+        total cesta.plato.total
+    }
+}

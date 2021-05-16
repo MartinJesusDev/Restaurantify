@@ -44,7 +44,7 @@
         <!-- Precio y formulario pedido -->
         <div class="col">
             <div class="border-top border-bottom pt-3 pb-2 mb-3">
-                <h5><g:message code="default.input.precio.label" /> ${p.precio}€
+                <h5><g:message code="default.input.precio.label" /> ${p.total}€
                     <g:if test ="${p.descuento}">
                         <span class="ml-2 badge badge-warning">
                             <g:message code="default.input.plato.descuento.label" />
@@ -57,17 +57,21 @@
 
             <g:form controller="cesta">
                 <g:hiddenField name="plato" value="${p.id}" />
-
                 <b><label for="unidades"><g:message code="default.input.cesta.unidades.label"/> </label></b>
                 <div class="form-row">
                     <div class="form-group">
-                        <g:field class="form-control" min="1" max="10" type="number" name="unidades" value="1" />
+                        <g:select class="custom-select" name="unidades" from="${1..10}" />
                     </div>
                     <div class="form-group">
-                        <g:actionSubmit class="btn btn-primary" action="agregar"
-                                        value="${message(code: 'default.button.cesta.agregar.message')}" />
+                        <button class="btn btn-primary" type="button"
+                                onclick="agregar(${session?.cliente?.id ?: -1}, ${p.id}, unidades.value);" >
+                            <g:message code="default.button.cesta.agregar.message"/>
+                        </button>
                     </div>
                 </div>
+
+                <!-- Div que muestra resultado -->
+                <div id="resultado"></div>
             </g:form>
         </div>
     </div>
@@ -153,13 +157,13 @@
                 <h2 class="mb-4"><g:message code="default.input.valoraciones.label" /></h2>
                 <g:each in="${valoraciones.lista}" var="v" status="i">
                     <div class="card mb-3">
-                            <div class="card-header p-2 d-flex justify-content-between align-items-center">
+                            <div class="card-header bg-dark text-white p-2 d-flex justify-content-between align-items-center">
                                 <div class="d-flex align-items-center">
                                     <asset:image class="mr-2 rounded" src="clientes/${v.cliente.imagen}" width="40px"/>
                                     <h5>${v.cliente.nombre} ${v.cliente.apellidos}</h5>
                                 </div>
                                 <div >
-                                    <small class="mb-0 text-info"><g:message code="default.input.valoraciones.fecha.label"/> ${v.fecha}</small>
+                                    <small class="mb-0 "><g:message code="default.input.valoraciones.fecha.label"/> ${v.fecha}</small>
                                 </div>
                             </div>
                             <div class="card-body p-3">
@@ -200,20 +204,6 @@
 <g:applyLayout name="pie" />
 <g:javascript>
     (function(){
-    // Select2 desplegable
-    $(document).ready(
-        $("#alergenos, #categorias").each(function() {
-            // Agregando select 2
-            $(this.tagName).select2({
-                closeOnSelect: false,
-                allowClear: true,
-                placeholder: "${message(code: 'default.input.select2.label')}"
-            });
-
-            // Agregando checkbox
-
-        }));
-
     // Propiedades para selector de puntuación
     let imgStar = "${assetPath(src: "star.png")}"
     let imgStarBackground = "${assetPath(src: "backgroundStar.png")}"
@@ -237,5 +227,8 @@
 
     }())
 </g:javascript>
+
+<!-- Cargamos js para la cesta -->
+<asset:javascript src="cesta.js" />
 </body>
 </html>

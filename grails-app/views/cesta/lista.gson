@@ -1,0 +1,7 @@
+import com.restaurantify.Cesta
+
+model {
+    Iterable<Cesta> lista
+}
+
+json g.render(template: "cesta", collection: lista, var: "cesta")
