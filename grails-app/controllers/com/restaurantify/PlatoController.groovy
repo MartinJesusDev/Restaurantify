@@ -41,7 +41,6 @@ class PlatoController {
             // Si existe algún plato para la categoría
             if(platosTmp) {
                 categoriaConPlatos += new CategoriaConPlatos(categoria, platosTmp)
-                println categoria.nombre
             }
         }
 

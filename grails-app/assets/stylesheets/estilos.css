@@ -1,7 +1,7 @@
 /*** Estilos generales ***/
 :root {
     /* Variables para colores */
-    --gris-oscuro: rgb(23, 23, 23);
+    --gris-oscuro: rgb(35, 35, 35);
     --acento-primario: rgb(181, 167, 75);
     --acento-primario-sombra: rgba(181, 167, 75, 0.5);
     --acento-primario-transparente: rgba(181, 167, 75, 0.25);
@@ -24,14 +24,14 @@
 
 
 /* Sobreescribimos botones, links, de boostrap */
-.btn:hover {
-    color: var(--gris-oscuro);
-    text-decoration: none;
-}
 
 .btn:focus, .btn.focus {
     outline: 0;
     box-shadow: 0 0 0 0.2rem var(--acento-primario-sombra);
+}
+
+.btn.disabled, .btn:disabled {
+    opacity: 0.3;
 }
 
 .btn-primary {
@@ -58,6 +58,10 @@
     color: #fff;
     background-color: var(--acento-primario);
     border-color: var(--acento-primario);
+}
+
+.btn-primary.disabled:hover, .btn-primary:disabled:hover {
+    opacity: 0.3;
 }
 
 .btn-primary:not(:disabled):not(.disabled):active, .btn-primary:not(:disabled):not(.disabled).active,
@@ -249,6 +253,6 @@ a.badge-primary:focus, a.badge-primary.focus {
 a.bg-primary:hover, a.bg-primary:focus,
 button.bg-primary:hover,
 button.bg-primary:focus {
-    opacity: var(--opacidad);
-    background-color: var(--acento-primario) !important;
+    /* opacity: var(--opacidad);
+    background-color: var(--acento-primario) !important; */
 }

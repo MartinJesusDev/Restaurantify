@@ -39,8 +39,6 @@ class PlatoService extends DefaultService {
         // Calcula el total del plato
         p.total = calcularTotal(p)
 
-        println p.total
-
         // Guarda el plato
         p.save()
     }
@@ -107,7 +105,6 @@ class PlatoService extends DefaultService {
                     }
                 }
                 if(contieneAlergeno){
-                    println "###Plato con alergenos --> $p.nombre"
                     platosConAlergenos.add(p)
                 }
             }
