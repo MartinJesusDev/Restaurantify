@@ -79,7 +79,7 @@
                         <li><g:message code="default.input.pedido.totalPlatos.label"/>: <span id="totalPlatos"></span>€</li>
                         <li><h5><g:message code="default.input.pedido.total.label"/>: <span id="totalPedido"></span>€</h5></li>
                     </ul>
-                    <g:link class="btn btn-primary" controller="pedido" action="tramite"><g:message code="default.button.pedido.completar.message" /></g:link>
+                    <g:link class="btn btn-primary" controller="pedido" action="completar"><g:message code="default.button.pedido.completar.message" /></g:link>
                 </div>
             </div>
 

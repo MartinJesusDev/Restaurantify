@@ -3,8 +3,6 @@ package com.restaurantify
 import groovy.transform.CompileStatic
 import org.springframework.context.MessageSource
 import org.springframework.context.i18n.LocaleContextHolder
-import restaurantify.CestaService
-
 
 import static org.springframework.http.HttpStatus.*
 

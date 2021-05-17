@@ -1,9 +1,5 @@
-package restaurantify
+package com.restaurantify
 
-import com.restaurantify.Cesta
-import com.restaurantify.CestaCommand
-import com.restaurantify.ClienteService
-import com.restaurantify.DefaultService
 import grails.gorm.transactions.Transactional
 import org.springframework.context.MessageSource
 import org.springframework.context.i18n.LocaleContextHolder
@@ -90,6 +86,18 @@ class CestaService extends DefaultService{
             def msg = messageSource.getMessage('default.cesta.noEliminado.message', [] as Object[], 'Default Message', LocaleContextHolder.locale)
             throw new Exception(msg)
         }
+    }
+
+    /**
+     * Retira todos los platos de la cesta del cliente.
+     */
+    @Transactional
+    void vaciar() {
+        // Obtenemos el cliente
+        Cliente c = clienteService.clienteSession()
+
+        // Ejecutamos la consulta que vacía la cesta
+        Cesta.executeUpdate("delete from Cesta where cliente_id = :id", [id: c.id])
     }
 
     /**

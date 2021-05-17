@@ -33,7 +33,7 @@ class Pedido {
                         2, // En reparto
                         3] // Completado
         fecha date: true, max: LocalDate.now()
-        fechaEntrega date: true, min: LocalDate.now()
+        fechaEntrega date: true, min: LocalDate.now(), nullable: true
         gastosEnvio min: 0F
         total min: 0F
     }

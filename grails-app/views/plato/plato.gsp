@@ -165,7 +165,7 @@
                                     <h5>${v.cliente.nombre} ${v.cliente.apellidos}</h5>
                                 </div>
                                 <div >
-                                    <small class="mb-0 "><g:message code="default.input.valoraciones.fecha.label"/> ${v.fecha}</small>
+                                    <g:message code="default.input.valoraciones.fecha.label"/> ${v.fecha}
                                 </div>
                             </div>
                             <div class="card-body p-3">
