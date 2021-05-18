@@ -126,6 +126,22 @@ class ClienteController {
 
         render view: "verificado", model: flash
     }
+
+    /**
+     * Elimina la cluenta del cliente que esta en sessión.
+     */
+    def borrarCuenta() {
+        try {
+            // Obtenemos el cliente que esta en la sesión y lo borramos
+            Cliente cli = clienteService.clienteSession()
+            clienteService.borrar(cli.id)
+            session.invalidate()
+        } catch(Exception e) {
+            redirect(controller: "cliente", action: "perfil")
+            return
+        }
+        redirect(uri: "/", permanent: true)
+    }
 }
 
 /**

@@ -168,6 +168,9 @@
 
                 <div class="form-group">
                     <g:submitButton name="actualizar" class="btn btn-primary" value="${message(code: 'default.button.cliente.actualizar.message', default: 'Actualizar')}" />
+                    <g:link name="borrarCuenta" controller="cliente" action="borrarCuenta" class="btn btn-danger">
+                        <g:message code="default.button.cliente.eliminarCuenta.message"/>
+                    </g:link>
                 </div>
             </g:form>
         </div>

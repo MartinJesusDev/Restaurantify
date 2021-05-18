@@ -166,4 +166,18 @@ class ClienteService  extends DefaultService{
         return Cliente.findAll()
     }
 
+
+    /**
+     * Borra un cliente dado su id.
+     * @param id
+     */
+    @Transactional
+    void borrar(Long id) {
+        Boolean borrado = Cliente.executeUpdate("delete from Cliente WHERE id = :id", [id: id])
+        println borrado
+        if(!borrado){
+            throw new Exception("No se pudo borrar el cliente")
+        }
+    }
+
 }
