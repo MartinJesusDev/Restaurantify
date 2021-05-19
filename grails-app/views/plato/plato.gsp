@@ -29,8 +29,8 @@
         </div>
 
         <!-- Información de alergenos -->
-        <div class="col mb-4">
-            <h5><g:message code="default.title.alergenos.label" /> </h5>
+        <div class="col mb-3">
+            <h4><g:message code="default.title.alergenos.label" /> </h4>
             <div class="d-flex">
                 <g:each in="${p.alergenos}" var="a" >
                     <figure class="card mr-2">
@@ -45,21 +45,22 @@
 
         <!-- Precio y formulario pedido -->
         <div class="col">
-            <div class="border-top border-bottom pt-3 pb-2 mb-3">
-                <h5><g:message code="default.input.precio.label" /> ${p.total}€
+            <div class="pb-2 mb-3">
+                <h4><g:message code="default.input.precio.label"/></h4>
+                <h5><span style="font-size: 1.5em;">${p.total}€</span>
                     <g:if test ="${p.descuento}">
-                        <span class="ml-2 badge badge-warning">
-                            <g:message code="default.input.plato.descuento.label" />
-                            ${p.descuento.round()}%
+                        <span class="badge badge-primary ml-2">
+                        <g:message code="default.input.plato.descuento.label" />
+                        ${p.descuento.round()}%
                         </span>
                     </g:if>
                 </h5>
-                <small>(<g:message code="default.input.plato.ivaAplicado.label"/>: ${p.iva.round()}%)</small>
+                <small><g:message code="default.input.plato.ivaAplicado.label"/>: ${p.iva.round()}%</small>
             </div>
 
             <g:form controller="cesta">
                 <g:hiddenField name="plato" value="${p.id}" />
-                <b><label for="unidades"><g:message code="default.input.cesta.unidades.label"/> </label></b>
+                <h4><label for="unidades"><g:message code="default.input.cesta.unidades.label"/> </label></h4>
                 <div class="form-row">
                     <div class="form-group">
                         <g:select class="custom-select" name="unidades" from="${1..10}" style="width: 100px;" />

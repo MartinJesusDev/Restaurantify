@@ -2,6 +2,7 @@
 :root {
     /* Variables para colores */
     --gris-oscuro: rgb(35, 35, 35);
+    --gris-oscuro-sombra: rgba(35, 35, 35, 0.5);
     --acento-primario: rgb(181, 167, 75);
     --acento-primario-sombra: rgba(181, 167, 75, 0.5);
     --acento-primario-transparente: rgba(181, 167, 75, 0.25);
@@ -23,7 +24,7 @@
 }
 
 
-/* Sobreescribimos botones, links, de boostrap */
+/* Sobreescribimos botones, links, de boostrap color primary*/
 
 .btn:focus, .btn.focus {
     outline: 0;
@@ -241,7 +242,7 @@ a.badge-primary:focus, a.badge-primary.focus {
     color: var(--acento-primario) !important;
 }
 
-/* Sobreescribimos fondos de bootsrap */
+/* Sobreescribimos fondos y otros elementosde gray */
 .bg-dark {
     background-color: var(--gris-oscuro) !important;
 }
@@ -255,4 +256,44 @@ button.bg-primary:hover,
 button.bg-primary:focus {
     /* opacity: var(--opacidad);
     background-color: var(--acento-primario) !important; */
+}
+
+.table .thead-dark th {
+    color: #fff;
+    background-color: var(--gris-oscuro);
+    border-color: var(--gris-oscuro-sombra);
+}
+
+.table-dark {
+    color: #fff;
+    background-color: var(--gris-oscuro);
+}
+
+/*** Estilos para el menu principal ***/
+.menu ul li a {
+    color: #fff !important;
+    /* transition: color 300ms ease-in-out; */
+}
+
+.menu ul li a:hover {
+    color: var(--acento-primario) !important;
+    transition: color 300ms ease-in-out;
+}
+
+.menu li.active > a {
+    color: var(--acento-primario) !important;
+    font-weight: bold;
+}
+
+.menu ul li a::after {
+    display: block;
+    border-bottom: 3px solid var(--acento-primario);
+    content: '';
+    transform: scaleX(0);
+    transition: transform 300ms ease-in-out;
+}
+
+.menu ul li a:hover:after,
+.menu ul li.active > a::after {
+    transform: scaleX(1);
 }

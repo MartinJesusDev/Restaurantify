@@ -20,7 +20,7 @@
             <div class="card">
                 <div class="card-header bg-dark" id="heading${i}">
                     <h5 class="mb-0">
-                        <button class="btn btn-link text-white" data-toggle="collapse" data-target="#collapse${i}"
+                        <button class="btn btn-link text-white text-decoration-none" data-toggle="collapse" data-target="#collapse${i}"
                                 aria-expanded="true" aria-controls="collapse${i}">
                             <h2 class="font-elegante">${c.nombre}</h2>
                         </button>
@@ -28,16 +28,20 @@
                 </div>
 
                 <div id="collapse${i}" class="collapse show" aria-labelledby="heading${i}" data-parent="#accordion${i}">
-                    <div class="card-body">
-                        <div class="list-group">
+                    <div class="ml-2">
                         <g:each in="${c.platos}" var="p" >
-                            <div class="d-flex align-items-center list-group-item list-group-item-action">
-                                <asset:image class="border mr-3 pop" src="platos/${p.imagen}" width="80px" height="auto" />
-                                <g:link class="btn-link mr-2" action="show" id="${p.id}"><h5>${p.nombre}</h5></g:link>
-                                <h5>${p.total}€</h5>
-                            </div>
+                                <div class="d-flex align-items-center border-bottom py-3 px-2 mb-1">
+                                    <g:link class="btn-link" action="show" id="${p.id}">
+                                    <asset:image class="border mr-3" src="platos/${p.imagen}" width="100px" height="80px" />
+                                    <div class="d-flex flex-column">
+                                        <g:link class="btn-link mr-2" action="show" id="${p.id}"><h4 class="font-titulo">${p.nombre}</h4></g:link>
+                                        <h5>
+                                            <span class="badge badge-primary">${p.total}€</span>
+                                        </h5>
+                                    </div>
+                                    </g:link>
+                                </div>
                         </g:each>
-                        </div>
                     </div>
                 </div>
             </div>

@@ -11,8 +11,8 @@
     <g:applyLayout name="adminNavbar" />
 
     <!-- Titulo de la página -->
-    <div class="jumbotron mb-3">
-        <h2 class="align-titulo p-3 font-titulo">
+    <div class="p-3">
+        <h2 class="align-titulo font-titulo">
             <g:message code="default.title.categorias.label"/>
         </h2>
     </div>
@@ -24,7 +24,7 @@
     </g:if>
 
 <!-- Formulario  -->
-    <g:form controller="categoria" class="col-md-8" enctype="multipart/form-data">
+    <g:form controller="categoria" class="col-md-8 mb-4" enctype="multipart/form-data">
         <g:hiddenField name="id" value="${fieldValue(bean: categoria,field:"id")}" />
         <div class="form-row">
             <div class="form-group col">
@@ -56,9 +56,9 @@
     </g:form>
 
 <!-- Listado de categorias -->
-    <div class="col justify-content-center">
+    <div class="col">
         <table class="col table table-stripped table-hover">
-            <tr>
+            <tr class="thead-dark">
                 <th><g:message code="default.input.name.label" /></th>
                 <th><g:message code="default.input.orden.label" /> </th>
                 <th><g:message code="default.input.seleccionar.label"/> </th>

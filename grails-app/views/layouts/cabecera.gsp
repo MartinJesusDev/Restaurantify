@@ -37,7 +37,7 @@
             </div>
 
             <!-- Menu navegación -->
-            <div class="collapse navbar-collapse ml-3" id="navbarNav">
+            <div class="collapse navbar-collapse ml-3 menu" id="navbarNav">
                 <ul class="navbar-nav" style="font-size: 1.2em;">
                     <li class="nav-item  ${request.forwardURI.matches("/") ? "active" : "" }">
                         <g:link class="nav-link" uri="/" >
@@ -57,7 +57,6 @@
                     <g:if test="${cliente?.rol}" >
                     <li class="nav-item ${request.forwardURI.contains("admin") ? "active" : "" }">
                         <g:link class="nav-link" controller="admin" action="index">
-                            <i class="fa fa-tools"></i>
                             <g:message code="default.button.admin.panel.message"/>
                         </g:link>
                     </li>
