@@ -1,0 +1,18 @@
+import com.restaurantify.Pedido
+
+model {
+    Pedido pedido
+}
+
+json {
+    id pedido.id
+    fecha pedido.fecha
+    fechaEntrega pedido.fechaEntrega
+    direccion pedido.direccion
+    gastosEnvio pedido.gastosEnvio
+    total pedido.total
+    estado pedido.estado
+    idCliente pedido.cliente.id
+    clienteNombre pedido.cliente.nombre
+    detalles g.render(template: "detallePedido", collection: pedido.detalles, var: "dp")
+}

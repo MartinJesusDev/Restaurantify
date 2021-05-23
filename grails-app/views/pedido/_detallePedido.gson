@@ -1,0 +1,14 @@
+import com.restaurantify.DetallesPedido
+
+model {
+    DetallesPedido dp
+}
+
+json {
+    id dp.id
+    nombre dp.nombre
+    precio dp.precio
+    iva dp.iva
+    descuento dp.descuento
+    unidades dp.unidades
+}

@@ -2,7 +2,7 @@ package com.restaurantify
 
 import groovy.transform.ToString
 
-import java.time.LocalDate
+import java.time.LocalDateTime
 
 /**
  * Clase dominio, que representa los Pedidos.
@@ -16,8 +16,9 @@ import java.time.LocalDate
 class Pedido {
     // Columnas
     Integer estado
-    LocalDate fecha = LocalDate.now()
-    LocalDate fechaEntrega
+    LocalDateTime fecha = LocalDateTime.now()
+    LocalDateTime fechaEntrega
+    String direccion
     Float gastosEnvio
     Float total // Calculado mediante la totalidad del pedido
 
@@ -32,8 +33,9 @@ class Pedido {
                         1, // En proceso de preparación
                         2, // En reparto
                         3] // Completado
-        fecha date: true, max: LocalDate.now()
-        fechaEntrega date: true, min: LocalDate.now(), nullable: true
+        fecha max: LocalDateTime.now()
+        fechaEntrega min: LocalDateTime.now(), nullable: true
+        direccion blank: false
         gastosEnvio min: 0F
         total min: 0F
     }

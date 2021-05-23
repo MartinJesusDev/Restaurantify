@@ -13,17 +13,17 @@
     <!-- Vista de plato --->
     <section class="col p-2 bg-white mt-3">
         <!-- Información del plato y agregar a cestra -->
-        <article class="d-flex" style="margin-bottom: 100px;">
+        <article class="d-flex flex-wrap" style="margin-bottom: 100px;">
             <!-- Imagen plato -->
-            <div class="col-lg-5 d-flex d-none justify-content-center align-items-center">
-                <asset:image src="platos/${p.imagen}" style="width: 90%;height: 90%"/>
+            <div class="col-lg-5 d-flex justify-content-center align-items-stretch" style="min-height: 500px;">
+                    <asset:image class="img-fluid" src="platos/${p.imagen}" />
             </div>
 
             <div class="col-lg-6 ml-lg-5">
         <!-- Info plato -->
         <div class="col mb-4">
             <h1 class="mb-3 font-titulo">${p.nombre}</h1>
-                <div class="col-10 p-0">
+                <div class="col-12 p-0">
                     <p class="text-justify">${p.elaboracion}</p>
                 </div>
         </div>
@@ -81,7 +81,7 @@
         </article>
 
         <!-- Valoraciones del platos --->
-        <article class="d-flex flex-row flex-wrap">
+        <article class="d-flex flex-row flex-wrap justify-content-between">
             <div class="col-lg-4 col-12 ml-lg-2">
                 <div class="position-sticky" style="top: 100px;">
                     <!-- Titulo y valoraciones totales -->

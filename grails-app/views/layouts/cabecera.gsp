@@ -54,7 +54,14 @@
                             <g:message code="default.title.contacto.label"/>
                         </g:link>
                     </li>
-                    <g:if test="${cliente?.rol}" >
+                    <g:if test="${[1, 2].contains(cliente?.rol)}" >
+                        <li class="nav-item ${request.forwardURI.contains("pedidosRestaurante") ? "active" : "" }">
+                            <g:link class="nav-link" controller="pedido" action="pedidosRestaurante">
+                                <g:message code="default.button.pedidos.message"/>
+                            </g:link>
+                        </li>
+                    </g:if>
+                    <g:if test="${cliente?.rol == 1}" >
                     <li class="nav-item ${request.forwardURI.contains("admin") ? "active" : "" }">
                         <g:link class="nav-link" controller="admin" action="index">
                             <g:message code="default.button.admin.panel.message"/>

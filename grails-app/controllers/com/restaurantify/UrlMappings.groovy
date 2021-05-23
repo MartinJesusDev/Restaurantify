@@ -16,6 +16,11 @@ class UrlMappings {
             delete "/$id"(controller: "cesta", action: "eliminar")
         }
 
+        group "/pedidos", {
+            get "/lista/$estado"(controller:  "pedido", action: "pedidos")
+            put "/estado"(controller:  "pedido", action: "modificarEstado")
+        }
+
         "/"(view:"/index")
         "500"(view:'/error')
         "404"(view:'/notFound')

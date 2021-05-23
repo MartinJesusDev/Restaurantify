@@ -1,0 +1,7 @@
+import com.restaurantify.Pedido
+
+model {
+    List<Pedido> pedidos
+}
+
+json g.render(template: "pedido", collection: pedidos, var: "pedido")

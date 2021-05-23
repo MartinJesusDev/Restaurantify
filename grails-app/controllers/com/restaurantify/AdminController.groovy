@@ -1,7 +1,6 @@
 package com.restaurantify
 
 import groovy.transform.CompileStatic
-import org.grails.web.servlet.mvc.GrailsWebRequest
 
 /**
  * Clase controlador para la administración, que contrala las peticiones y errores.

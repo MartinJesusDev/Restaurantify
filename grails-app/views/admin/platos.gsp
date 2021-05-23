@@ -137,7 +137,7 @@
             </tr>
             <g:each in="${listadoPlatos}" var="p">
                 <tr class="${p.id == plato?.id ? "table-active" : ""}">
-                    <td><asset:image class="pop" src="platos/${p.imagen}" width="35px" /> </td>
+                    <td class="p-2"><asset:image class="pop image-fluid" src="platos/${p.imagen}" width="70px" height="50px" /> </td>
                     <td>${p.nombre}</td>
                     <td>${p.precio}€</td>
                     <td>${p.descuento}%</td>

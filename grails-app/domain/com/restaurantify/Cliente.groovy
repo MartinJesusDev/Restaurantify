@@ -28,7 +28,7 @@ class Cliente {
     LocalDate fechaDeNacimiento
     LocalDate fechaDeAlta = LocalDate.now()
     String imagen = "img_usuario.png"
-    Integer rol = 0 // Por defecto es usuario normal
+    Integer rol = 0 // Por defecto es usuario normal, 1 admin, 2 restaurante
     Boolean bloqueado = false
     Boolean verificado = false
     String token = ""

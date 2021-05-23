@@ -31,7 +31,13 @@ class ClienteController {
         }
 
         // Intentamos crear el cliente
-        clienteService.crear(cliente)
+        try {
+            clienteService.crear(cliente)
+        } catch(Exception e) {
+            render(view: "registro",
+                    model: [cliente : cliente])
+            return
+        }
 
         // Redirigimos y mostramos mensaje correcto
         flash.message = "default.cliente.registrado.message"

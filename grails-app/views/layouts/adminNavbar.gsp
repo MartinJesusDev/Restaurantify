@@ -5,10 +5,6 @@
         <g:message code="default.button.admin.estadisticas.message" />
     </g:link>
 
-    <g:link controller="admin" action="pedidos" class="nav-link text-white ${request.forwardURI.contains("pedido") ? "active" : ""}">
-        <g:message code="default.button.admin.pedidos.message" />
-    </g:link>
-
     <g:link controller="admin" action="platos" class="nav-link text-white ${request.forwardURI.contains("plato") ? "active" : ""}">
         <g:message code="default.button.admin.platos.message" />
     </g:link>

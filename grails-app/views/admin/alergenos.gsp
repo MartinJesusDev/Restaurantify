@@ -60,7 +60,7 @@
 
     <!-- Listado de alergenos -->
     <div class="col">
-        <table class="col table table-hover">
+        <table class="col-md-8 table table-hover">
             <tr class="thead-dark">
                 <th><g:message code="default.input.imagen.label" /> </th>
                 <th><g:message code="default.input.name.label" /></th>
@@ -68,7 +68,7 @@
             </tr>
             <g:each in="${listadoAlergenos}" var="a">
                 <tr class="${a.id == alergeno?.id ? "table-active" : ""}">
-                    <td><asset:image class="pop" src="alergenos/${a.imagen}" width="35px" /> </td>
+                    <td class="p-2"><asset:image class="pop image-fluid" src="alergenos/${a.imagen}" width="50px" /> </td>
                     <td>${a.nombre}</td>
                     <td>
                         <g:link class="btn btn-primary" controller="admin" action="alergenos" params="[id: a.id]">

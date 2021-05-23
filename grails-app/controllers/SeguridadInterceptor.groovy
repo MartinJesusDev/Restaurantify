@@ -10,7 +10,6 @@ class SeguridadInterceptor {
         .except(controller: "cliente", action: "verificar")
         .except(controller: "plato", action: "lista" )
         .except(controller: "plato", action: "show")
-        .except(uri:"/cesta/**")
         .except(uri: "/")
     }
 
@@ -22,12 +21,6 @@ class SeguridadInterceptor {
         // Comprueba si no ha iniciado sesión
         if(!session.cliente) {
             redirect(controller: "cliente", action: "login")
-            return false
-        }
-
-        // Comprobamos si accede a la parte de administrador, y no es administrador
-        if(controllerName == "admin" && session.cliente.rol != 1){
-            redirect(uri: "/")
             return false
         }
 

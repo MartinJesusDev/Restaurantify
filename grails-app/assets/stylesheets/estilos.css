@@ -297,3 +297,8 @@ button.bg-primary:focus {
 .menu ul li.active > a::after {
     transform: scaleX(1);
 }
+
+/* Estilos listas de sortable */
+.my-handle {
+    cursor: move;
+}
