@@ -26,11 +26,6 @@
 
 /* Sobreescribimos botones, links, de boostrap color primary*/
 
-.btn:focus, .btn.focus {
-    outline: 0;
-    box-shadow: 0 0 0 0.2rem var(--acento-primario-sombra);
-}
-
 .btn.disabled, .btn:disabled {
     opacity: 0.3;
 }
@@ -301,4 +296,9 @@ button.bg-primary:focus {
 /* Estilos listas de sortable */
 .my-handle {
     cursor: move;
+}
+
+.invalid-feedback > ul {
+    list-style: none;
+    margin-bottom: unset;
 }

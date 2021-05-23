@@ -33,14 +33,16 @@ function imprimirResultado(respuesta, elemento = null, autoHide = false, ms = 30
     // Guardamos los datos de la respuesta
     let mensaje = respuesta.message;
     let error = respuesta.error;
-    let plantilla = ""
-
-    if(error) {
-        plantilla = `
-            <div class="alert d-f ml-0 errors rounded" role="alert"><li>${mensaje}</li></div>`
-    } else {
-        plantilla = `<div class="alert ml-0 message rounded" role="status">${mensaje}</div>`
-    }
+    let plantilla = `
+      <div class="alert ${
+        error ? 'alert-danger' : 'alert-success'
+    } alert-dismissible fade show" role="alert">
+        <strong>${error ? '¡Error!' : '¡Éxito!'}</strong> ${mensaje}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    `;
 
     // Añadimos la plantilla a el div mensaje
     divResultado.innerHTML = plantilla;
@@ -52,4 +54,59 @@ function imprimirResultado(respuesta, elemento = null, autoHide = false, ms = 30
     if(autoHide == true){
         setTimeout(() => divResultado.classList.add('d-none'), ms);
     }
+}
+
+/**
+ * Imprime una alerta personalizada.
+ * @param {String} mensaje
+ * @param {String} tipo
+ * @param {String} titulo
+ * @param {String} callback
+ */
+function  alertUtils(mensaje, tipo= "primary", titulo = null, callback = null) {
+    if(!titulo) {
+        switch (tipo) {
+            case "danger":
+                titulo = "Error"
+                break
+            case "warning":
+                titulo = "Atención"
+                break
+            default:
+                titulo = "Información"
+        }
+    }
+
+
+    // Comprobamos si esta pasando una función de callback y la agregamos al btn confirmar
+    let modalBtn = ''
+    if(callback) {
+        modalBtn = `
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-${tipo}" onclick="${callback}">Confirmar</button>
+            </div>
+        `
+    }
+
+    let plantilla = `
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header bg-${tipo} text-white">
+                <h4 class="modal-title" id="tituloAlerta">${titulo}</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <h5>${mensaje}</h5>
+              </div>
+                ${modalBtn}
+            </div>
+          </div>`
+
+    // Obtenemos la caja y ponemos la alerta
+    let modal = $('#alertaModal')
+    modal.html(plantilla)
+    modal.modal('show')
 }

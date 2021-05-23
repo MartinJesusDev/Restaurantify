@@ -21,16 +21,22 @@
             <g:form action="perfil" class="col-md-6" enctype="multipart/form-data" >
                 <!-- Mensaje informativo --->
                 <g:if test="${flash.message}">
-                    <div class="message rounded col ml-0" role="status"><g:message code="${flash.message}" /></div>
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <g:message code="${flash.message}" />
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
                 </g:if>
 
                 <g:hiddenField name="id" value="${fieldValue(bean: cliente,field:"id")}"/>
                 <div class="form-row">
                     <div class="form-group col">
                         <label for="nombre"><g:message code="default.input.name.label"/></label>
-                        <g:textField class="form-control" name="nombre" value="${fieldValue(bean: cliente,field:"nombre")}"/>
+                        <g:textField class="form-control ${hasErrors(bean: cliente, field: 'nombre', 'errors') ? "is-invalid" : ""}"
+                                     name="nombre" value="${fieldValue(bean: cliente,field:"nombre")}"/>
                         <g:hasErrors bean="${this.cliente}" field="nombre">
-                            <div class="errors mx-0 my-1 py-0 rounded" role="alert">
+                            <div class="invalid-feedback">
                                 <g:renderErrors bean="${cliente}" field="nombre" as="list" />
                             </div>
                         </g:hasErrors>
@@ -40,9 +46,10 @@
                 <div class="form-row">
                     <div class="form-group col">
                         <label for="apellidos"><g:message code="default.input.surname.label"/></label>
-                        <g:textField class="form-control" name="apellidos" value="${fieldValue(bean: cliente,field:"apellidos")}"/>
+                        <g:textField class="form-control ${hasErrors(bean: cliente, field: 'apellidos', 'errors') ? "is-invalid" : ""}"
+                                     name="apellidos" value="${fieldValue(bean: cliente,field:"apellidos")}"/>
                         <g:hasErrors bean="${this.cliente}" field="apellidos">
-                            <div class="errors mx-0 my-1 py-0 rounded" role="alert">
+                            <div class="invalid-feedback">
                                 <g:renderErrors bean="${cliente}" field="apellidos" as="list" />
                             </div>
                         </g:hasErrors>
@@ -53,9 +60,10 @@
                     <div class="form-group col">
                         <label for="email"><g:message code="default.input.email.label"/></label>
                         <g:hiddenField name="oldEmail" value="${fieldValue(bean: cliente,field:"email")}" />
-                        <g:textField class="form-control" name="email" value="${fieldValue(bean: cliente,field:"email")}"/>
+                        <g:textField class="form-control ${hasErrors(bean: cliente, field: 'email', 'errors') ? "is-invalid" : ""}"
+                                     name="email" value="${fieldValue(bean: cliente,field:"email")}"/>
                         <g:hasErrors bean="${this.cliente}" field="email">
-                            <div class="errors mx-0 my-1 py-0 rounded" role="alert">
+                            <div class="invalid-feedback">
                                 <g:renderErrors bean="${cliente}" field="email" as="list" />
                             </div>
                         </g:hasErrors>
@@ -66,9 +74,10 @@
                     <div class="form-group col">
                         <label for="password"><g:message code="default.input.password.label"/></label>
                         <g:hiddenField name="oldPassword" value="${fieldValue(bean: cliente,field:"password")}" />
-                        <g:passwordField class="form-control" name="password" value="${fieldValue(bean: cliente,field:"password")}"/>
+                        <g:passwordField class="form-control ${hasErrors(bean: cliente, field: 'password', 'errors') ? "is-invalid" : ""}"
+                                         name="password" value="${fieldValue(bean: cliente,field:"password")}"/>
                         <g:hasErrors bean="${this.cliente}" field="password">
-                            <div class="errors mx-0 my-1 py-0 rounded" role="alert">
+                            <div class="invalid-feedback">
                                 <g:renderErrors bean="${cliente}" field="password" as="list" />
                             </div>
                         </g:hasErrors>
@@ -78,9 +87,10 @@
                 <div class="form-row">
                     <div class="form-group col">
                         <label for="dni"><g:message code="default.input.dni.label"/></label>
-                        <g:textField class="form-control" name="dni" value="${fieldValue(bean: cliente,field:"dni")}"/>
+                        <g:textField class="form-control ${hasErrors(bean: cliente, field: 'dni', 'errors') ? "is-invalid" : ""}"
+                                     name="dni" value="${fieldValue(bean: cliente,field:"dni")}"/>
                         <g:hasErrors bean="${this.cliente}" field="dni">
-                            <div class="errors mx-0 my-1 py-0 rounded" role="alert">
+                            <div class="invalid-feedback">
                                 <g:renderErrors bean="${cliente}" field="dni" as="list" />
                             </div>
                         </g:hasErrors>
@@ -90,9 +100,10 @@
                 <div class="form-row">
                     <div class="form-group col">
                         <label for="cp"><g:message code="default.input.cp.label"/></label>
-                        <g:textField class="form-control" name="cp" value="${fieldValue(bean: cliente,field:"cp")}"/>
+                        <g:textField class="form-control ${hasErrors(bean: cliente, field: 'cp', 'errors') ? "is-invalid" : ""}"
+                                     name="cp" value="${fieldValue(bean: cliente,field:"cp")}"/>
                         <g:hasErrors bean="${this.cliente}" field="cp">
-                            <div class="errors mx-0 my-1 py-0 rounded" role="alert">
+                            <div class="invalid-feedback">
                                 <g:renderErrors bean="${cliente}" field="cp" as="list" />
                             </div>
                         </g:hasErrors>
@@ -102,9 +113,10 @@
                 <div class="form-row">
                     <div class="form-group col">
                         <label for="provincia"><g:message code="default.input.province.label"/></label>
-                        <g:textField class="form-control" name="provincia" value="${fieldValue(bean: cliente,field:"provincia")}"/>
+                        <g:textField class="form-control ${hasErrors(bean: cliente, field: 'provincia', 'errors') ? "is-invalid" : ""}"
+                                     name="provincia" value="${fieldValue(bean: cliente,field:"provincia")}"/>
                         <g:hasErrors bean="${this.cliente}" field="provincia">
-                            <div class="errors mx-0 my-1 py-0 rounded" role="alert">
+                            <div class="invalid-feedback">
                                 <g:renderErrors bean="${cliente}" field="provincia" as="list" />
                             </div>
                         </g:hasErrors>
@@ -114,9 +126,10 @@
                 <div class="form-row">
                     <div class="form-group col">
                         <label for="localidad"><g:message code="default.input.locality.label"/></label>
-                        <g:textField class="form-control" name="localidad" value="${fieldValue(bean: cliente,field:"localidad")}"/>
+                        <g:textField class="form-control ${hasErrors(bean: cliente, field: 'localidad', 'errors') ? "is-invalid" : ""}"
+                                     name="localidad" value="${fieldValue(bean: cliente,field:"localidad")}"/>
                         <g:hasErrors bean="${this.cliente}" field="localidad">
-                            <div class="errors mx-0 my-1 py-0 rounded" role="alert">
+                            <div class="invalid-feedback">
                                 <g:renderErrors bean="${cliente}" field="localidad" as="list" />
                             </div>
                         </g:hasErrors>
@@ -126,9 +139,10 @@
                 <div class="form-row">
                     <div class="form-group col">
                         <label for="calle"><g:message code="default.input.street.label"/></label>
-                        <g:textField class="form-control" name="calle" value="${fieldValue(bean: cliente,field:"calle")}"/>
+                        <g:textField class="form-control ${hasErrors(bean: cliente, field: 'calle', 'errors') ? "is-invalid" : ""}"
+                                     name="calle" value="${fieldValue(bean: cliente,field:"calle")}"/>
                         <g:hasErrors bean="${this.cliente}" field="calle">
-                            <div class="errors mx-0 my-1 py-0 rounded" role="alert">
+                            <div class="invalid-feedback">
                                 <g:renderErrors bean="${cliente}" field="calle" as="list" />
                             </div>
                         </g:hasErrors>
@@ -138,12 +152,13 @@
                 <div class="form-row">
                     <div class="form-group col">
                         <label for="fechaDeNacimiento"><g:message code="default.input.birthday.label"/></label>
-                        <g:field type="date" class="form-control" name="fechaDeNacimiento"
+                        <g:field type="date" class="form-control ${hasErrors(bean: cliente, field: 'fechaDeNacimiento', 'errors') ? "is-invalid" : ""}"
+                                 name="fechaDeNacimiento"
                                       value="${fieldValue(bean: cliente,field:"fechaDeNacimiento")}"
                                       precision="day"
                         />
                         <g:hasErrors bean="${this.cliente}" field="fechaDeNacimiento">
-                            <div class="errors mx-0 my-1 py-0 rounded" role="alert">
+                            <div class="invalid-feedback">
                                 <g:renderErrors bean="${cliente}" field="fechaDeNacimiento" as="list" />
                             </div>
                         </g:hasErrors>
@@ -156,9 +171,10 @@
                     </div>
                     <div class="form-group col">
                         <label for="imagenPerfil"><g:message code="default.input.profilePicture.label"/></label>
-                        <g:field type="file" class="form-control h-auto" name="imagenPerfil" />
+                        <g:field type="file" class="form-control ${hasErrors(bean: cliente, field: 'imagenPerfil', 'errors') ? "is-invalid" : ""}"
+                                 name="imagenPerfil" />
                         <g:hasErrors bean="${this.cliente}" field="imagen">
-                            <div class="errors mx-0 my-1 py-0 rounded" role="alert">
+                            <div class="invalid-feedback">
                                 <g:renderErrors bean="${cliente}" field="imagen" as="list" />
                             </div>
                         </g:hasErrors>

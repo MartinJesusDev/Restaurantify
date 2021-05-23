@@ -45,7 +45,7 @@ class Cliente {
         calle blank: false
         fechaDeNacimiento date: true, max: LocalDate.now(), blank: false
         fechaDeAlta date: true, max: LocalDate.now()
-        rol blank: false, inList: [0, 1] // 0 = usuario, 1 = admin
+        rol blank: false, inList: [0, 1, 2] // 0 = usuario, 1 = admin, 2 = restaurante
         token maxSize: 32
     }
 }

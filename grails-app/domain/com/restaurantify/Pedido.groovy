@@ -33,7 +33,6 @@ class Pedido {
                         1, // En proceso de preparación
                         2, // En reparto
                         3] // Completado
-        fecha max: LocalDateTime.now()
         fechaEntrega min: LocalDateTime.now(), nullable: true
         direccion blank: false
         gastosEnvio min: 0F

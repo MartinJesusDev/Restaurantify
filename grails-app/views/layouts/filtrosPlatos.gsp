@@ -1,12 +1,14 @@
 <!-- Barra lateral filtro de platos -->
-<nav class="nav border rounded p-2 mt-2 h-auto bg-light position-sticky" style="top: 80px;">
-    <div>
-        <h2 class="font-titulo">Filtrado</h2>
+<nav class="nav border rounded p-2 mt-2  bg-light position-sticky" style="top: 80px;">
+    <div class="row">
+        <div class="col">
+            <h2 class="font-titulo">Filtrado</h2>
+        </div>
     </div>
 
     <div>
         <!-- Formulario de filtros -->
-        <g:form  controller="plato"  action="lista">
+        <g:form class="form"  controller="plato"  action="lista">
             <div class="form-row">
                 <div class="form-group col">
                     <label for="categorias"><g:message code="default.input.filtrar.categorias.label"/></label>
@@ -14,7 +16,6 @@
                               multiple="multiple" value="${filtro?.categorias?.id}" />
                 </div>
             </div>
-
 
             <div class="form-row">
                 <div class="form-group col">

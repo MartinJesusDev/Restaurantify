@@ -9,12 +9,12 @@ let cesta = [];
 /**
  * Realiza una petición para obtener datos de la cesta al cargar el DOM.
  */
-$(document).ready(function (){
+async function cargarCesta() {
     obtenerCesta().then((data) => {
         imprimirCesta()
         imprimirTotalPedido()
     })
-})
+}
 
 /**
  * Agrega las unidades al carrito.
@@ -48,7 +48,7 @@ function agregar(idCliente, idPlato, unidades) {
                 message: xhr.responseJSON.message,
                 error: error
             }
-            imprimirResultado(data, null, true)
+            imprimirResultado(data)
         }
     })
 }
@@ -107,32 +107,36 @@ async function imprimirCesta() {
             for (let i = 1; i <= 10; i++) {
                 opcionesSelect += `<option value="${i}" ${(i === c.unidades) ? 'selected' : ''}>${i}</option>`;
             }
-            let desplegableUnidades = `<select class="custom-select d-inline" id="cantidadUnidades" onchange="actualizarCesta(${c.id}, this.value)">${opcionesSelect}</select>`;
+            let desplegableUnidades = `<select class="custom-select-sm w-auto" id="cantidadUnidades" onchange="actualizarCesta(${c.id}, this.value)">${opcionesSelect}</select>`;
 
             totalPedido += (plato.total * c.unidades);
             totalPedido = parseFloat(totalPedido.toFixed(2));
 
             // Guardamos la plantilla
             plantilla += `
-              <div id="itemCesta${c.id}" class="d-flex justify-content-between align-items-center list-group-item list-group-item-action">
-                    <div class="d-flex align-items-center justify-content-between">
-                        <div>
-                            <img alt="${plato.imagen}" class="mr-2" src="/assets/platos/${plato.imagen}" width="50px" height="50px">
-                            <a class="btn-link" href="/plato/show/${plato.id}">
-                                <span style="font-size:1.25em;">${plato.nombre} - ${plato.total}€</b></span>
-                            </a>
-                        </div>
-                        <span class="ml-3">${desplegableUnidades}</span>
-                      </div>
-                    <div>
-                    <button class="btn btn-danger" onclick="eliminarPlatoCesta(${c.id});">
-                        <i class="fa fa-times"></i>
-                    </button>
+              <div id="itemCesta${c.id}" class="d-flex align-items-center border-bottom py-3 mb-1">                 
+                <img alt="${plato.imagen}" class="mr-3 d-md-block d-none" src="/assets/platos/${plato.imagen}" width="100px" height="75px">
+                <div class="d-md-block d-flex align-items-center justify-content-between w-100">
+                    <div class="mb-md-2 mr-3">
+                        <a class="btn-link d-inline-block" href="/plato/show/${plato.id}" style="font-size: 1.25em" >${plato.nombre}<span class="badge badge-primary ml-2">${plato.total}€</span></a>
+                    </div>
+                    <div class="btn-group btn-group-sm">
+                        ${desplegableUnidades}
+                        <button class="btn btn-danger" style="height: max-content;" onclick="eliminarPlatoCesta(${c.id});">
+                            <i class="fa fa-times"></i>
+                        </button>
+                    </div>
                 </div>
               </div>
-    `;
+            `;
+
             totalArtitulos += parseInt(c.unidades);
         }
+
+        plantilla += `
+            <div class="py-3"><h5>Total platos: <span id="totalPlatosSup"></span>€</h5></div>
+        `
+
 
         // Imprimimos los nuevos datos en el DOM
         cajaCesta.html(plantilla);
@@ -182,6 +186,7 @@ function imprimirTotalPedido() {
         $('#cajaResumenPedido').removeClass(['d-none'])
         $('#gastosEnvio').text(datos.gastosEnvio)
         $('#totalPlatos').text(datos.totalPedido)
+        $('#totalPlatosSup').text(datos.totalPedido)
         $('#totalPedido').text(datos.total)
     } else {
         $('#cajaResumenPedido').addClass(['d-none'])

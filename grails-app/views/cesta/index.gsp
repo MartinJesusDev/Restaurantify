@@ -10,25 +10,25 @@
 <!-- Sección del formulario --->
 <section class="p-2 bg-white" style="min-height: 80vh">
     <!-- Titulo de la página -->
-    <div class="card mx-4">
+    <div class="card">
         <h3 class="card-header bg-dark text-white font-titulo">
             <g:message code="default.title.cesta.label"/>
         </h3>
-        <div class="card-body">
+        <div class="card-body pt-0 pb-1">
             <div class="d-none" id="cestaCompra"></div>
-            <div class="d-none" id="cestaVacia">
+            <div class="d-none p-2" id="cestaVacia">
                 <h3><g:message code="default.cesta.vacia.message" /></h3>
             </div>
         </div>
     </div>
 
         <!-- Carrito de la compra -->
-        <div class="col px-lg-4 pt-2">
+        <div class="col px-lg-4 mb-4">
 
         </div>
 
         <!-- Información -->
-        <div class="col p-4 d-none" id="cajaResumenPedido">
+        <div class="col p-0 d-none" id="cajaResumenPedido">
             <!-- Dirección de envio -->
             <div class="card mb-4">
                 <h4 class="card-header bg-dark text-white font-titulo"><g:message code="default.input.cesta.infoEnvio.label"/></h4>
@@ -79,7 +79,7 @@
                         <li><g:message code="default.input.pedido.totalPlatos.label"/>: <span id="totalPlatos"></span>€</li>
                         <li><h5><g:message code="default.input.pedido.total.label"/>: <span id="totalPedido"></span>€</h5></li>
                     </ul>
-                    <g:link class="btn btn-primary" controller="pedido" action="completar"><g:message code="default.button.pedido.completar.message" /></g:link>
+                    <button class="btn btn-primary" id="realizarPedido" type="button"><g:message code="default.button.pedido.completar.message" /></button>
                 </div>
             </div>
 
@@ -90,5 +90,22 @@
 
 <!-- Cargamos js para la cesta -->
 <asset:javascript src="cesta.js" />
+<script>
+    (function(){
+        cargarCesta();
+
+        let btnPedido = document.getElementById('realizarPedido')
+        if(btnPedido) {
+            btnPedido.addEventListener('click', () => {
+                alertUtils(
+                    "${message(code: "default.cesta.confirmar.message")}",
+                    "primary",
+                    "${message(code: "default.cesta.confirmar.titulo.message")}",
+                    "window.location.replace('/pedido/completar')"
+                )
+            })
+        }
+    })()
+</script>
 </body>
 </html>

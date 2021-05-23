@@ -21,19 +21,30 @@
                 <!-- Mensaje informativo --->
                 <g:if test="${flash.message}">
                     <g:if test="${flash.error}" >
-                        <div class="errors rounded col ml-0" role="alert"><li><g:message code="${flash.message}" /></li></div>
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <g:message code="${flash.message}" />
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
                     </g:if>
                     <g:else>
-                        <div class="message rounded col ml-0" role="status"><g:message code="${flash.message}" /></div>
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <g:message code="${flash.message}" />
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
                     </g:else>
                 </g:if>
 
                 <div class="form-row">
                     <div class="form-group col">
                         <label for="email"><g:message code="default.input.email.label"/></label>
-                        <g:textField class="form-control" name="email" value="${fieldValue(bean: clienteLogin,field:"email")}"/>
+                        <g:textField class="form-control ${hasErrors(bean: clienteLogin, field: 'email', 'errors') ? "is-invalid" : ""}"
+                                     name="email" value="${fieldValue(bean: clienteLogin,field:"email")}"/>
                         <g:hasErrors bean="${this.clienteLogin}" field="email">
-                            <div class="errors mx-0 my-1 py-0 rounded" role="alert">
+                            <div class="invalid-feedback">
                                 <g:renderErrors bean="${clienteLogin}" field="email" as="list" />
                             </div>
                         </g:hasErrors>
@@ -43,10 +54,11 @@
                 <div class="form-row">
                     <div class="form-group col">
                         <label for="password"><g:message code="default.input.password.label"/></label>
-                        <g:passwordField class="form-control" name="password" value="${fieldValue(bean: clienteLogin,field:"password")}"/>
+                        <g:passwordField class="form-control ${hasErrors(bean: clienteLogin, field: 'password', 'errors') ? "is-invalid" : ""}"
+                                         name="password" value="${fieldValue(bean: clienteLogin,field:"password")}"/>
                         <g:hasErrors bean="${this.clienteLogin}" field="password">
-                            <div class="errors mx-0 my-1 py-0 rounded" role="alert">
-                                <g:renderErrors bean="${this.clienteLogin}" field="password" as="list" />
+                            <div class="invalid-feedback">
+                                <g:renderErrors bean="${clienteLogin}" field="password" as="list" />
                             </div>
                         </g:hasErrors>
                     </div>

@@ -13,10 +13,10 @@
     <!-- Vista de plato --->
     <section class="col p-2 bg-white mt-3">
         <!-- Información del plato y agregar a cestra -->
-        <article class="d-flex flex-wrap" style="margin-bottom: 100px;">
+        <article class="d-flex" style="margin-bottom: 100px;">
             <!-- Imagen plato -->
-            <div class="col-lg-5 d-flex justify-content-center align-items-stretch" style="min-height: 500px;">
-                    <asset:image class="img-fluid" src="platos/${p.imagen}" />
+            <div class="col-lg-5 d-none d-sm-flex justify-content-center align-items-stretch" style="min-height: 500px;">
+                    <asset:image class="img-fluid d-sm-none d-sm-flex" src="platos/${p.imagen}" />
             </div>
 
             <div class="col-lg-6 ml-lg-5">
@@ -26,12 +26,19 @@
                 <div class="col-12 p-0">
                     <p class="text-justify">${p.elaboracion}</p>
                 </div>
+
+                <div class="col d-flex d-sm-none justify-content-center align-items-stretch" style="min-height: 100px;">
+                    <asset:image class="img-fluid d-sm-none d-sm-flex" src="platos/${p.imagen}" />
+                </div>
         </div>
 
         <!-- Información de alergenos -->
         <div class="col mb-3">
             <h4><g:message code="default.title.alergenos.label" /> </h4>
-            <div class="d-flex">
+            <div class="d-flex flex-wrap">
+                <g:if test="${p.alergenos.empty}">
+                    <p class="mb-0"><g:message code="default.alergeno.sin.alergenos.message" /></p>
+                </g:if>
                 <g:each in="${p.alergenos}" var="a" >
                     <figure class="card mr-2">
                         <div class="card-body p-2 d-flex flex-column align-items-center">
@@ -82,7 +89,7 @@
 
         <!-- Valoraciones del platos --->
         <article class="d-flex flex-row flex-wrap justify-content-between">
-            <div class="col-lg-4 col-12 ml-lg-2">
+            <div class="col-lg-4 col-12 ml-lg-2 mb-5">
                 <div class="position-sticky" style="top: 100px;">
                     <!-- Titulo y valoraciones totales -->
                     <div class="col mb-4">
@@ -139,7 +146,7 @@
                                 </g:if>
                                 <g:else>
                                     <g:actionSubmit action="actualizar" class="btn btn-primary" value="${message(code: 'default.button.valoracion.actualizar.message')}" />
-                                    <g:actionSubmit action="eliminar" class="btn btn-danger" value="${message(code: 'default.button.valoracion.eliminar.message')}" />
+                                    <g:actionSubmit action="eliminar" class="btn btn-danger" onclick="return confirm('${message(code: "default.valoracion.confirmarEliminar.message")}')" value="${message(code: 'default.button.valoracion.eliminar.message')}" />
                                 </g:else>
                             </div>
                         </g:form>

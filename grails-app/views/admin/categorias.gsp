@@ -29,18 +29,20 @@
         <div class="form-row">
             <div class="form-group col">
                 <label for="nombre"><g:message code="default.input.name.label"/></label>
-                <g:textField class="form-control" name="nombre" value="${fieldValue(bean: categoria,field:"nombre")}"/>
+                <g:textField class="form-control ${hasErrors(bean: categoria, field: 'nombre', 'errors') ? "is-invalid" : ""}"
+                             name="nombre" value="${fieldValue(bean: categoria,field:"nombre")}"/>
                 <g:hasErrors bean="${this.categoria}" field="nombre">
-                    <div class="errors mx-0 my-1 py-0 rounded" role="alert">
+                    <div class="invalid-feedback">
                         <g:renderErrors bean="${categoria}" field="nombre" as="list" />
                     </div>
                 </g:hasErrors>
             </div>
             <div class="form-group col">
                 <label for="orden"><g:message code="default.input.orden.label"/></label>
-                <g:field type="number" class="form-control h-auto" name="orden" min="1" value="${fieldValue(bean: categoria,field:"orden")}" />
+                <g:field type="number" class="form-control ${hasErrors(bean: categoria, field: 'orden', 'errors') ? "is-invalid" : ""}"
+                         name="orden" min="1" value="${fieldValue(bean: categoria,field:"orden")}" />
                 <g:hasErrors bean="${this.categoria}" field="orden">
-                    <div class="errors mx-0 my-1 py-0 rounded" role="alert">
+                    <div class="invalid-feedback">
                         <g:renderErrors bean="${categoria}" field="orden" as="list" />
                     </div>
                 </g:hasErrors>
@@ -50,7 +52,7 @@
         <div class="form-group">
             <g:actionSubmit action="crear" class="btn btn-primary " value="${message(code: 'default.button.create.label', default: 'Create')}" disabled="${categoria && categoria.id}" />
             <g:actionSubmit action="actualizar" class="btn btn-primary" value="${message(code: 'default.button.update.label', default: 'Modify')}" disabled="${!categoria || !categoria.id}" />
-            <g:actionSubmit action="eliminar" class="btn btn-danger" value="${message(code: 'default.button.delete.label', default: 'Delete')}" disabled="${!categoria || !categoria.id}" />
+            <button class="btn btn-danger" type="button" id="btnEliminar" ${(!categoria || !categoria.id) ? "disabled" : "" }><g:message code="default.button.delete.label"/></button>
             <g:link class="btn btn-primary" controller="admin" action="categorias"><g:message code="default.button.reset.label"/></g:link>
         </div>
     </g:form>
@@ -79,5 +81,20 @@
 </section>
 
 <g:applyLayout name="pie" />
+<g:javascript>
+    (function (){
+        let btnBorrar = document.getElementById('btnEliminar')
+        if(btnBorrar) {
+            btnBorrar.addEventListener('click', () => {
+                alertUtils(
+                    "${message(code: "default.categoria.eliminarConfirmar.message")}",
+                    "danger",
+                    "${message(code: "default.categoria.eliminarConfirmar.titulo.message")}",
+                    "window.location.replace('/categoria/eliminar/${categoria?.id ?: ''}')"
+                )
+            })
+        }
+    })()
+</g:javascript>
 </body>
 </html>

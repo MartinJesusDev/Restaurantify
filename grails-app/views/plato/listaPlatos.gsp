@@ -7,13 +7,13 @@
 </head>
 <body>
 
-<main class="row" style="min-height: 100vh">
-    <article class="col-3">
+<main class="d-flex flex-wrap" style="min-height: 100vh">
+    <article class="col-lg-3 col-md-12">
         <g:applyLayout name="filtrosPlatos" />
     </article>
 
     <!-- Contenedor datos genericos --->
-    <section class="col-9 p-2 bg-white">
+    <section class="col-lg-9 col-md-12 p-2 bg-white">
         <!-- Listado con los platos -->
         <g:each in="${categoriasConPlatos}" var="c" status="i">
         <div id="accordion${i}">

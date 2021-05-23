@@ -17,60 +17,69 @@
         </h2>
     </div>
 
-
-<!-- Mensaje informativo --->
-    <g:if test="${flash.message}">
-        <div class="message rounded col-md-4" role="status"><g:message code="${flash.message}"/></div>
-    </g:if>
-
 <!-- Formulario  -->
-    <g:form controller="plato" class="col-md-8 mb-4" enctype="multipart/form-data">
+    <g:form controller="plato" class="col mb-4" enctype="multipart/form-data">
+        <!-- Mensaje informativo --->
+        <g:if test="${flash.message}">
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <g:message code="${flash.message}" />
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </g:if>
+
         <g:hiddenField name="id" value="${fieldValue(bean: plato,field:"id")}" />
         <div class="form-row">
             <div class="form-group col">
                 <label for="nombre"><g:message code="default.input.name.label"/></label>
-                <g:textField class="form-control" name="nombre" value="${fieldValue(bean: plato,field:"nombre")}"/>
+                <g:textField class="form-control ${hasErrors(bean: plato, field: 'nombre', 'errors') ? "is-invalid" : ""}"
+                             name="nombre" value="${fieldValue(bean: plato,field:"nombre")}"/>
                 <g:hasErrors bean="${this.plato}" field="nombre">
-                    <div class="errors mx-0 my-1 py-0 rounded" role="alert">
+                    <div class="invalid-feedback">
                         <g:renderErrors bean="${plato}" field="nombre" as="list" />
                     </div>
                 </g:hasErrors>
 
             </div>
-            <div class="form-group col-1">
+            <div class="form-group col-2">
                 <label for="precio"><g:message code="default.input.precio.label"/></label>
-                <g:textField type="number"  step="0.01" class="form-control" name="precio" value="${fieldValue(bean: plato, field:"precio") ?: 0}" />
+                <g:textField type="number"  step="0.01" class="form-control ${hasErrors(bean: plato, field: 'precio', 'errors') ? "is-invalid" : ""}"
+                             name="precio" value="${fieldValue(bean: plato, field:"precio") ?: 0}" />
                 <g:hasErrors bean="${this.plato}" field="precio">
-                    <div class="errors mx-0 my-1 py-0 rounded" role="alert">
+                    <div class="invalid-feedback">
                         <g:renderErrors bean="${plato}" field="precio" as="list" />
                     </div>
                 </g:hasErrors>
             </div>
 
-            <div class="form-group col-1">
+            <div class="form-group col-2">
                 <label for="iva"><g:message code="default.input.plato.iva.label"/></label>
-                <g:textField type="number" min="0" step="0.1" class="form-control" name="iva" value="${fieldValue(bean: plato,field:"iva") ?: 0}" />
+                <g:textField type="number" min="0" step="0.1" class="form-control ${hasErrors(bean: plato, field: 'iva', 'errors') ? "is-invalid" : ""}"
+                             name="iva" value="${fieldValue(bean: plato,field:"iva") ?: 0}" />
                 <g:hasErrors bean="${this.plato}" field="iva">
-                    <div class="errors mx-0 my-1 py-0 rounded" role="alert">
+                    <div class="invalid-feedback">
                         <g:renderErrors bean="${plato}" field="iva" as="list" />
                     </div>
                 </g:hasErrors>
             </div>
 
-            <div class="form-group col-1">
+            <div class="form-group col-2">
                 <label for="descuento"><g:message code="default.input.plato.descuento.label"/></label>
-                <g:textField type="number" min="0" step="0.1" class="form-control" name="descuento" value="${fieldValue(bean: plato,field:"descuento") ?: 0}" />
+                <g:textField type="number" min="0" step="0.1" class="form-control ${hasErrors(bean: plato, field: 'descuento', 'errors') ? "is-invalid" : ""}"
+                             name="descuento" value="${fieldValue(bean: plato,field:"descuento") ?: 0}" />
                 <g:hasErrors bean="${this.plato}" field="descuento">
-                    <div class="errors mx-0 my-1 py-0 rounded" role="alert">
+                    <div class="invalid-feedback">
                         <g:renderErrors bean="${plato}" field="descuento" as="list" />
                     </div>
                 </g:hasErrors>
             </div>
             <div class="form-group col-2">
                 <label for="tiempoElaboracion"><g:message code="default.input.plato.tmpElaboracion.label"/></label>
-                <g:field type="number" min="0" step="1" class="form-control" name="tiempoElaboracion" value="${fieldValue(bean: plato,field:"tiempoElaboracion") ?: 0}" />
+                <g:field type="number" min="0" step="1" class="form-control ${hasErrors(bean: plato, field: 'tiempoElaboracion', 'errors') ? "is-invalid" : ""}"
+                         name="tiempoElaboracion" value="${fieldValue(bean: plato,field:"tiempoElaboracion") ?: 0}" />
                 <g:hasErrors bean="${this.plato}" field="tiempoElaboracion">
-                    <div class="errors mx-0 my-1 py-0 rounded" role="alert">
+                    <div class="invalid-feedback">
                         <g:renderErrors bean="${plato}" field="tiempoElaboracion" as="list" />
                     </div>
                 </g:hasErrors>
@@ -99,9 +108,10 @@
             </div>
             <div class="form-group col">
                 <label for="imagenPlato"><g:message code="default.input.platoPicture.label"/></label>
-                <g:field type="file" class="form-control h-auto" name="imagenPlato" />
+                <g:field type="file" class="form-control h-auto ${hasErrors(bean: plato, field: 'imagenPlato', 'errors') ? "is-invalid" : ""}"
+                         name="imagenPlato" />
                 <g:hasErrors bean="${this.plato}" field="imagen">
-                    <div class="errors mx-0 my-1 py-0 rounded" role="alert">
+                    <div class="invalid-feedback">
                         <g:renderErrors bean="${plato}" field="imagen" as="list" />
                     </div>
                 </g:hasErrors>
@@ -118,7 +128,7 @@
         <div class="form-group">
             <g:actionSubmit action="crear" class="btn btn-primary" value="${message(code: 'default.button.create.label', default: 'Create')}" disabled="${plato && plato.id}" />
             <g:actionSubmit action="actualizar" class="btn btn-primary" value="${message(code: 'default.button.update.label', default: 'Modify')}" disabled="${!plato || !plato.id}" />
-            <g:actionSubmit action="eliminar" class="btn btn-danger" value="${message(code: 'default.button.delete.label', default: 'Delete')}" disabled="${!plato || !plato.id}" />
+            <button class="btn btn-danger" type="button" id="btnEliminar" ${(!plato || !plato.id) ? "disabled" : "" }><g:message code="default.button.delete.label"/></button>
             <g:link class="btn btn-primary" controller="admin" action="platos"><g:message code="default.button.reset.label"/></g:link>
         </div>
     </g:form>
@@ -156,12 +166,26 @@
 
 <g:applyLayout name="pie" />
 <g:javascript>
-    // Select2 desplegable
-    $(document).ready(function() {
-        $('#alergenos').select2({
-            closeOnSelect: false
+    (function() {
+        // Select2 desplegable
+        $(document).ready(function () {
+            $('#alergenos').select2({
+                closeOnSelect: false
+            });
         });
-    });
+
+        let btnBorrar = document.getElementById('btnEliminar')
+        if(btnBorrar) {
+            btnBorrar.addEventListener('click', () => {
+                alertUtils(
+                    "${message(code: "default.plato.eliminarConfirmar.message")}",
+                    "danger",
+                    "${message(code: "default.plato.eliminarConfirmar.titulo.message")}",
+                    "window.location.replace('/plato/eliminar/${plato?.id ?: ''}')"
+                )
+            })
+        }
+    })()
 </g:javascript>
 </body>
 </html>
