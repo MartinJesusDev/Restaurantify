@@ -110,3 +110,49 @@ function  alertUtils(mensaje, tipo= "primary", titulo = null, callback = null) {
     modal.html(plantilla)
     modal.modal('show')
 }
+
+/**
+ * Imprime la páginación.
+ * @param {String} idCajaPaginacion
+ * @param {String} funcion
+ * @param {Number} total
+ * @param {Number} paginaActual
+ */
+function imprimirPaginacion(idCajaPaginacion, funcion, total, paginaActual = 0){
+    // Obtenemos la caja donde se va a imprimir
+    let cajaPaginacion = document.querySelector(idCajaPaginacion);
+
+    // Creamos un botón por pagina
+    let plantilla = '';
+
+    // Comprobamos si el total paginas no es 0
+    if(total !== 0) {
+        // Añadimos botón anterior
+        plantilla += `
+    <li class="page-item ${(paginaActual === 0) ? 'disabled': ''}">
+    <a class="page-link" aria-label="Previous" onclick="${funcion}(${paginaActual -1})">
+        <span>&laquo;</span>
+    </a>
+    </li>`;
+
+        // Recorremos la lista botones
+        for (let i = 0; i < total; i++) {
+            plantilla += `
+            <li class="page-item ${paginaActual === i ? 'active disabled': ''}">
+            <a class="page-link" aria-label="Previous" onclick="${funcion}(${i})">${i+1}</a>
+            </li>
+            `
+        }
+
+        // Añadimos botón final
+        plantilla += `
+          <li class="page-item ${(paginaActual === total -1) ? 'disabled': ''}">
+            <a class="page-link" aria-label="Next" onclick="${funcion}(${parseInt(paginaActual) + 1})">
+                <span>&raquo;</span>
+            </a>
+          </li>`;
+    }
+
+    // Añadimos el fragmento a la caja paginacion
+    cajaPaginacion.innerHTML = plantilla;
+}

@@ -16,8 +16,8 @@ import java.time.LocalDateTime
 class Pedido {
     // Columnas
     Integer estado
-    LocalDateTime fecha = LocalDateTime.now()
-    LocalDateTime fechaEntrega
+    Date fecha = new Date()
+    Date fechaEntrega
     String direccion
     Float gastosEnvio
     Float total // Calculado mediante la totalidad del pedido
@@ -33,7 +33,7 @@ class Pedido {
                         1, // En proceso de preparación
                         2, // En reparto
                         3] // Completado
-        fechaEntrega min: LocalDateTime.now(), nullable: true
+        fechaEntrega min: new Date(), nullable: true
         direccion blank: false
         gastosEnvio min: 0F
         total min: 0F

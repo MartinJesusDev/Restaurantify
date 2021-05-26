@@ -1,5 +1,6 @@
 package com.restaurantify
 
+import grails.gorm.DetachedCriteria
 import grails.gorm.transactions.Transactional
 
 /**
@@ -73,7 +74,19 @@ class ValoracionService extends DefaultService {
         // Limitamos la paginación maxima (para no poder editarse mediante URL)
         params.max = max
 
-        List<Valoracion> lista = Valoracion.findAllByPlato(p, params)
+        DetachedCriteria<Valoracion> dc = Valoracion.where {
+            plato {
+                eq 'id', p.id
+            }
+        }
+
+        List<Valoracion> lista = dc.list(max: max, offset: params?.offset, sort: "fecha", order: "desc")
+
+
+        //List<Valoracion> lista = Valoracion.findAllByPlato(p, params)
+
+
+
 
         Integer total = Valoracion.countByPlato(p) ?: 0
 

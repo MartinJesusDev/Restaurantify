@@ -27,7 +27,7 @@ class CestaController  {
      * Si no esta logueado redirige al index.
      */
     def index(){
-        render(view: "index")
+        render(view: "cesta")
     }
 
 

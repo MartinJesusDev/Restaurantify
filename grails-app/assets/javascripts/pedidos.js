@@ -288,3 +288,167 @@ async function comprobarPedidos(listaLocal, estado, cajaLista){
     }
 
 }
+
+
+/**
+ * Obtiene
+ */
+async function filtrarPedidosCliente(offset = 0) {
+    // Obtenemos los datos del filtro y páginación
+    let fechaInicio = document.getElementById('fechaInicio').value
+    let fechaFin = document.getElementById('fechaFin').value
+    let estado = document.getElementById('estado').value
+
+
+    // Obtenemos los pedidos mediante el filtro
+    let datos = JSON.stringify({
+        fechaInicio: fechaInicio,
+        fechaFin: fechaFin,
+        estado: estado,
+        offset: offset
+    })
+
+     // Obtenemos los datos
+    let resultado = await obtenerPedidosCliente(datos)
+
+    // Imprimimimos la páginacion
+    let total = resultado.paginas
+    imprimirPedidosCliente(resultado.pedidos)
+    imprimirPaginacion('#cajaPaginacion', "filtrarPedidosCliente", total, offset )
+}
+
+/**
+ * Envia una petición con los filtros.
+ * @param datos {String}
+ */
+async function obtenerPedidosCliente(datos) {
+    try {
+        // Enviamos la petición
+        let peticion = await fetch("/pedidos/cliente",{
+            method: "POST",
+            body: datos,
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+
+        // Esperamos la respuesta y la retornamos
+        return await peticion.json()
+    } catch (e) {}
+
+
+}
+
+/**
+ *
+ * @param pedidos {Array}
+ */
+function imprimirPedidosCliente(pedidos) {
+    // Obtenemos la caja
+    let cajaPedidosCliente = document.getElementById('cajaPedidosCliente')
+
+    // Recorremos los pedidos e imprimimos
+    let plantilla = ''
+    pedidos.forEach((pedido, i) => {
+        // Recorremos los detalles del pedido
+        let detalles = ''
+        pedido.detalles.forEach(dp =>{
+            // Total del plato
+            let total = dp.total
+            total = Math.round(total * 100) / 100
+
+            // Agregamos a la lista detalles
+            detalles += `
+                <li class="border-bottom pl-0 py-2 mt-1">${dp.nombre} - ${dp.unidades} x  ${total}€</li>
+            `
+        })
+
+        // Obtenemos la fecha del pedido en un formato comodo
+        let fechaJS = new Date(pedido.fecha)
+        let fecha = `${fechaJS.getDate()}/${fechaJS.getMonth()+1}/${fechaJS.getFullYear()}`
+
+        // Creamos un badge con el estado del pedido y si esta en espera añadimos botón con la opción de cancelar
+        let pEstado = ''
+        let btnCancelar = ''
+        switch (pedido.estado) {
+            case -1:
+                pEstado = '<span class="badge badge-danger">Cancelado<i class="fas fa-times ml-2"></i></span>'
+                break
+            case 0:
+                pEstado = '<span class="badge badge-secondary">En espera<i class="fas fa-clock ml-2"></i></span>'
+                btnCancelar = `<a class="btn btn-danger" href="/pedido/cancelar/${pedido.id}" 
+                    onclick="return confirm('¿Seguro que desea cancelar el pedido?')">Cancelar</a>`
+                break
+            case 1:
+                pEstado = '<span class="badge badge-info">En preparación<i class="fas fa-hamburger ml-2"></i></span>'
+                break
+            case 2:
+                pEstado = '<span class="badge badge-warning">En reparto<i class="fas fa-truck ml-2"></i></span>'
+                break
+            case 3:
+                pEstado = '<span class="badge badge-primary">Completado<i class="fas fa-check ml-2"></i></span>'
+                break
+        }
+
+        // Comprobamos si tiene fecha de entrega
+        let fechaEntrega = pedido.fechaEntrega
+        let tiempoEntrega
+        if(fechaEntrega !== null){
+            fechaEntrega = new Date(fechaEntrega)
+        } else {
+            fechaEntrega = new Date()
+        }
+        var diffMs = (fechaEntrega - fechaJS); // milliseconds between now & Christmas
+        var diffDays = Math.floor(diffMs / 86400000); // days
+        var diffHrs = Math.floor((diffMs % 86400000) / 3600000); // hours
+        var diffMins = Math.round(((diffMs % 86400000) % 3600000) / 60000); // minutes
+        tiempoEntrega = `${diffHrs}h ${diffMins}min`
+
+
+        plantilla += `
+        <div id="accordion${i}">
+            <div class="card">
+                <div class="card-header bg-dark" id="heading${i}">
+                    <h5 class="mb-0">
+                        <button class="btn btn-primary text-white mr-2" data-toggle="collapse" data-target="#collapse${i}"
+                                aria-expanded="true" aria-controls="collapse${i}">
+                                <i class="fas fa-chevron-down"></i>
+                        </button>
+                        
+                        <span class="d-inline-flex flex-wrap text-white">
+                            <span><span class="d-sm-inline-block d-none ">Pedido:</span> ${fecha}</span>
+                            <span class="ml-2">${pEstado}</span>
+                        </span>
+                    </h5>
+                </div>
+
+                <div id="collapse${i}" class="collapse ${i === 0 ? 'show' : ''}" aria-labelledby="heading${i}" data-parent="#accordion${i}">
+                    <!-- Lista de platos -->
+                    <div class="card-body">
+                        <h3>Información del pedido</h3>
+                        <ul class="list-unstyled mb-4">
+                            <li><b>Dirección entrega: </b>${pedido.direccion}</li>
+                            <li><b>Método pago:</b> Paypal</li>
+                            <li><b>Tiempo transcurrido:</b> ${tiempoEntrega}</li>
+                        </ul>
+                    
+                        <h4>Lista de platos</h4>
+                        <ul class="list-unstyled pl-0 mb-4 col-md-4">${detalles}</ul>
+                        <div>
+                            <p class="mb-0"><b>Total platos:</b> ${pedido.total - pedido.gastosEnvio}€</p>
+                            <p class="mb-0"><b>Gastos de envio:</b> ${pedido.gastosEnvio}€</p>
+                            <h4 class="mb-3"><b>Total: ${pedido.total}€</b></h4>
+                        </div>
+                        <div>
+                            <a class="btn btn-primary" href="/cesta/nuevo/${pedido.id}">Volver a pedir</a>
+                            ${btnCancelar}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        `
+    })
+
+    cajaPedidosCliente.innerHTML = plantilla
+}

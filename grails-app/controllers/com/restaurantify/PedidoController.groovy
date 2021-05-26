@@ -1,8 +1,12 @@
 package com.restaurantify
 
+import grails.databinding.BindingFormat
+import groovy.transform.CompileDynamic
 import groovy.transform.CompileStatic
 import org.springframework.context.MessageSource
 import org.springframework.context.i18n.LocaleContextHolder
+
+import java.time.LocalDateTime
 
 import static org.springframework.http.HttpStatus.*
 
@@ -56,6 +60,19 @@ class PedidoController {
     }
 
     /**
+     * Muestra los pedidos pendientes de completar en el restaurante.
+     */
+    def pedidosCliente(FiltroPedidosBasico fpb) {
+        Map pedidos = pedidoService.pedidosCliente(fpb)
+
+        render(view: "listaPedidos", model: [
+                pedidos: pedidos.lista,
+                total: pedidos.total,
+                paginas: pedidos.paginas
+        ])
+    }
+
+    /**
      * Modifica el estado de un pedido
      */
     def modificarEstado(PedidoCommand pc) {
@@ -73,7 +90,14 @@ class PedidoController {
      * Imprime la pantalla que lista los pedidos para el restaurante.
      */
     def pedidosRestaurante() {
-        render(view: "pedidos")
+        render(view: "pedidosRestaurante")
+    }
+
+    /**
+     * Imprime la pantlla que muestra los pedidos del cliente.
+     */
+    def misPedidos() {
+        render(view: "pedidosCliente")
     }
 
 }
@@ -81,4 +105,22 @@ class PedidoController {
 class PedidoCommand {
     Long id
     Integer estado
+}
+
+@CompileDynamic
+class FiltroPedidosBasico {
+    @BindingFormat("yyyy-MM-dd")
+    Date fechaInicio
+
+    @BindingFormat("yyyy-MM-dd")
+    Date fechaFin
+    Integer estado
+    Integer offset
+
+    static constraints = {
+        fechaInicio nullable: true, blank: true
+        fechaFin nullable: true, blank: true
+        estado nullable: true, blank: true
+        offset nullable: true, blank: true
+    }
 }

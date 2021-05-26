@@ -9,6 +9,10 @@
     --opacidad: 0.85
 }
 
+body {
+    font-size: 1.15rem;
+}
+
 /* Importamos fuentes */
 @font-face {
     font-family: 'DancingScript';
@@ -301,4 +305,16 @@ button.bg-primary:focus {
 .invalid-feedback > ul {
     list-style: none;
     margin-bottom: unset;
+}
+
+@media (min-width: 768px) and (max-width: 991.98px) {
+    body {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 575.98px) {
+    body {
+        font-size: 0.90rem;
+    }
 }

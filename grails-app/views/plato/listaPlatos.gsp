@@ -7,7 +7,7 @@
 </head>
 <body>
 
-<main class="d-flex flex-wrap" style="min-height: 100vh">
+<main class="d-flex flex-wrap mx-xl-5" style="min-height: 100vh">
     <article class="col-lg-3 col-md-12">
         <g:applyLayout name="filtrosPlatos" />
     </article>

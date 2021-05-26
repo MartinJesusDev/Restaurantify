@@ -8,7 +8,7 @@
 </head>
 <body>
 <!-- Sección del formulario --->
-<section class="p-2 bg-white" style="min-height: 80vh">
+<section class="p-2 bg-white mx-xl-5" style="min-height: 80vh">
     <!-- Titulo de la página -->
     <div class="card">
         <h3 class="card-header bg-dark text-white font-titulo">

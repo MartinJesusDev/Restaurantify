@@ -2,6 +2,7 @@ package com.restaurantify
 
 import grails.gorm.DetachedCriteria
 import grails.gorm.transactions.Transactional
+import org.grails.datastore.mapping.query.Query
 
 /**
  * Clase servicios que controla el acceso a base de datos para el Dominio Cesta.
@@ -73,6 +74,51 @@ class PedidoService {
     }
 
     /**
+     *  Lista los pedidos del cliente dados unos parametros de busqueda.
+     * @param estado
+     * @return
+     */
+    Map pedidosCliente(FiltroPedidosBasico fpb, max = 10) {
+        // Obtenemos el cliente que pide los datos
+        Cliente cli = clienteService.clienteSession()
+
+        // Obtenemos los pedidos
+        DetachedCriteria<Pedido> query = Pedido.where {
+            cliente {
+                eq 'id', cli.id
+            }
+        } as DetachedCriteria
+
+        // Comprobamos si especifico el estado
+        if(fpb.estado != null) {
+            query = query.where {eq 'estado', fpb.estado}
+        }
+
+        /**
+         * Comprobamos si especifico ambas fechas
+         */
+        if(fpb.fechaInicio && fpb.fechaFin) {
+            query = query.where {
+                  between 'fecha', fpb.fechaInicio, fpb.fechaFin +1
+            }
+        } else {
+            // Comprobamos si tiene al menos una
+            if (fpb.fechaInicio) {
+                query = query.where {ge 'fecha', fpb.fechaInicio}
+            } else if (fpb.fechaFin) {
+                query = query.where {le 'fecha', fpb.fechaFin}
+            }
+        }
+
+        // Obtenemos varios totales
+        Integer total = (Integer) query.count()
+        Integer totalPaginas = (Integer) (total / max)
+
+        List<Pedido> pedidos = query.list([max: max, offset: fpb.offset, sort: "fecha", order: "desc"])
+        return [total: total, lista: pedidos, paginas: totalPaginas]
+    }
+
+    /**
      * Cambia el estado de un pedido.
      * @param id
      * @param estado
@@ -83,5 +129,12 @@ class PedidoService {
         Pedido.where {
             id == pc.id
         }.updateAll(estado: pc.estado)
+
+        // Si se ha completado el pedido guardamos la fecha de entra
+        if(pc.estado == 3) {
+            Pedido.where {
+                id == pc.id
+            }.updateAll(fechaEntrega: new Date())
+        }
     }
 }

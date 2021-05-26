@@ -11,4 +11,5 @@ json {
     iva dp.iva
     descuento dp.descuento
     unidades dp.unidades
+    total ((dp.precio * ( 1 - (dp.descuento / 100 ))) * (1 + (dp.iva / 100)))
 }

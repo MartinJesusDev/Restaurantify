@@ -43,7 +43,7 @@
             <!-- Menu navegación -->
             <div class="collapse navbar-collapse ml-lg-3 pb-lg-0 pb-2 menu" id="navbarNav">
                 <div class="d-flex align-menu flex-grow-1">
-                    <ul class="navbar-nav" style="font-size: 1.2em;">
+                    <ul class="navbar-nav" style="font-size: 1.1em;">
                     <li class="nav-item ${request.forwardURI.matches("/") ? "active" : "" }">
                         <g:link class="nav-link d-inline-block" uri="/" >
                             <g:message code="default.title.inicio.label"/>
@@ -96,7 +96,7 @@
                                     <g:link controller="cliente" action="perfil" class="dropdown-item" role="button" >
                                         <g:message code="default.button.cliente.perfil.message" />
                                     </g:link>
-                                    <g:link controller="cliente" action="pedidos" class="dropdown-item" role="button">
+                                    <g:link controller="pedido" action="misPedidos" class="dropdown-item" role="button">
                                         <g:message code="default.button.cliente.pedidos.message" />
                                     </g:link>
                                     <g:link controller="cliente" action="login" class="dropdown-item" role="button">

@@ -22,9 +22,9 @@
             <div class="col-lg-6 ml-lg-5">
         <!-- Info plato -->
         <div class="col mb-4">
-            <h1 class="mb-3 font-titulo">${p.nombre}</h1>
+            <h2 class="mb-3 font-titulo">${p.nombre}</h2>
                 <div class="col-12 p-0">
-                    <p class="text-justify">${p.elaboracion}</p>
+                    <p class="text-justify" style="font-size: 1.1em;">${p.elaboracion}</p>
                 </div>
 
                 <div class="col d-flex d-sm-none justify-content-center align-items-stretch" style="min-height: 100px;">
@@ -116,10 +116,20 @@
                         <!-- Mensaje informativo plato --->
                         <g:if test="${flash?.valoracionMessage}">
                             <g:if test="${flash.error}" >
-                                <div class="ml-0 errors rounded" role="alert"><li><g:message code="${flash.valoracionMessage}" /></li></div>
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    <g:message code="${flash?.valoracionMessage}" />
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
                             </g:if>
                             <g:else>
-                                <div class="ml-0 message rounded" role="status"><g:message code="${flash.valoracionMessage}" /></div>
+                                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                    <g:message code="${flash?.valoracionMessage}" />
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
                             </g:else>
                         </g:if>
 
@@ -172,8 +182,8 @@
                                     <asset:image class="mr-2 rounded" src="clientes/${v.cliente.imagen}" width="40px"/>
                                     <h5>${v.cliente.nombre} ${v.cliente.apellidos}</h5>
                                 </div>
-                                <div >
-                                    <g:message code="default.input.valoraciones.fecha.label"/> ${v.fecha}
+                                <div class="mr-2" >
+                                    ${v.fecha}
                                 </div>
                             </div>
                             <div class="card-body p-3">
@@ -197,7 +207,7 @@
                 <g:if test="${valoraciones.total > valoraciones.lista.size()}">
                     <!-- Paginación -->
                     <nav class="mt-5" aria-label="Paginación de valoraciones">
-                        <tb:paginate class="mx-0 justify-content-center" controller="plato" action="show" params="${[id: p.id]}" total="${valoraciones.total}"/>
+                        <tb:paginate class="mx-0 justify-content-center" controller="plato" action="show" params="${[id: p.id]}" total="${valoraciones.total}" prev="&laquo;" next="&raquo;"/>
                     </nav>
                 </g:if>
             </g:if>
