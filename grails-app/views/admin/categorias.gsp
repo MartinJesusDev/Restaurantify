@@ -7,7 +7,7 @@
 </head>
 <body>
 <!-- Sección del formulario --->
-<section class="p-2 bg-white">
+<section class="px-0 mx-xl-5 mt-2 border rounded bg-light">
     <g:applyLayout name="adminNavbar" />
 
     <!-- Titulo de la página -->
@@ -20,11 +20,11 @@
 
 <!-- Mensaje informativo --->
     <g:if test="${flash.message}">
-        <div class="message rounded col-md-4" role="status"><g:message code="${flash.message}" /></div>
+        <div class="message rounded col" role="status"><g:message code="${flash.message}" /></div>
     </g:if>
 
 <!-- Formulario  -->
-    <g:form controller="categoria" class="col-md-8 mb-4" enctype="multipart/form-data">
+    <g:form controller="categoria" class="col mb-4" enctype="multipart/form-data">
         <g:hiddenField name="id" value="${fieldValue(bean: categoria,field:"id")}" />
         <div class="form-row">
             <div class="form-group col">
@@ -59,7 +59,7 @@
 
 <!-- Listado de categorias -->
     <div class="col">
-        <table class="col table table-stripped table-hover">
+        <table class="col table table-stripped table-hover bg-white border rounded">
             <tr class="thead-dark">
                 <th><g:message code="default.input.name.label" /></th>
                 <th><g:message code="default.input.orden.label" /> </th>

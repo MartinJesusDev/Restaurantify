@@ -11,15 +11,15 @@
 </head>
 <body>
     <!-- Vista de plato --->
-    <section class="col p-2 bg-white mt-3">
+    <section class="col px-0 p-2 bg-white mt-3">
         <!-- Información del plato y agregar a cestra -->
-        <article class="d-flex" style="margin-bottom: 100px;">
+        <article class="d-flex mx-xl-5" style="margin-bottom: 100px;">
             <!-- Imagen plato -->
-            <div class="col-lg-5 d-none d-sm-flex justify-content-center align-items-stretch" style="min-height: 500px;">
-                    <asset:image class="img-fluid d-sm-none d-sm-flex" src="platos/${p.imagen}" />
+            <div class="col-lg-5 d-none d-md-flex justify-content-center align-items-stretch" style="min-height: auto; max-height: 550px;">
+                    <asset:image class="img-fluid d-lg-none d-lg-flex" src="platos/${p.imagen}" />
             </div>
 
-            <div class="col-lg-6 ml-lg-5">
+            <div class="col-lg-6 ml-xl-5">
         <!-- Info plato -->
         <div class="col mb-4">
             <h2 class="mb-3 font-titulo">${p.nombre}</h2>
@@ -88,7 +88,7 @@
         </article>
 
         <!-- Valoraciones del platos --->
-        <article class="d-flex flex-row flex-wrap justify-content-between">
+        <article class="d-flex mx-xl-5 flex-row flex-wrap justify-content-between">
             <div class="col-lg-4 col-12 ml-lg-2 mb-5">
                 <div class="position-sticky" style="top: 100px;">
                     <!-- Titulo y valoraciones totales -->

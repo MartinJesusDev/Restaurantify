@@ -7,18 +7,18 @@
 </head>
 <body>
 <!-- Sección del formulario --->
-<section class="p-2 bg-white">
+<section class="px-0 mt-2 bg-white mx-xl-5 bg-light border rounded">
     <g:applyLayout name="adminNavbar" />
 
     <!-- Titulo de la página -->
-    <div class="p-3">
+    <div class="p-3 bg-light">
         <h2 class="align-titulo font-titulo">
             <g:message code="default.title.platos.label"/>
         </h2>
     </div>
 
 <!-- Formulario  -->
-    <g:form controller="plato" class="col mb-4" enctype="multipart/form-data">
+    <g:form controller="plato" class="col pb-2 bg-light" enctype="multipart/form-data">
         <!-- Mensaje informativo --->
         <g:if test="${flash.message}">
             <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -134,8 +134,8 @@
     </g:form>
 
 <!-- Listado de platos -->
-    <div class="col">
-        <table class="col table table-stripped table-hover">
+    <div class="col bg-light">
+        <table class="col table table-stripped table-hover bg-white border rounded">
             <tr class="thead-dark">
                 <th><g:message code="default.input.platoPicture.label" /> </th>
                 <th><g:message code="default.input.name.label" /></th>

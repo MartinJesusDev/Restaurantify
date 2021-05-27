@@ -60,4 +60,11 @@ class AdminController {
                     plato: plato
                 ])
     }
+
+    /**
+     * Imprime las vista de las ventas.
+     */
+    def ventas() {
+
+    }
 }
