@@ -11,6 +11,27 @@
 <section class="p-2 bg-white mx-xl-5" style="min-height: 80vh">
     <!-- Titulo de la página -->
     <div class="card">
+        <div>
+        <!-- Mensaje informativo plato --->
+            <g:if test="${flash.message}">
+                <g:if test="${flash.error}" >
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <g:message code="${flash.message}" />
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                </g:if>
+                <g:else>
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <g:message code="${flash.message}" />
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                </g:else>
+            </g:if>
+        </div>
         <h3 class="card-header bg-dark text-white font-titulo">
             <g:message code="default.title.cesta.label"/>
         </h3>

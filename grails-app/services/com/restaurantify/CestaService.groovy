@@ -108,4 +108,28 @@ class CestaService extends DefaultService{
         return Cesta.findAllByCliente(clienteService.clienteSession()).sort {it?.id}
     }
 
+    /**
+     * Crea una nueva cesta apartir de un pedido.
+     * @param id
+     */
+    @Transactional
+    void nueva(Long id) {
+        // Vaciamos la cesta
+        vaciar()
+
+        // Obtenemos el cliente
+        Cliente cli  = clienteService.clienteSession()
+
+        // OBtenemos el pedido
+        Pedido p = Pedido.get(id)
+
+        // Recorremos los detalles del pedido y añadimos a la cesta
+        p.detalles.each {dp ->
+            // Comprobamos si existe el plato y si esta disponible
+            if(Plato.exists(dp.plato.id) && Plato.load(dp.plato.id).disponible) {
+                new Cesta(cliente: cli, plato: dp.plato, unidades: dp.unidades).save()
+            }
+        }
+
+    }
 }

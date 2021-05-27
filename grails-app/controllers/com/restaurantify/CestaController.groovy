@@ -87,6 +87,22 @@ class CestaController  {
         def msg = messageSource.getMessage("default.cesta.eliminado.message", [] as Object[], 'Default Message', LocaleContextHolder.locale)
         respond([message: msg], status: OK)
     }
+
+    /**
+     * Crea un cesta para el cliente dado un id de pedido.
+     * @param id
+     */
+    def nuevo(Long id) {
+        try {
+            cestaService.nueva(id)
+            flash.message = "default.pedido.copiado.message"
+            redirect(controller: "cesta", action: "index")
+        } catch(Exception e) {
+            flash.error = true
+            flash.message = "default.pedido.noCopiado.message"
+            redirect(controller: "cesta", action: "index")
+        }
+    }
 }
 
 class CestaCommand {
