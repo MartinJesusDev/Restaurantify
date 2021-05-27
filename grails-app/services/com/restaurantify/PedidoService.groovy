@@ -3,6 +3,8 @@ package com.restaurantify
 import grails.gorm.DetachedCriteria
 import grails.gorm.transactions.Transactional
 import org.grails.datastore.mapping.query.Query
+import org.springframework.context.MessageSource
+import org.springframework.context.i18n.LocaleContextHolder
 
 /**
  * Clase servicios que controla el acceso a base de datos para el Dominio Cesta.
@@ -13,6 +15,8 @@ import org.grails.datastore.mapping.query.Query
 class PedidoService {
     CestaService cestaService
     ClienteService clienteService
+
+    MessageSource messageSource
 
     /**
      * Crea un pedido, con sus detalles, en la base de datos,
@@ -125,6 +129,13 @@ class PedidoService {
      */
     @Transactional
     void cambiarEstado(PedidoCommand pc) {
+        // Comprobamos si se quiere cambiar a un estado permitido
+        Pedido pn = Pedido.get(pc.id)
+        if(pn.estado != 0 && pc.estado == -1) {
+            def msg = messageSource.getMessage('default.pedido.noModificado.message', [] as Object[], 'Default Message', LocaleContextHolder.locale)
+            throw new Exception(msg)
+        }
+
         // Cambiamos el estado del pedido.
         Pedido.where {
             id == pc.id

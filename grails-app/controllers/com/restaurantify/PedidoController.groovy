@@ -79,7 +79,7 @@ class PedidoController {
         try {
             pedidoService.cambiarEstado(pc)
         } catch(Exception e) {
-            respond([message: "BAD"], status: CONFLICT, formats: ['json'])
+            respond([message: e], status: CONFLICT, formats: ['json'])
         }
         // Si fue bien mandamos el mensaje
         def msg = messageSource.getMessage("default.pedido.modificado.message", [] as Object[], 'Default Message', LocaleContextHolder.locale)

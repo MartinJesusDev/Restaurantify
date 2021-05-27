@@ -63,7 +63,7 @@ function imprimirResultado(respuesta, elemento = null, autoHide = false, ms = 30
  * @param {String} titulo
  * @param {String} callback
  */
-function  alertUtils(mensaje, tipo= "primary", titulo = null, callback = null) {
+async function  alertUtils(mensaje, tipo= "primary", titulo = null, callback = null) {
     if(!titulo) {
         switch (tipo) {
             case "danger":

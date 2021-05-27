@@ -158,7 +158,6 @@ async function obtenerPedidos(estado = "") {
  *  Cambia el estado del pedido seleccionado.
  * @param {Number} idPedido
  * @param {Number} estado
- * @return {Boolean}
  */
 async function cambiarEstado(idPedido, estado) {
     let datos = JSON.stringify({
@@ -166,13 +165,22 @@ async function cambiarEstado(idPedido, estado) {
         estado: estado,
     })
 
-     return fetch("/pedidos/estado", {
-        method: "PUT",
-        body: datos,
-        headers: {
-            'Content-Type': 'application/json'
+    try {
+         let respuesta = await fetch("/pedidos/estado", {
+            method: "PUT",
+            body: datos,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+
+        if (!respuesta.ok) {
+            await alertUtils("Error al actulizar el pedido, recarge la página", "danger", "Error")
         }
-    }).then(respuesta => respuesta.ok )
+
+    } catch (e) {
+
+    }
 }
 
 /**
