@@ -31,7 +31,7 @@
 
         <g:hiddenField name="id" value="${fieldValue(bean: plato,field:"id")}" />
         <div class="form-row">
-            <div class="form-group col">
+            <div class="form-group col-md-4">
                 <label for="nombre"><g:message code="default.input.name.label"/></label>
                 <g:textField class="form-control ${hasErrors(bean: plato, field: 'nombre', 'errors') ? "is-invalid" : ""}"
                              name="nombre" value="${fieldValue(bean: plato,field:"nombre")}"/>
@@ -42,7 +42,7 @@
                 </g:hasErrors>
 
             </div>
-            <div class="form-group col-2">
+            <div class="form-group col-md-2 col-6">
                 <label for="precio"><g:message code="default.input.precio.label"/></label>
                 <g:textField type="number"  step="0.01" class="form-control ${hasErrors(bean: plato, field: 'precio', 'errors') ? "is-invalid" : ""}"
                              name="precio" value="${fieldValue(bean: plato, field:"precio") ?: 0}" />
@@ -53,7 +53,7 @@
                 </g:hasErrors>
             </div>
 
-            <div class="form-group col-2">
+            <div class="form-group col-md-2 col-6">
                 <label for="iva"><g:message code="default.input.plato.iva.label"/></label>
                 <g:textField type="number" min="0" step="0.1" class="form-control ${hasErrors(bean: plato, field: 'iva', 'errors') ? "is-invalid" : ""}"
                              name="iva" value="${fieldValue(bean: plato,field:"iva") ?: 0}" />
@@ -64,7 +64,7 @@
                 </g:hasErrors>
             </div>
 
-            <div class="form-group col-2">
+            <div class="form-group col-md-2 col-6">
                 <label for="descuento"><g:message code="default.input.plato.descuento.label"/></label>
                 <g:textField type="number" min="0" step="0.1" class="form-control ${hasErrors(bean: plato, field: 'descuento', 'errors') ? "is-invalid" : ""}"
                              name="descuento" value="${fieldValue(bean: plato,field:"descuento") ?: 0}" />
@@ -74,7 +74,7 @@
                     </div>
                 </g:hasErrors>
             </div>
-            <div class="form-group col-2">
+            <div class="form-group col-md-2 col-6">
                 <label for="tiempoElaboracion"><g:message code="default.input.plato.tmpElaboracion.label"/></label>
                 <g:field type="number" min="0" step="1" class="form-control ${hasErrors(bean: plato, field: 'tiempoElaboracion', 'errors') ? "is-invalid" : ""}"
                          name="tiempoElaboracion" value="${fieldValue(bean: plato,field:"tiempoElaboracion") ?: 0}" />
@@ -84,29 +84,22 @@
                     </div>
                 </g:hasErrors>
             </div>
-            <div class="form-group d-flex justify-content-center align-items-center col-1">
-                <label class="col-form-label" for="disponible"><g:message code="default.input.disponible"/></label>
-                <g:checkBox  class="check-box" name="disponible" checked="${plato?.disponible}" />
-            </div>
-        </div>
-
-        <div class="form-row" >
-            <div class="form-group col">
+            <div class="form-group col-md-4 col-12">
                 <label for="categoria"><g:message code="default.input.plato.categoria.selectdefault.label"/></label>
                 <g:select class="custom-select" name="categoria" optionKey="id" optionValue="nombre" from="${listadoCategorias}"
                           value="${fieldValue(bean: plato, field:"categoria.id")}" />
             </div>
 
-            <div class="form-group col">
+            <div class="form-group col-md-4 col-12">
                 <label for="alergenos"><g:message code="default.input.plato.alergenos.selectdefault.label"/></label>
                 <g:select class="custom-select" name="alergenos" optionKey="id" optionValue="nombre" from="${listadoAlergenos}"
                           multiple="multiple" value="${plato?.alergenos*.id}"
                 />
             </div>
-            <div class="form-group d-flex justify-content-center align-items-center border rounded col-auto mx-2">
+            <div class="form-group d-flex justify-content-center align-items-center border rounded col-md-auto col-2 ml-2">
                 <asset:image src="platos/${plato?.imagen ?: "img_plato.png"}" class="p-2 pop" width="50px" heigh="50px" />
             </div>
-            <div class="form-group col">
+            <div class="form-group col-md-2 col-9">
                 <label for="imagenPlato"><g:message code="default.input.platoPicture.label"/></label>
                 <g:field type="file" class="form-control h-auto ${hasErrors(bean: plato, field: 'imagenPlato', 'errors') ? "is-invalid" : ""}"
                          name="imagenPlato" />
@@ -115,6 +108,10 @@
                         <g:renderErrors bean="${plato}" field="imagen" as="list" />
                     </div>
                 </g:hasErrors>
+            </div>
+            <div class="form-group d-flex justify-content-center align-items-center col-md-1 col-3">
+                <label class="col-form-label" for="disponible"><g:message code="default.input.disponible"/></label>
+                <g:checkBox  class="check-box" name="disponible" checked="${plato?.disponible}" />
             </div>
         </div>
 
@@ -135,7 +132,7 @@
 
 <!-- Listado de platos -->
     <div class="col bg-light">
-        <table class="col table table-stripped table-hover bg-white border rounded">
+        <table class="col table table-stripped table-hover bg-white border rounded table-responsive-md">
             <tr class="thead-dark">
                 <th><g:message code="default.input.platoPicture.label" /> </th>
                 <th><g:message code="default.input.name.label" /></th>

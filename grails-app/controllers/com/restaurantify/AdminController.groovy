@@ -1,6 +1,7 @@
 package com.restaurantify
 
 import groovy.transform.CompileStatic
+import groovy.time.TimeCategory
 
 /**
  * Clase controlador para la administración, que contrala las peticiones y errores.
@@ -65,6 +66,10 @@ class AdminController {
      * Imprime las vista de las ventas.
      */
     def ventas() {
-
+        Date fecha = new Date() -31
+        String fechaInicio = fecha.format("yyyy-MM-dd")
+        render view: "ventas", model: [
+                fechaInicio: fechaInicio
+        ]
     }
 }

@@ -13,17 +13,17 @@
     <article class="row px-3 mt-2">
         <div class="col-3">
             <h2 class="card-header bg-dark text-white"><i class="fas fa-clock mr-2"></i><g:message code="default.input.pedido.enEspera.labe"/></h2>
-            <div class="list-group border p-2 overflow-auto" id="pedidosEnEspera" style="height: 80vh; ">
+            <div class="list-group bg-light border p-2 overflow-auto" id="pedidosEnEspera" style="height: 80vh; ">
             </div>
         </div>
         <div class="col-3">
             <h2 class="card-header bg-dark text-white"><i class="fas fa-hamburger mr-2"></i><g:message code="default.input.pedido.enPreparacion.labe"/></h2>
-            <div class="list-group border p-2 overflow-auto" id="pedidosEnPreparacion" style="height: 80vh; ">
+            <div class="list-group bg-light border p-2 overflow-auto" id="pedidosEnPreparacion" style="height: 80vh; ">
             </div>
         </div>
         <div class="col-3">
             <h2 class="card-header bg-dark text-white"><i class="fas fa-truck mr-2"></i><g:message code="default.input.pedido.enReparto.labe"/></h2>
-            <div class="list-group border p-2 overflow-auto" id="pedidosEnReparto" style="height: 80vh; ">
+            <div class="list-group bg-light border p-2 overflow-auto" id="pedidosEnReparto" style="height: 80vh; ">
             </div>
         </div>
         <div class="col-3 d-flex flex-column justify-content-between" style="height: 80vh;">

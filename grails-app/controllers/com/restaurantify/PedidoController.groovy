@@ -100,6 +100,19 @@ class PedidoController {
         render(view: "pedidosCliente")
     }
 
+    /**
+     * Imprime un JSON con las ventas.
+     */
+    def ventas(FiltroVentasAvanzado fva) {
+        Map ventas = pedidoService.ventas(fva)
+
+        render(view: "listaPedidos", model: [
+                pedidos: ventas.lista,
+                total: ventas.total,
+                paginas: ventas.paginas
+        ])
+    }
+
 }
 
 class PedidoCommand {
@@ -107,7 +120,6 @@ class PedidoCommand {
     Integer estado
 }
 
-@CompileDynamic
 class FiltroPedidosBasico {
     @BindingFormat("yyyy-MM-dd")
     Date fechaInicio
@@ -122,5 +134,31 @@ class FiltroPedidosBasico {
         fechaFin nullable: true, blank: true
         estado nullable: true, blank: true
         offset nullable: true, blank: true
+    }
+}
+
+class FiltroVentasAvanzado {
+    String cliente
+    Float totalMin
+    Float totalMax
+
+    @BindingFormat("yyyy-MM-dd")
+    Date fechaInicio
+
+    @BindingFormat("yyyy-MM-dd")
+    Date fechaFin
+    Integer offset
+    String sort = "fecha"
+    String order = "desc"
+
+    static constraints = {
+        cliente nullable: true, blank: true
+        totalMin nullable: true, blank: true
+        totalMax nullable: true, blank: true
+        fechaInicio nullable: true, blank: true
+        fechaFin nullable: true, blank: true
+        offset nullable: true, blank: true
+        sort nullable: true, blank: true
+        order nullable: true, blank: true
     }
 }

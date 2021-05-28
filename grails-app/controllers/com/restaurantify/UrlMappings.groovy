@@ -20,6 +20,7 @@ class UrlMappings {
             get "/lista/$estado"(controller:  "pedido", action: "pedidos")
             put "/estado"(controller:  "pedido", action: "modificarEstado")
             post "/cliente"(controller: "pedido", action: "pedidosCliente")
+            post "/ventas"(controller: "pedido", action: "ventas")
         }
 
         "/"(view:"/index")

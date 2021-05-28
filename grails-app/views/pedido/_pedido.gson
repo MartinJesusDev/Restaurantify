@@ -14,5 +14,6 @@ json {
     estado pedido.estado
     idCliente pedido.cliente.id
     clienteNombre pedido.cliente.nombre
+    clienteEmail pedido.cliente.email
     detalles g.render(template: "detallePedido", collection: pedido.detalles, var: "dp")
 }

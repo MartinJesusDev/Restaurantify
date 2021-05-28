@@ -299,7 +299,7 @@ async function comprobarPedidos(listaLocal, estado, cajaLista){
 
 
 /**
- * Obtiene
+ * Obtiene las ventas del cliente mediante filtro.
  */
 async function filtrarPedidosCliente(offset = 0) {
     // Obtenemos los datos del filtro y páginación

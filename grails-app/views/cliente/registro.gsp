@@ -7,7 +7,7 @@
 </head>
 <body>
     <!-- Sección del formulario --->
-    <section class="p-2 bg-white">
+    <section class="p-2 bg-white mx-xl-5">
         <!-- Titulo de la página -->
         <div class="col mb-3">
             <h2 class="align-titulo p-3 bg-light font-titulo">

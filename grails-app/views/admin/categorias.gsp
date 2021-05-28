@@ -27,7 +27,7 @@
     <g:form controller="categoria" class="col mb-4" enctype="multipart/form-data">
         <g:hiddenField name="id" value="${fieldValue(bean: categoria,field:"id")}" />
         <div class="form-row">
-            <div class="form-group col">
+            <div class="form-group col-md-6">
                 <label for="nombre"><g:message code="default.input.name.label"/></label>
                 <g:textField class="form-control ${hasErrors(bean: categoria, field: 'nombre', 'errors') ? "is-invalid" : ""}"
                              name="nombre" value="${fieldValue(bean: categoria,field:"nombre")}"/>
@@ -37,7 +37,7 @@
                     </div>
                 </g:hasErrors>
             </div>
-            <div class="form-group col">
+            <div class="form-group col-md-6">
                 <label for="orden"><g:message code="default.input.orden.label"/></label>
                 <g:field type="number" class="form-control ${hasErrors(bean: categoria, field: 'orden', 'errors') ? "is-invalid" : ""}"
                          name="orden" min="1" value="${fieldValue(bean: categoria,field:"orden")}" />
@@ -59,7 +59,7 @@
 
 <!-- Listado de categorias -->
     <div class="col">
-        <table class="col table table-stripped table-hover bg-white border rounded">
+        <table class="col table table-stripped table-hover bg-white border rounded table-responsive-md">
             <tr class="thead-dark">
                 <th><g:message code="default.input.name.label" /></th>
                 <th><g:message code="default.input.orden.label" /> </th>

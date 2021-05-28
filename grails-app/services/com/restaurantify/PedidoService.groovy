@@ -79,7 +79,6 @@ class PedidoService {
 
     /**
      *  Lista los pedidos del cliente dados unos parametros de busqueda.
-     * @param estado
      * @return
      */
     Map pedidosCliente(FiltroPedidosBasico fpb, max = 10) {
@@ -118,8 +117,64 @@ class PedidoService {
         Integer total = (Integer) query.count()
         Integer totalPaginas = (Integer) (total / max)
 
-        List<Pedido> pedidos = query.list([max: max, offset: fpb.offset, sort: "fecha", order: "desc"])
+        List<Pedido> pedidos = query.list([max: max, offset: fpb.offset * max, sort: "fecha", order: "desc"])
         return [total: total, lista: pedidos, paginas: totalPaginas]
+    }
+
+    /**
+     * Lista las ventas del restaurante dados los filtros.
+     * @param estado
+     * @return
+     */
+    Map ventas(FiltroVentasAvanzado fva, max = 5) {
+        // Obtenemos las ventas con los parametros
+        DetachedCriteria<Pedido> query = Pedido.where {
+            if(fva.cliente) {
+                cliente {
+                    or {
+                        ilike('nombre', "%$fva.cliente%")
+                        ilike('email', "%$fva.cliente%")
+                    }
+                }
+            }
+
+            eq('estado', 3)
+
+            // Comprobamos la fecha deseada
+            if(fva.fechaInicio && fva.fechaFin) {
+                between('fecha', fva.fechaInicio, fva.fechaFin)
+            } else {
+                if (fva.fechaInicio) {
+                    ge('fecha', fva.fechaInicio)
+                } else if (fva.fechaFin) {
+                    le('fecha', fva.fechaFin)
+                }
+            }
+
+            // Comprobamos el total min y maximo
+            if(fva.totalMin && fva.totalMax) {
+                between('total', fva.totalMin, fva.totalMax)
+            } else {
+                if (fva.totalMin) {
+                    ge('total', fva.totalMin)
+                } else if (fva.totalMax) {
+                    le('total', fva.totalMax)
+                }
+            }
+
+        } as DetachedCriteria<Pedido>
+
+        // Obtenemos varios totales
+        Integer total = (Integer) query.count()
+        Integer totalPaginas = (Integer) (total / max)
+
+        List<Pedido> ventas = query.list([
+                max: max,
+                offset: fva.offset * max,
+                sort: fva.sort,
+                order: fva.order
+        ])
+        return [total: total, lista: ventas, paginas: totalPaginas]
     }
 
     /**

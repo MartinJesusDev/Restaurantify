@@ -27,7 +27,7 @@
     <g:form controller="alergeno" class="col mb-4" enctype="multipart/form-data">
         <g:hiddenField name="id" value="${fieldValue(bean: alergeno,field:"id")}" />
         <div class="form-row">
-            <div class="form-group col">
+            <div class="form-group col-md-6">
                 <label for="nombre"><g:message code="default.input.name.label"/></label>
                 <g:textField class="form-control ${hasErrors(bean: alergeno, field: 'nombre', 'errors') ? "is-invalid" : ""}"
                              name="nombre" value="${fieldValue(bean: alergeno,field:"nombre")}"/>
@@ -40,7 +40,7 @@
             <div class="form-group d-flex justify-content-center align-items-center border rounded col-auto mx-2">
                 <asset:image src="alergenos/${alergeno?.imagen ?: "img_alergeno.png"}" class="p-2 pop" width="50px" heigh="50px" />
             </div>
-            <div class="form-group col">
+            <div class="form-group col-md-5 col-9">
                 <label for="imagenAlergeno"><g:message code="default.input.alergenoPicture.label"/></label>
                 <g:field type="file" class="form-control h-auto ${hasErrors(bean: alergeno, field: 'imagen', 'errors') ? "is-invalid" : ""}"
                          name="imagenAlergeno" />
@@ -62,7 +62,7 @@
 
     <!-- Listado de alergenos -->
     <div class="col">
-        <table class="col table table-hover bg-white border rounded">
+        <table class="col table table-hover bg-white border rounded table-responsive-md">
             <tr class="thead-dark">
                 <th><g:message code="default.input.imagen.label" /> </th>
                 <th><g:message code="default.input.name.label" /></th>
