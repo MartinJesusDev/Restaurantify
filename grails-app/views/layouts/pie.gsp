@@ -20,6 +20,11 @@
 <!-- Dependencias de la aplicación -->
 <asset:javascript src="application.js" />
 
+<g:if test="${session?.cliente}" >
+    <!-- Cargamos la cesta del cliente -->
+    <g:javascript>cargarCesta()</g:javascript>
+</g:if>
+
 <g:javascript>
     // Modal para imagen
     $(function() {

@@ -11,6 +11,7 @@ let cesta = [];
  */
 async function cargarCesta() {
     obtenerCesta().then((data) => {
+        imprimirContadorCesta()
         imprimirCesta()
         imprimirTotalPedido()
     })
@@ -48,6 +49,17 @@ function agregar(idCliente, idPlato, unidades) {
                 message: xhr.responseJSON.message,
                 error: error
             }
+
+            // Recarga la cesta para calcular los nuevos datos
+            if(!error) {
+                cesta.forEach((c)=>{
+                    if(c.plato.id === idPlato){
+                        c.unidades += parseInt(unidades)
+                        imprimirContadorCesta()
+                    }
+                })
+            }
+
             imprimirResultado(data)
         }
     })
@@ -85,6 +97,11 @@ async function imprimirCesta() {
     // OBtenemos la caja de la cesta
     let cajaCesta = $('#cestaCompra')
     let cestaVacia = $('#cestaVacia')
+
+    // Si no existen las cajas, no continuamos
+    if(!cajaCesta.length || !cestaVacia.length) {
+        return
+    }
 
     // Comprobamos si hubo error para mostrarlo o mostrar los platos
     let plantilla = '';
@@ -178,19 +195,32 @@ function calcularTotal() {
  * Imprime el total del pedido en la caja.
  */
 function imprimirTotalPedido() {
-    if(cesta.length > 0) {
+    let cajaResumen = $('#cajaResumenPedido')
+    if(cesta.length > 0 && cajaResumen.length) {
         // Calcula los datos
         let datos = calcularTotal()
 
         // Imprime los valores
-        $('#cajaResumenPedido').removeClass(['d-none'])
+        cajaResumen.removeClass(['d-none'])
         $('#gastosEnvio').text(datos.gastosEnvio)
         $('#totalPlatos').text(datos.totalPedido)
         $('#totalPlatosSup').text(datos.totalPedido)
         $('#totalPedido').text(datos.total)
     } else {
-        $('#cajaResumenPedido').addClass(['d-none'])
+        cajaResumen.addClass(['d-none'])
     }
+}
+
+/**
+ * Recorre el total de platos del pedido y los imprime.
+ */
+function imprimirContadorCesta() {
+    // Obtenemos el total de platos
+    let total = 0
+    cesta.forEach(c => {total += c.unidades})
+
+    // Imprimimos el total en el btn cesta de la cabecera
+    document.querySelector('#contadorCesta').innerHTML = total
 }
 
 /**
@@ -217,6 +247,7 @@ function actualizarCesta(idCesta, unidades) {
             })
             // Refresca el total del pedido.
             imprimirTotalPedido()
+            imprimirContadorCesta()
         }
     })
 }
@@ -235,6 +266,7 @@ function eliminarPlatoCesta(idCesta) {
             obtenerCesta().then(()=>{
                 document.querySelector(`#itemCesta${idCesta}`).remove()
                 imprimirTotalPedido()
+                imprimirContadorCesta()
                 if (cesta.length === 0) {imprimirCesta()}
             })
         }

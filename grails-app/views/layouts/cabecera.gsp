@@ -82,7 +82,8 @@
                         <!-- Panel para cliente identificados -->
                         <div class="btn-group" role="group">
                             <g:link class="btn btn-primary" controller="cesta" role="button">
-                                <i class="fas fa-shopping-cart mr-2"></i><g:message code="default.button.cesta.message" />
+                                <i class="fas fa-shopping-cart mr-2"></i>
+                                <span class="badge badge-dark" id="contadorCesta"></span>
                             </g:link>
 
                         <!-- Menu herramientas cliente -->

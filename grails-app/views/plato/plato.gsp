@@ -248,7 +248,5 @@
     }())
 </g:javascript>
 
-<!-- Cargamos js para la cesta -->
-<asset:javascript src="cesta.js" />
 </body>
 </html>

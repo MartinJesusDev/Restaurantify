@@ -9,6 +9,7 @@
 //= require popper.min
 //= require bootstrap.min
 //= require select2.min
+//= require cesta
 //= require_self
 
 

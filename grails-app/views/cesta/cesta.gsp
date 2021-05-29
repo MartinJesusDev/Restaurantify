@@ -109,12 +109,8 @@
 
 <g:applyLayout name="pie" />
 
-<!-- Cargamos js para la cesta -->
-<asset:javascript src="cesta.js" />
 <script>
     (function(){
-        cargarCesta();
-
         let btnPedido = document.getElementById('realizarPedido')
         if(btnPedido) {
             btnPedido.addEventListener('click', () => {
