@@ -70,8 +70,9 @@ class ValoracionService extends DefaultService {
      * @param p de plato
      * @return lista de valoraciones
      */
-    def listar (Plato p, def Integer max = 10) {
+    def listar (Plato p) {
         // Limitamos la paginación maxima (para no poder editarse mediante URL)
+        Integer max =  webSettingsService.obtenerAjustes().valoracionesPorPagina
         params.max = max
 
         DetachedCriteria<Valoracion> dc = Valoracion.where {

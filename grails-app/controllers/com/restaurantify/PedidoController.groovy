@@ -73,6 +73,16 @@ class PedidoController {
     }
 
     /**
+     * Cancela el pedido de un cliente dado el id.
+     * @return
+     */
+    def cancelar(Long id) {
+        PedidoCommand pc = new PedidoCommand(id: id, estado: -1)
+        pedidoService.cambiarEstado(pc)
+        redirect(controller: "pedido", action: "misPedidos")
+    }
+
+    /**
      * Modifica el estado de un pedido
      */
     def modificarEstado(PedidoCommand pc) {

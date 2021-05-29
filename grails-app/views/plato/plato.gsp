@@ -1,4 +1,8 @@
-<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ page import="com.restaurantify.WebSettingsService" contentType="text/html;charset=UTF-8" %>
+<%
+    WebSettingsService settingsService = grailsApplication.classLoader.loadClass('com.restaurantify.WebSettingsService').newInstance()
+    Map settings = settingsService.obtenerAjustes()
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -70,7 +74,7 @@
                 <h4><label for="unidades"><g:message code="default.input.cesta.unidades.label"/> </label></h4>
                 <div class="form-row">
                     <div class="form-group">
-                        <g:select class="custom-select" name="unidades" from="${1..10}" style="width: 100px;" />
+                        <g:select class="custom-select" name="unidades" from="${1..settings.maxPlatosPedido}" style="width: 100px;" />
                     </div>
                     <div class="form-group">
                         <button class="btn btn-primary" type="button"

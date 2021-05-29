@@ -20,7 +20,12 @@
 
 <!-- Mensaje informativo --->
     <g:if test="${flash.message}">
-        <div class="message rounded col" role="status"><g:message code="${flash.message}" /></div>
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <g:message code="${flash.message}" />
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
     </g:if>
 
 <!-- Formulario  -->

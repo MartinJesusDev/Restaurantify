@@ -20,7 +20,9 @@ class CestaService extends DefaultService{
      * @param vc
      */
     @Transactional
-    void agregar(Cesta cesta, maxUnidades = 10) {
+    void agregar(Cesta cesta) {
+        Integer maxUnidades = webSettingsService.obtenerAjustes().maxPlatosPedido as Integer
+
         // Comprobamos si ya existe en la DDBB
         Cesta cdb = Cesta.findByPlatoAndCliente(cesta.plato, cesta.cliente)
         if(cdb){
@@ -46,7 +48,9 @@ class CestaService extends DefaultService{
      * Si se llega a 0 unidades se elimina de la cesta.
      */
     @Transactional
-    void modificar(CestaCommand cm, Integer maxUnidades = 10){
+    void modificar(CestaCommand cm){
+        Integer maxUnidades = webSettingsService.obtenerAjustes().maxPlatosPedido as Integer
+
         // Obtenemos la cesta en la base de datos
         Cesta cdb = Cesta.findById(cm.id)
 

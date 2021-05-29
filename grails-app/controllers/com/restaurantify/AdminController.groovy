@@ -16,6 +16,7 @@ class AdminController {
     CategoriaService categoriaService
     AlergenoService alergenoService
     PlatoService platoService
+    WebSettingsService webSettingsService
 
     /**
      * Controla la vista de estadisticas.
@@ -70,6 +71,19 @@ class AdminController {
         String fechaInicio = fecha.format("yyyy-MM-dd")
         render view: "ventas", model: [
                 fechaInicio: fechaInicio
+        ]
+    }
+
+    /**
+     * Imprime la vista de los ajustes WEB.
+     */
+    def websettings(WebSettings ws) {
+        if(!ws) {
+            ws = webSettingsService.obtener()
+        }
+
+        render view: "webSettings", model: [
+                webSettings: ws
         ]
     }
 }

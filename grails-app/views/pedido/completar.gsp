@@ -21,7 +21,7 @@
                 <p class="lead text-white">
                     <g:message code="default.pedido.completado.message"/>
                 </p>
-                <g:link class="btn btn-primary" controller="pedido" action="pedidos"><g:message code="default.button.verPedidos.completar.message"/></g:link>
+                <g:link class="btn btn-primary" controller="pedido" action="misPedidos"><g:message code="default.button.verPedidos.completar.message"/></g:link>
             </div>
         </div>
     </div>

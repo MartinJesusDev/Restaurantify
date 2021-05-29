@@ -16,7 +16,6 @@ async function filtrarVentas(offset = 0) {
         offset: offset
     })
 
-    console.log(datos)
 
     // Obtenemos las ventas
     let resultado = await obtenerVentas(datos)
@@ -26,7 +25,6 @@ async function filtrarVentas(offset = 0) {
 
     // Imprimimimos la páginacion
     let total = resultado.paginas
-    console.log(total)
     imprimirPaginacion('#cajaPaginacion', "filtrarVentas", total, offset)
 }
 

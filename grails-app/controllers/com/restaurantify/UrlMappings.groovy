@@ -23,8 +23,8 @@ class UrlMappings {
             post "/ventas"(controller: "pedido", action: "ventas")
         }
 
-        "/"(view:"/index")
-        "500"(view:'/error')
-        "404"(view:'/notFound')
+        "/"(controller: "inicio", action: "index")
+        "500"(controller: "inicio", action: "error")
+        "404"(controller: "inicio", action: "notFound")
     }
 }

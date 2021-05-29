@@ -57,7 +57,7 @@
                     <p class="mb-0"><b>${cliente?.nombre}, ${cliente?.email}</b></p>
                     <p class="mb-0">${cliente?.calle}</p>
                     <p class="mb-0">${cliente?.localidad}, ${cliente?.provincia}, ${cliente?.cp}</p>
-                    <g:link controller="cliente" action="perfil" >
+                    <g:link class="font-weight-bolder" controller="cliente" action="perfil" >
                         <g:message code="default.input.cesta.direccion.cambiar.label" />
                     </g:link>
                 </div>

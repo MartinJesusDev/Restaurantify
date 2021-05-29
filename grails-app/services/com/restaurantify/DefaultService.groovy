@@ -10,5 +10,5 @@ import grails.web.Controller
  */
 @Controller
 class DefaultService implements grails.artefact.Controller {
-
+    WebSettingsService webSettingsService
 }

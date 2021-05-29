@@ -1,4 +1,10 @@
-<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ page import="java.awt.Color; com.restaurantify.WebSettingsService" contentType="text/html;charset=UTF-8" %>
+<%
+    WebSettingsService settingsService = grailsApplication.classLoader.loadClass('com.restaurantify.WebSettingsService').newInstance()
+    Map settings = settingsService.obtenerAjustes()
+    Color c = Color.decode(settings.color as String)
+    String color = "${c.getRed()},  ${c.getGreen()} , ${c.getBlue()}"
+%>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -17,9 +23,25 @@
     <g:layoutHead/>
     <style>
     .align-menu {
-        justify-content: start; !important;
+        justify-content: ${settings.alignMenu}; !important;
     }
+
+    .align-titulo {
+        text-align: ${settings.alignTitulos}; !important;
+    }
+
+    :root {
+        --acento-primario: rgb(${color});
+        --acento-primario-sombra: rgba(${color}, 0.5);
+        --acento-primario-transparente: rgba(${color}, 0.25);
+    }
+
     </style>
+    <script>
+        const maxPlatosPedido = ${settings.maxPlatosPedido}
+        const gastoEnvioDefault = ${settings.gastosDeEnvio}
+        const pedidoSuperior = ${settings.gastosDeEnvioGratis}
+    </script>
 </head>
 <body>
     <!-- Contenedor principal -->
@@ -29,9 +51,9 @@
         <nav class="navbar navbar-expand-lg navbar-dark  bg-dark px-3 sticky-top">
             <!-- Logo página -->
             <div class="d-flex">
-                <asset:image src="restaurante/logotipo.jpg" class="mr-2 d-lg-block d-none" alt="Logo web" width="50px" height="50px"/>
+                <asset:image src="restaurante/${settings.imgLogotipo}" class="mr-2 d-lg-block d-none" alt="Logo web" width="50px" height="50px"/>
                 <h1 class="mt-1 font-elegante">
-                    <g:link class="text-light" uri="/">Restaurantify</g:link>
+                    <g:link class="text-light" uri="/">${settings.nombre}</g:link>
                 </h1>
             </div>
 

@@ -12,7 +12,7 @@ import org.springframework.context.i18n.LocaleContextHolder
  * @since 10/04/2021
  * @version 1.0
  */
-class PedidoService {
+class PedidoService extends DefaultService{
     CestaService cestaService
     ClienteService clienteService
 
@@ -26,6 +26,9 @@ class PedidoService {
      */
     @Transactional
     void completar(List<Cesta> cesta){
+        Float gastosEnvioDefault = webSettingsService.obtenerAjustes().gastosDeEnvio as Float
+        Float pedidoSuperior = webSettingsService.obtenerAjustes().gastosDeEnvioGratis as Float
+
         // Obtenemos el cliente
         Cliente c = clienteService.clienteSession()
 
@@ -33,7 +36,7 @@ class PedidoService {
         String direccion = "$c.calle, $c.localidad, $c.provincia, $c.cp"
 
         // Creamos un pedido
-        Pedido p = new Pedido(estado: 0, gastosEnvio: 3, total: 0, cliente: c, direccion: direccion)
+        Pedido p = new Pedido(estado: 0, gastosEnvio: gastosEnvioDefault, total: 0, cliente: c, direccion: direccion)
 
         // Añadimos cada plato al detalle del pedido
         Float total = 0
@@ -53,6 +56,11 @@ class PedidoService {
         }
         // Añadimos los detalles al pedido
         p.detalles = listaDP
+
+        // Comprobamos los gastos de envio
+        if(total >= pedidoSuperior) {
+            p.gastosEnvio = 0
+        }
 
         // Modificamos el total del pedido y guardamos
         p.total = (Float) (total + p.gastosEnvio).round(2)
@@ -81,7 +89,9 @@ class PedidoService {
      *  Lista los pedidos del cliente dados unos parametros de busqueda.
      * @return
      */
-    Map pedidosCliente(FiltroPedidosBasico fpb, max = 10) {
+    Map pedidosCliente(FiltroPedidosBasico fpb) {
+        Integer max = webSettingsService.obtenerAjustes().pedidosPorPagina as Integer
+
         // Obtenemos el cliente que pide los datos
         Cliente cli = clienteService.clienteSession()
 
@@ -126,7 +136,9 @@ class PedidoService {
      * @param estado
      * @return
      */
-    Map ventas(FiltroVentasAvanzado fva, max = 5) {
+    Map ventas(FiltroVentasAvanzado fva) {
+        Integer max = webSettingsService.obtenerAjustes().ventasPorPagina as Integer
+
         // Obtenemos las ventas con los parametros
         DetachedCriteria<Pedido> query = Pedido.where {
             if(fva.cliente) {

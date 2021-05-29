@@ -121,7 +121,7 @@ async function imprimirCesta() {
             // Creamos desplegable para seleccionar unidades
             let opcionesSelect = '';
             // Creamos una opción por cada unidad
-            for (let i = 1; i <= 10; i++) {
+            for (let i = 1; i <= maxPlatosPedido; i++) {
                 opcionesSelect += `<option value="${i}" ${(i === c.unidades) ? 'selected' : ''}>${i}</option>`;
             }
             let desplegableUnidades = `<select class="custom-select-sm w-auto" id="cantidadUnidades" onchange="actualizarCesta(${c.id}, this.value)">${opcionesSelect}</select>`;
@@ -173,7 +173,7 @@ async function imprimirCesta() {
 function calcularTotal() {
         // Datos del total del pedido
         let totalPedido = 0;
-        let gastosEnvio = 3;
+        let gastosEnvio = gastoEnvioDefault;
 
         // Recorremos la cesta y calculamos el total de pedido
         for (const c of cesta) {
@@ -182,6 +182,12 @@ function calcularTotal() {
             totalPedido += (plato.total * c.unidades);
             totalPedido =  Math.round(totalPedido * 100) / 100
         }
+
+        // Si supera este valor, no tiene gastos de envio
+        if(totalPedido >= pedidoSuperior) {
+            gastosEnvio = 0
+        }
+
         let total = Math.round((totalPedido + gastosEnvio) * 100) / 100
 
     return {
