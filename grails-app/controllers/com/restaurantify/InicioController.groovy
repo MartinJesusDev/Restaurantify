@@ -5,12 +5,17 @@ import groovy.transform.CompileStatic
 @CompileStatic
 class InicioController {
     WebSettingsService webSettingsService
+    PlatoService platoService
 
     /**
      * Imprime la pantalla de inicio.
      */
     def index() {
-        render view: "/index"
+        List<Plato> platos = platoService.platosMasPedidos()
+
+        render view: "/index", model: [
+                listaPlatos: platos
+        ]
     }
 
     /**

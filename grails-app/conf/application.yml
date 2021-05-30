@@ -9,6 +9,10 @@ grails:
             # Disabled by default for performance reasons
             events: false
         failOnError: true
+    controllers:
+        upload:
+            maxFileSize: 26214400
+            maxRequestSize: 26214400
     config:
         assetsPath: D:\xdddd\Documents\Trabajo\TFG\Restaurantify\grails-app\assets\
 

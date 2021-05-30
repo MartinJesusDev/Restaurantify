@@ -43,7 +43,7 @@ function agregar(idCliente, idPlato, unidades) {
         type: "POST",
         contentType: "application/json",
         data: datos,
-        complete: function (xhr, status) {
+        complete: async function (xhr, status) {
             let error = status !== "success"
             let data = {
                 message: xhr.responseJSON.message,
@@ -51,15 +51,19 @@ function agregar(idCliente, idPlato, unidades) {
             }
 
             // Recarga la cesta para calcular los nuevos datos
-            if(!error) {
-                cesta.forEach((c)=>{
-                    if(c.plato.id === idPlato){
-                        c.unidades += parseInt(unidades)
-                        imprimirContadorCesta()
-                    }
-                })
+            if (!error) {
+                if (!cesta.some(c => c.plato.id === idPlato)) {
+                    await obtenerCesta()
+                    imprimirContadorCesta()
+                } else {
+                    cesta.forEach((c) => {
+                        if (c.plato.id === idPlato) {
+                            c.unidades += parseInt(unidades)
+                            imprimirContadorCesta()
+                        }
+                    })
+                }
             }
-
             imprimirResultado(data)
         }
     })

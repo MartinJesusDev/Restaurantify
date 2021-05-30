@@ -34,7 +34,7 @@
                                     <g:link class="btn-link" action="show" id="${p.id}">
                                     <asset:image class="border mr-3" src="platos/${p.imagen}" width="100px" height="80px" />
                                     <div class="d-flex flex-column">
-                                        <g:link class="btn-link mr-2" action="show" id="${p.id}"><h4 class="font-titulo">${p.nombre}</h4></g:link>
+                                        <g:link class="btn-link mr-2" action="show" id="${p.id}"><h4>${p.nombre}</h4></g:link>
                                         <h5>
                                             <span class="badge badge-primary">${p.total}€</span>
                                         </h5>

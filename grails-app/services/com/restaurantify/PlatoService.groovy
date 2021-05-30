@@ -1,7 +1,11 @@
 package com.restaurantify
 
+import grails.gorm.DetachedCriteria
 import grails.gorm.transactions.Transactional
+import org.hibernate.criterion.CriteriaSpecification
 import org.springframework.web.multipart.MultipartFile
+
+import javax.swing.border.Border
 
 /**
  * Clase servicios que controla el acceso a base de datos para el Dominio Plato.
@@ -132,5 +136,17 @@ class PlatoService extends DefaultService {
      */
     Plato findById(Long id){
         return Plato.findById(id)
+    }
+
+    /**
+     * Lista los 5 platos más pedidos.
+     * @return
+     */
+    List<Plato> platosMasPedidos() {
+        DetachedCriteria<Plato> query = Plato.where {
+            id in DetallesPedido.executeQuery("select dp.plato.id from DetallesPedido dp GROUP BY dp.plato.id ORDER BY SUM(unidades) DESC", [max: 5])
+        }
+
+        return query.list()
     }
 }

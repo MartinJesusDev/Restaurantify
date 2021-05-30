@@ -57,9 +57,9 @@
                 </h1>
             </div>
 
-            <button class="navbar-toggler mr-2" type="button" data-toggle="collapse" data-target="#navbarNav"
+            <button class="btn btn-primary navbar-toggler mr-2 text-white" type="button" data-toggle="collapse" data-target="#navbarNav"
                     aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
+                <i class="fas fa-bars py-1" style="font-size: 1.15em;"></i>
             </button>
 
             <!-- Menu navegación -->
