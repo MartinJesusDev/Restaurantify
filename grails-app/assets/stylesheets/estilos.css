@@ -3,6 +3,7 @@
     /* Variables para colores */
     --gris-oscuro: rgb(35, 35, 35);
     --gris-oscuro-sombra: rgba(35, 35, 35, 0.5);
+    --gris-oscuro-transparente: rgba(35, 35, 35, 0.25);
     --acento-primario: rgb(181, 167, 75);
     --acento-primario-sombra: rgba(181, 167, 75, 0.5);
     --acento-primario-transparente: rgba(181, 167, 75, 0.25);
@@ -107,7 +108,21 @@ a:hover {
     background-color: var(--acento-primario);
 }
 
-.form-control:focus {
+.border, .border-*, hr, .card {
+    border-color: var(--gris-oscuro-transparente) !important;
+}
+
+label {
+    font-weight: 600;
+    font-size: 0.9em;
+}
+
+.form-control, .custom-select, .select2-container--default .select2-selection--multiple {
+    border-width: 2px;
+    border-color: var(--gris-oscuro-transparente);
+}
+
+.form-control:focus, .select2-container--default.select2-container--focus .select2-selection--multiple {
     color: #495057;
     background-color: #fff;
     border-color: var(--acento-primario-transparente);
@@ -361,6 +376,97 @@ button.bg-primary:focus {
     height: 500px;
 }
 
+/*** Pie de página ***/
+#pie-pagina {
+    font-size: 1.25em;
+    padding-top: 30px;
+    display: grid;
+    color: white;
+    background-color: var(--gris-oscuro);
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-areas:
+    'p-info p-mapa p-redes'
+    'p-dev p-dev p-dev';
+    justify-items: center;
+    align-items: center;
+}
+
+#pie-pagina a:hover {
+    text-decoration: none;
+    border-bottom: 2px solid var(--acento-primario);
+}
+
+#pie-pagina .info {
+    grid-area: p-info;
+    margin-left: 40px;
+}
+
+#pie-pagina .info p {
+    margin-top: 20px;
+}
+
+#pie-pagina .mapa {
+    grid-area: p-mapa;
+}
+
+#pie-pagina .mapa .active a {
+    border-bottom: 2px solid var(--acento-primario);
+}
+
+#pie-pagina .mapa ul li {
+    margin-bottom: 10px;
+}
+
+#pie-pagina a {
+    color: white;
+}
+
+#pie-pagina a:hover {
+    color: var(--acento-primario);
+}
+
+#pie-pagina .mapa .active a {
+    color: var(--acento-primario);
+}
+
+#pie-pagina .redes {
+    grid-area: p-redes;
+    align-self: center;
+}
+
+#pie-pagina .redes div {
+    font-size: 1.25em;
+    margin-bottom: 10px;
+}
+
+#pie-pagina .redes div .icono {
+    margin-right: 5px;
+}
+
+#pie-pagina .dev {
+    grid-area: p-dev;
+
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0 20px;
+    justify-items: center;
+    align-items: center;
+
+    width: 100%;
+    padding: 20px;
+    background-color: black;
+    margin-top: 30px;
+}
+
+#pie-pagina .dev p:last-child a:hover {
+    border: none;
+    transform: scaleX(1.2);
+}
+
+#pie-pagina .dev p:last-child img:hover {
+    transform: scaleX(1.05);
+}
+
 /*** Media query tablet ***/
 @media (max-width: 991.98px) {
     body {
@@ -395,6 +501,34 @@ button.bg-primary:focus {
         text-transform: uppercase;
     }
 
+    /*** Estilos footer tablet ***/
+    #pie-pagina {
+        grid-template-columns: 1fr 1fr;
+        grid-template-areas:
+      'p-info p-mapa'
+      'p-redes p-redes'
+      'p-dev p-dev';
+    }
+
+    #pie-pagina .redes {
+        display: inline-flex;
+        justify-content: space-around;
+        border-bottom: 2px solid var(--white);
+        padding: 0 30px;
+    }
+
+    #pie-pagina .redes span {
+        display: none;
+    }
+
+    #pie-pagina .dev {
+        grid-template-columns: 1fr;
+        padding: 30px 0;
+        gap: 10px;
+
+        margin-bottom: unset;
+        border-bottom: unset;
+    }
 }
 
 /*** Media query smartphone ***/
@@ -415,6 +549,11 @@ button.bg-primary:focus {
 
     .tarjeta {
         min-height: 600px;
+    }
+
+    .tarjeta h2 {
+        font-size: 2.5em;
+        margin-bottom: 20px;
     }
 
     .tarjeta img {
@@ -441,4 +580,42 @@ button.bg-primary:focus {
         max-height: 30vh;
     }
 
+    /*** Estilos footer telefono ***/
+    #pie-pagina {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+      'p-info'
+      'p-mapa'
+      'p-redes'
+      'p-dev';
+    }
+
+    #pie-pagina section {
+        border-bottom: 2px solid white;
+        margin-bottom: 25px;
+        width: 60%;
+        padding: 0 20px;
+    }
+
+    #pie-pagina .info {
+        margin-left: 0;
+    }
+
+    #pie-pagina .mapa ul {
+        margin-left: 20px;
+    }
+
+    #pie-pagina .info img {
+        margin-left: 0;
+        width: 100%;
+    }
+
+    #pie-pagina .dev {
+        grid-template-columns: 1fr;
+        padding: 30px 0;
+        gap: 10px;
+
+        margin-bottom: unset;
+        border-bottom: unset;
+    }
 }

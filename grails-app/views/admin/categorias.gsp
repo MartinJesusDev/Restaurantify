@@ -7,7 +7,7 @@
 </head>
 <body>
 <!-- Sección del formulario --->
-<section class="px-0 mx-xl-5 mt-2 border rounded bg-light">
+<section class="px-0 mx-xl-5 mt-2 mb-4 border rounded bg-light">
     <g:applyLayout name="adminNavbar" />
 
     <!-- Titulo de la página -->

@@ -81,6 +81,11 @@
                             <g:message code="default.title.contacto.label"/>
                         </g:link>
                     </li>
+                    <li class="nav-item ${request.forwardURI == "/inicio/ayuda" ? "active" : "" }">
+                        <g:link class="nav-link d-inline-block" controller="inicio" action="ayuda" >
+                            <g:message code="default.title.ayuda.label"/>
+                        </g:link>
+                    </li>
                     <g:if test="${[1, 2].contains(cliente?.rol)}" >
                         <li class="nav-item ${request.forwardURI.contains("pedidosRestaurante") ? "active" : "" }">
                             <g:link class="nav-link d-inline-block" controller="pedido" action="pedidosRestaurante">

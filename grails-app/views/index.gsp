@@ -11,7 +11,7 @@
     <div class="d-flex flex-wrap mb-4 justify-content-center mb-3">
         <div class="col-md-10 col-12 p-0 mb-4">
             <!-- Carousel principal -->
-            <div id="carouselPlatos" class="carousel slide border rounded bg-dark" data-ride="carousel">
+            <div id="carouselPlatos" class="carousel slide rounded bg-dark" data-ride="carousel">
                 <div class="carousel-inner">
                     <g:each in="${listaPlatos}" var="p" status="i" >
                         <div class="carousel-item ${i == 0 ? "active" : ""}">

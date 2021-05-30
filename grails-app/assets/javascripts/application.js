@@ -137,7 +137,7 @@ function imprimirPaginacion(idCajaPaginacion, funcion, total, paginaActual = 0){
     </li>`;
 
         // Recorremos la lista botones
-        for (let i = 0; i < total; i++) {
+        for (let i = 0; i <= total; i++) {
             plantilla += `
             <li class="page-item ${paginaActual === i ? 'active disabled': ''}">
             <a class="page-link" aria-label="Previous" onclick="${funcion}(${i})">${i+1}</a>
@@ -147,7 +147,7 @@ function imprimirPaginacion(idCajaPaginacion, funcion, total, paginaActual = 0){
 
         // Añadimos botón final
         plantilla += `
-          <li class="page-item ${(paginaActual === total -1) ? 'disabled': ''}">
+          <li class="page-item ${(paginaActual === total) ? 'disabled': ''}">
             <a class="page-link" aria-label="Next" onclick="${funcion}(${parseInt(paginaActual) + 1})">
                 <span>&raquo;</span>
             </a>

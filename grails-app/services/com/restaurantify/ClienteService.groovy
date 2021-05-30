@@ -41,7 +41,7 @@ class ClienteService  extends DefaultService{
         // Enviamos el correo
         mailService.sendMail {
             to cliente.email
-            from "admin@servidor.edu"
+            from "soporte@servidor.edu"
             subject "Correo de verificación"
             html "Pulse en el enlace para verificar su correo:" +
                     " <a href='http://localhost:8080/cliente/verificar?email=${cliente.email}&token=${token}'>Enlace verificación</a>"
@@ -75,7 +75,7 @@ class ClienteService  extends DefaultService{
             cliente.verificado = false
             mailService.sendMail {
                 to cliente.email
-                from "admin@servidor.edu"
+                from "soporte@servidor.edu"
                 subject "Correo de verificación"
                 html "Pulse en el enlace para verificar su nuevo correo:" +
                         " <a href='http://localhost:8080/cliente/verificar?email=${cliente.email}&token=${cliente.token}'>Enlace verificación</a>"
@@ -174,9 +174,24 @@ class ClienteService  extends DefaultService{
     @Transactional
     void borrar(Long id) {
         Boolean borrado = Cliente.executeUpdate("delete from Cliente WHERE id = :id", [id: id])
-        println borrado
         if(!borrado){
             throw new Exception("No se pudo borrar el cliente")
+        }
+    }
+
+    /**
+     * Envía un correo al email de contacto de la empresa.
+     * @param cm
+     */
+    void mensajeContacto(ClienteMensaje cm) {
+        mailService.sendMail {
+            to "contacto@servidor.edu"
+            from "contacto@servidor.edu"
+            subject "Contacto: Mensaje de cliente"
+            html "<h1>Mensaje de $cm.nombre</h1><hr>" +
+                    "<h3>Email: $cm.email</h3>" +
+                    "<h3>Motivo: $cm.motivo</h3>" +
+                    "<p>Mensaje: $cm.mensaje</p>"
         }
     }
 

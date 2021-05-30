@@ -61,7 +61,7 @@ function imprimirVentas(pedidos) {
     pedidos.forEach((p, i) => {
         // Guardamos la fecha en un formato imprimible
         let fecha = new Date(p.fecha)
-        fecha = `${fecha.getDate()}/${fecha.getMonth()}/${fecha.getFullYear()}`
+        fecha = `${fecha.getDate()}/${fecha.getMonth() + 1 }/${fecha.getFullYear()}`
 
         // Sumas el total de platos
         let totalPlatos = 0

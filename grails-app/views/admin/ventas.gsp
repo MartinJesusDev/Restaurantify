@@ -7,7 +7,7 @@
 </head>
 <body>
 <!-- Sección del formulario --->
-<section class="px-0 mt-2 mx-xl-5 bg-light border rounded">
+<section class="px-0 mt-2 mx-xl-5 mb-4 bg-light border rounded">
     <g:applyLayout name="adminNavbar" />
 
     <!-- Titulo de la página -->
@@ -23,11 +23,11 @@
                 </div>
                 <div class="form-group  col-md-2 col-6">
                     <label for="fechaInicio">Desde</label>
-                    <g:field class="form-control" type="date" name="fechaInicio" placeholder="dd/mm/aaaa" value="${(new Date() - 31).format("yyyy-MM-dd")}" />
+                    <g:field class="form-control" type="date" name="fechaInicio" placeholder="dd/mm/aaaa" />
                 </div>
                 <div class="form-group col-md-2 col-6">
                     <label for="fechaFin">Hasta</label>
-                    <g:field class="form-control" type="date" name="fechaFin" placeholder="dd/mm/aaaa" value="${(new Date()).format("yyyy-MM-dd")}" />
+                    <g:field class="form-control" type="date" name="fechaFin" placeholder="dd/mm/aaaa" />
                 </div>
                 <div class="form-group  col-md-2 col-6">
                     <label for="sort">Ordenar</label>

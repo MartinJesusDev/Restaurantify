@@ -47,7 +47,6 @@ class ClienteController {
     /**
      * Presenta la vista del perfil.
      * Controla la actualización del cliente.
-     * @return
      */
     def perfil(Cliente cliente) {
         // Muestra la vista del perfil
@@ -67,8 +66,14 @@ class ClienteController {
             return
         }
 
-        // Intentamos crear el cliente
-        clienteService.actualizar(cliente)
+        try {
+            // Intentamos actualizar el cliente
+            clienteService.actualizar(cliente)
+        } catch(Exception e) {
+            render(view: "perfil",
+                    model: [cliente : cliente])
+            return
+        }
 
         // Redirigimos y mostramos mensaje correcto
         flash.message = "default.cliente.actualizado.message"
@@ -105,6 +110,37 @@ class ClienteController {
         // Redirigimos al login
         redirect(action: "login")
 
+    }
+
+    /**
+     * Envia un mensaje a el correo de contacto.
+     * @param cm
+     */
+    def contacto(ClienteMensaje cm) {
+        // Muestra la vista del registro
+        if(request.get) {
+            return
+        }
+
+        // Comprobamos si hay errores
+        if(cm.hasErrors()) {
+            render(view: "contacto",
+                    model: [clienteMensaje: cm])
+            return
+        }
+
+        // Enviamos el mensaje de información
+        try {
+            clienteService.mensajeContacto(cm)
+        } catch(Exception e) {
+            render(view: "registro",
+                    model: [clienteMensaje: cm])
+            return
+        }
+
+        // Redirigimos y mostramos mensaje correcto
+        flash.message = "default.cliente.mensajeContacto.message"
+        redirect(action: "contacto")
     }
 
      /**
@@ -160,5 +196,19 @@ class ClienteLogin {
     static constraints = {
         email maxSize: 320, email: true, blank: false, unique: true
         password size: 6..255, blank: false, password: true
+    }
+}
+
+class ClienteMensaje {
+    String nombre
+    String email
+    String motivo
+    String mensaje
+
+    static constraints = {
+        nombre blank: false
+        email maxSize: 320, email: true, blank: false
+        motivo blank: false
+        mensaje blank: false, maxSize: 1000
     }
 }
