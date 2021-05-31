@@ -22,6 +22,7 @@ class PedidoController {
     PedidoService pedidoService
     CestaService cestaService
     MessageSource messageSource
+    ClienteService clienteService
 
     /**
      * Realiza el pedido mediante la cesta de la compra del usuario.
@@ -34,6 +35,15 @@ class PedidoController {
         // Si no tiene articulos en la cesta mandamos al index
         if(cesta.empty) {
             redirect(uri: "/")
+            return
+        }
+
+        // Comprobamos que el cliente se verifico
+        Cliente cli = clienteService.clienteSession()
+        if(!cli.verificado) {
+            flash.error = true
+            flash.message = "default.pedido.completarError.noVerificado.message"
+            redirect(controller: "cesta", action: "index")
             return
         }
 

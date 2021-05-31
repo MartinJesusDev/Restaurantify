@@ -46,6 +46,6 @@ class Cliente {
         fechaDeNacimiento date: true, max: LocalDate.now(), blank: false
         fechaDeAlta date: true, max: LocalDate.now()
         rol blank: false, inList: [0, 1, 2] // 0 = usuario, 1 = admin, 2 = restaurante
-        token maxSize: 32
+        token maxSize: 32, nullable: true
     }
 }

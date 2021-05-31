@@ -3,7 +3,7 @@
 <html>
 <head>
     <meta name="layout" content="cabecera">
-    <title><g:message code="default.title.cliente.login.label"/></title>
+    <title><g:message code="default.title.restablecer.label"/></title>
 </head>
 <body>
     <!-- Sección del formulario --->
@@ -13,7 +13,7 @@
             <!-- Titulo de la página -->
             <div class="mb-3 p-3 bg-dark">
                 <h2 class="align-titulo mb-0 text-white font-titulo">
-                    <g:message code="default.title.cliente.login.label"/>
+                    <g:message code="default.title.restablecer.label"/>
                 </h2>
             </div>
 
@@ -39,39 +39,17 @@
                 </g:if>
 
                 <!-- Formulario de login -->
-                <g:form action="login" class="bg-light">
+                <g:form controller="cliente" action="restablecer" class="bg-light">
+                    <p><g:message code="default.cliente.restablecerInfo.message"/></p>
                     <div class="form-row">
                         <div class="form-group col">
                             <label for="email"><g:message code="default.input.email.label"/></label>
-                            <g:textField class="form-control ${hasErrors(bean: clienteLogin, field: 'email', 'errors') ? "is-invalid" : ""}"
-                                         name="email" value="${fieldValue(bean: clienteLogin,field:"email")}"/>
-                            <g:hasErrors bean="${this.clienteLogin}" field="email">
-                                <div class="invalid-feedback">
-                                    <g:renderErrors bean="${clienteLogin}" field="email" as="list" />
-                                </div>
-                            </g:hasErrors>
-                        </div>
-                    </div>
-
-                    <div class="form-row">
-                        <div class="form-group col">
-                            <label for="password"><g:message code="default.input.password.label"/></label>
-                            <g:passwordField class="form-control ${hasErrors(bean: clienteLogin, field: 'password', 'errors') ? "is-invalid" : ""}"
-                                             name="password" value="${fieldValue(bean: clienteLogin,field:"password")}"/>
-                            <g:hasErrors bean="${this.clienteLogin}" field="password">
-                                <div class="invalid-feedback">
-                                    <g:renderErrors bean="${clienteLogin}" field="password" as="list" />
-                                </div>
-                            </g:hasErrors>
+                            <g:field type="email" class="form-control" name="email" />
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <g:link class="btn-link" action="restablecer" controller="cliente"><g:message code="default.button.restablecer.label" /> </g:link>
-                    </div>
-
-                    <div class="form-group">
-                        <g:submitButton name="login" class="btn btn-primary " value="${message(code: 'default.button.login.label', default: 'Create')}" />
+                        <g:submitButton name="restablecer" class="btn btn-primary " value="${message(code: 'default.button.enviarForm.label', default: 'Create')}" />
                     </div>
                 </g:form>
             </div>

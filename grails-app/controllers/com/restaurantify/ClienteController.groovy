@@ -1,5 +1,7 @@
 package com.restaurantify
 
+import grails.validation.Validateable
+import groovy.transform.CompileDynamic
 import groovy.transform.CompileStatic
 
 /**
@@ -170,6 +172,67 @@ class ClienteController {
     }
 
     /**
+     * Imprime la pantalla para restablecer la contraseña.
+     */
+    def restablecer(String email) {
+        if(request.get) {
+            render view: "restablecer"
+            return
+        }
+
+        try {
+            // Intentamos envia un email para restablecer la contraseña
+            clienteService.emailRestablecer(email)
+        } catch(Exception e) {
+            flash.error = true
+            flash.message = e.message
+            render view: "restablecer"
+            return
+        }
+
+        flash.message = "default.cliente.emailRestablecerEnviado.message"
+        redirect(action: "login")
+    }
+
+
+    /**
+     * Imprime la pantalla para cambiar la contraseña del cliente. Y recibe los datos del formulario.
+     * @param ClientePasswordReset
+     */
+    def resetPassword(ClientePasswordReset cpr) {
+        if(request.get && (!params?.email || !params?.token)){
+            redirect(uri: "/")
+            return
+        } else if(request.get) {
+            Boolean valido = clienteService.validarTokenPassword()
+
+            if(!valido) {
+                flash.error = true
+                flash.message = "default.passwordReset.tokenInvalido.message"
+                redirect(action: "login")
+                return
+            }
+
+            // Creamos un ClientePasswordReset con el email del cliente
+            render view: "resetPassword", model: [email: params?.email]
+            return
+        }
+
+        // Comprobamos si tiene errores
+        if(cpr.hasErrors()) {
+            render(view: "resetPassword", model: [
+                    clientePasswordReset: cpr
+            ])
+            return
+        }
+
+        // Si no hay errores cambiamos la contraseña y mostramos mensaje
+        clienteService.resetPassword(cpr)
+        flash.message = "deafult.cliente.passwordCambiada.message"
+        redirect(action: "login")
+    }
+
+    /**
      * Elimina la cluenta del cliente que esta en sessión.
      */
     def borrarCuenta() {
@@ -189,7 +252,7 @@ class ClienteController {
 /**
  * Command object para facilitar el login.
  */
-class ClienteLogin {
+class ClienteLogin implements Validateable {
     String email
     String password
 
@@ -199,7 +262,7 @@ class ClienteLogin {
     }
 }
 
-class ClienteMensaje {
+class ClienteMensaje implements Validateable {
     String nombre
     String email
     String motivo
@@ -210,5 +273,21 @@ class ClienteMensaje {
         email maxSize: 320, email: true, blank: false
         motivo blank: false
         mensaje blank: false, maxSize: 1000
+    }
+}
+
+@CompileDynamic
+class ClientePasswordReset implements Validateable {
+    String email
+    String password
+    String repetPassword
+
+    static constraints = {
+        password size: 6..255, blank: false, password: true
+        repetPassword size: 6..255, blank: false, password: true, validator: { value, obj, errors ->
+            if(obj.password != value) {
+                return errors.rejectValue('repetPassword', 'default.password.notmatch.message')
+            }
+        }
     }
 }

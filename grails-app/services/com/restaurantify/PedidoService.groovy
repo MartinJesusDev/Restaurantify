@@ -2,7 +2,6 @@ package com.restaurantify
 
 import grails.gorm.DetachedCriteria
 import grails.gorm.transactions.Transactional
-import org.grails.datastore.mapping.query.Query
 import org.springframework.context.MessageSource
 import org.springframework.context.i18n.LocaleContextHolder
 

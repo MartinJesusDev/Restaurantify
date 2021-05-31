@@ -120,7 +120,7 @@
                                     <asset:image src="clientes/${cliente?.imagen}" class="rounded" width="30px" />
                                     ${cliente?.nombre}
                                 </button>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                <div class="dropdown-menu  dropdown-menu-right" aria-labelledby="dropdownMenuLink">
                                     <g:link controller="cliente" action="perfil" class="dropdown-item" role="button" >
                                         <g:message code="default.button.cliente.perfil.message" />
                                     </g:link>

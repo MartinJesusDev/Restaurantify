@@ -101,11 +101,31 @@ class ClienteService  extends DefaultService{
         // Lo verificamos si existe
         if(cliente) {
             cliente.verificado = true
+            cliente.token = null
             cliente.save()
             verificado = true
+            session?.cliente?.verificado = true
         }
 
         return  verificado
+    }
+
+    /**
+     * Compruba que dado el email y el token son validos.
+     * @return Boolean true si el valido o false si no.
+     */
+    Boolean validarTokenPassword() {
+        Boolean valido = false
+
+        // Buscamos el cliente
+        Cliente cliente = Cliente.findByEmailAndToken(params?.email, params?.token)
+
+        // Si es valido existira el cliente
+        if(cliente) {
+            valido = true
+        }
+
+        return valido
     }
 
     /**
@@ -193,6 +213,49 @@ class ClienteService  extends DefaultService{
                     "<h3>Motivo: $cm.motivo</h3>" +
                     "<p>Mensaje: $cm.mensaje</p>"
         }
+    }
+
+    /**
+     * Envia un email con el enlace para restablecer la contraseña
+     * @param email
+     */
+    @Transactional
+    void emailRestablecer(String email) {
+        // Comprobamos que existe el correo
+        Cliente cli = Cliente.findByEmail(email)
+        if(!cli) {
+            throw new Exception("default.cliente.emailNoExiste.message")
+        }
+
+        // Generamos un token y mandamos el enlace al email
+        String token = cli.email.encodeAsMD5()
+        cli.token = token
+        cli.save()
+        mailService.sendMail {
+            to cli.email
+            from "soporte@servidor.edu"
+            subject "Correo cambiar contraseña"
+            html "Pulse en el enlace para restablecer su contraseña:" +
+                    " <a href='http://localhost:8080/cliente/resetPassword?email=${email}&token=${token}'>Enlace cambiar contraseña</a>"
+        }
+    }
+
+    /**
+     * Cambia la contraseña del cliente
+     * @param cpr
+     */
+    @Transactional
+    void resetPassword(ClientePasswordReset cpr) {
+        // Obtenemos el cliente con el correo
+        Cliente cli = Cliente.findByEmail(cpr.email)
+
+        // Generamos la contraseña e invalidamos el token
+        String passwordHash = BCrypt.withDefaults().hashToString(12, cpr.password.toCharArray())
+        cli.password = passwordHash
+        cli.token = null
+
+        // Guardamos el cliente
+        cli.save()
     }
 
 }
