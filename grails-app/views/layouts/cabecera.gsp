@@ -95,7 +95,7 @@
                     </g:if>
                     <g:if test="${cliente?.rol == 1}" >
                     <li class="nav-item ${request.forwardURI.contains("admin") ? "active" : "" }">
-                        <g:link class="nav-link d-inline-block" controller="admin" action="index">
+                        <g:link class="nav-link d-inline-block" controller="admin" action="platos">
                             <g:message code="default.button.admin.panel.message"/>
                         </g:link>
                     </li>

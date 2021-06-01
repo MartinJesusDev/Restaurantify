@@ -43,6 +43,15 @@ class PlatoService extends DefaultService {
         // Calcula el total del plato
         p.total = calcularTotal(p)
 
+        // Si no esta disponible retiramos el plato de todas las cestas
+        if(!p.disponible) {
+            Cesta.where {
+                plato {
+                    eq 'id', p.id
+                }
+            }.deleteAll()
+        }
+
         // Guarda el plato
         p.save()
     }
@@ -88,8 +97,8 @@ class PlatoService extends DefaultService {
      */
     List<Plato> listadoFiltrado(FiltroPlatos filtro){
         // Consulta sin alergenos
-         List<Plato> platos = Plato.findAllByCategoriaInListAndTotalBetween(
-                filtro.categorias, filtro.precioMin, filtro.precioMax)
+         List<Plato> platos = Plato.findAllByCategoriaInListAndTotalBetweenAndDisponible(
+                filtro.categorias, filtro.precioMin, filtro.precioMax, true)
 
         // Eliminamos los platos que contengan alergenos
         if(filtro.alergenos) {
@@ -130,12 +139,12 @@ class PlatoService extends DefaultService {
     }
 
     /**
-     * Obtiene un plato dado el id.
+     * Obtiene un plato dado el id, si esta disponible.
      * @param id
      * @return
      */
     Plato findById(Long id){
-        return Plato.findById(id)
+        return Plato.findByIdAndDisponible(id, true)
     }
 
     /**

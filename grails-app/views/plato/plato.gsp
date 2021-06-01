@@ -58,7 +58,7 @@
         <div class="col">
             <div class="pb-2 mb-3">
                 <h4><g:message code="default.input.precio.label"/></h4>
-                <h5><span style="font-size: 1.5em;">${p.total}€</span>
+                <h5><span style="font-size: 1.5em;">${p.total} €</span>
                     <g:if test ="${p.descuento}">
                         <span class="badge badge-primary ml-2">
                         <g:message code="default.input.plato.descuento.label" />

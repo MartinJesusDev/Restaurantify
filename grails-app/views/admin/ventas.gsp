@@ -18,44 +18,44 @@
         <div class="col px-0 py-3 bg-light">
             <div class="form-row">
                 <div class="form-group col-md-4">
-                    <label for="cliente">Cliente</label>
+                    <label for="cliente"><g:message code="default.input.ventas.cliente.label"/></label>
                     <g:field class="form-control" type="text" name="cliente" />
                 </div>
                 <div class="form-group  col-md-2 col-6">
-                    <label for="fechaInicio">Desde</label>
+                    <label for="fechaInicio"><g:message code="default.input.ventas.desde.label"/></label>
                     <g:field class="form-control" type="date" name="fechaInicio" placeholder="dd/mm/aaaa" />
                 </div>
                 <div class="form-group col-md-2 col-6">
-                    <label for="fechaFin">Hasta</label>
+                    <label for="fechaFin"><g:message code="default.input.ventas.hasta.label"/></label>
                     <g:field class="form-control" type="date" name="fechaFin" placeholder="dd/mm/aaaa" />
                 </div>
                 <div class="form-group  col-md-2 col-6">
-                    <label for="sort">Ordenar</label>
+                    <label for="sort"><g:message code="default.input.ventas.ordenar.label"/></label>
                     <select class="custom-select" name="sort" id="sort">
-                        <option value="fecha">Fecha</option>
-                        <option value="total">total</option>
-                        <option value="id">ID</option>
+                        <option value="fecha"><g:message code="default.input.ventas.ordenar.fecha.label"/></option>
+                        <option value="total"><g:message code="default.input.ventas.ordenar.total.label"/></option>
+                        <option value="id"><g:message code="default.input.ventas.ordenar.id.label"/></option>
                     </select>
                 </div>
                 <div class="form-group col-md-2 col-6">
-                    <label for="order">ASC/DESC</label>
+                    <label for="order"><g:message code="default.input.ventas.ascdsc.label"/></label>
                     <select class="custom-select" name="order" id="order">
-                        <option value="DESC">Descendente</option>
-                        <option value="ASC">Ascendente</option>
+                        <option value="DESC"><g:message code="default.input.ventas.ascdsc.descendente.label"/></option>
+                        <option value="ASC"><g:message code="default.input.ventas.ascdsc.ascendente.label"/></option>
                     </select>
                 </div>
                 <div class="form-group col-md-2 col-6">
-                    <label for="totalMin">Mínimo</label>
+                    <label for="totalMin"><g:message code="default.input.ventas.minimo.label"/></label>
                     <g:field class="form-control" step="0.01" min="0" type="number" name="totalMin" />
                 </div>
                 <div class="form-group col-md-2 col-6">
-                    <label for="totalMax">Máximo</label>
+                    <label for="totalMax"><g:message code="default.input.ventas.maximo.label"/></label>
                     <g:field class="form-control" step="0.01" min="0" type="number" name="totalMax" />
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col">
-                    <button class="btn btn-primary" onclick="filtrarVentas()">Aplicar busqueda</button>
+                    <button class="btn btn-primary" onclick="filtrarVentas()"><g:message code="default.buttom.aplicarBusqueda.label"/></button>
                 </div>
             </div>
         </div>

@@ -23,6 +23,12 @@ class UrlMappings {
             post "/ventas"(controller: "pedido", action: "ventas")
         }
 
+        group "/clientes", {
+            post "/lista"(controller: "cliente", action: "listar")
+            put "/adminResetPassword/$email"(controller: "cliente", action: "adminResetPassword")
+            put "/blockDesckblock/$id"(controller: "cliente", action: "toggleBloqueoCliente")
+        }
+
         "/"(controller: "inicio", action: "index")
         "500"(controller: "inicio", action: "error")
         "404"(controller: "inicio", action: "notFound")

@@ -1,0 +1,18 @@
+import com.restaurantify.Cliente
+import com.restaurantify.Pedido
+import com.restaurantify.Valoracion
+
+model {
+    Cliente cliente
+}
+
+json {
+    id cliente.id
+    dni cliente.dni
+    nombreApellidos "$cliente.nombre $cliente.apellidos"
+    email cliente.email
+    fechaAlta cliente.fechaDeAlta
+    rol cliente.rol
+    verificado cliente.verificado
+    bloqueado cliente.bloqueado
+}

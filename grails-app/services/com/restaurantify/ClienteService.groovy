@@ -1,6 +1,7 @@
 package com.restaurantify
 
 import at.favre.lib.crypto.bcrypt.BCrypt
+import grails.gorm.DetachedCriteria
 import grails.gorm.transactions.Transactional
 import grails.plugins.mail.MailService
 import org.springframework.web.multipart.MultipartFile
@@ -114,6 +115,7 @@ class ClienteService  extends DefaultService{
      * Compruba que dado el email y el token son validos.
      * @return Boolean true si el valido o false si no.
      */
+    @Transactional
     Boolean validarTokenPassword() {
         Boolean valido = false
 
@@ -182,8 +184,45 @@ class ClienteService  extends DefaultService{
      * Retorna una lista con todos los clientes.
      * @return Cliente
      */
-    List<Cliente> listar () {
-        return Cliente.findAll()
+    Map listar (ClienteFiltro cf) {
+        Integer max = webSettingsService.obtenerAjustes().ventasPorPagina as Integer
+
+        // Obtenemos los clientes con los parametros
+        DetachedCriteria<Cliente> query = Cliente.where {
+            // Comprobamos  el campo busqueda multiple
+            if(cf.busqueda){
+                or {
+                    ilike('dni', "%$cf.busqueda%")
+                    ilike('nombre', "%$cf.busqueda%")
+                    ilike('apellidos', "%$cf.busqueda%")
+                    ilike('email', "%$cf.busqueda%")
+                }
+            }
+
+            // Comprobamos la fecha deseada
+            if(cf.fechaInicio && cf.fechaFin) {
+                between('fechaDeAlta', cf.fechaInicio, cf.fechaFin)
+            } else {
+                if (cf.fechaInicio) {
+                    ge('fechaDeAlta', cf.fechaInicio)
+                } else if (cf.fechaFin) {
+                    le('fechaDeAlta', cf.fechaFin)
+                }
+            }
+
+        } as DetachedCriteria<Cliente>
+
+        // Obtenemos varios totales
+        Integer total = (Integer) query.count()
+        Integer totalPaginas = (Integer) (total / max)
+
+        List<Cliente> clientes = query.list([
+                max: max,
+                offset: cf.offset * max,
+                sort: cf.sort,
+                order: cf.order
+        ])
+        return [total: total, lista: clientes, paginas: totalPaginas]
     }
 
 
@@ -203,6 +242,7 @@ class ClienteService  extends DefaultService{
      * Envía un correo al email de contacto de la empresa.
      * @param cm
      */
+    @Transactional
     void mensajeContacto(ClienteMensaje cm) {
         mailService.sendMail {
             to "contacto@servidor.edu"
@@ -213,6 +253,22 @@ class ClienteService  extends DefaultService{
                     "<h3>Motivo: $cm.motivo</h3>" +
                     "<p>Mensaje: $cm.mensaje</p>"
         }
+    }
+
+
+    /**
+     * Bloquea o desbloquea un cliente.
+     * @param id
+     * @return
+     */
+    @Transactional
+    Boolean toggleBloqueo(Long id) {
+        // Traemos el cliente, y cambiamos el estado de bloqueado
+        Cliente c = Cliente.get(id)
+        c.bloqueado = !c.bloqueado
+        c.save()
+
+        return c.bloqueado
     }
 
     /**

@@ -1,8 +1,14 @@
 package com.restaurantify
 
+import grails.databinding.BindingFormat
 import grails.validation.Validateable
 import groovy.transform.CompileDynamic
 import groovy.transform.CompileStatic
+import org.springframework.context.MessageSource
+import org.springframework.context.i18n.LocaleContextHolder
+
+import static org.springframework.http.HttpStatus.CONFLICT
+import static org.springframework.http.HttpStatus.CREATED
 
 /**
  * Clase controlador para los Clientes, que contrala las peticiones y errores.
@@ -14,6 +20,7 @@ import groovy.transform.CompileStatic
 @CompileStatic
 class ClienteController {
     ClienteService clienteService
+    MessageSource messageSource
 
     /**
      * Presenta la vista del registro.
@@ -194,6 +201,46 @@ class ClienteController {
         redirect(action: "login")
     }
 
+    /**
+     * Restablece el email de usuario indicado.
+     */
+    def adminResetPassword(String email) {
+        try {
+            // Intentamos envia un email para restablecer la contraseña
+            clienteService.emailRestablecer(email)
+        } catch(Exception e) {
+            respond([message: e.message], status: CONFLICT, formats: ['json'])
+            return
+        }
+
+        // Si fue bien mandamos el mensaje
+        def msg = messageSource.getMessage("default.cliente.emailRestablecerEnviado.message", [] as Object[], 'Default Message', LocaleContextHolder.locale)
+        respond([message: msg ], status: CREATED, formats: ['json'])
+    }
+
+    /**
+     * Bloquea o desbloquea un cliente.
+     * @param id
+     */
+    def toggleBloqueoCliente(Long id) {
+        Boolean bloqueado
+        try {
+            // Intentamos envia un email para restablecer la contraseña
+            bloqueado = clienteService.toggleBloqueo(id)
+        } catch(Exception e) {
+            respond([message: e.message], status: CONFLICT, formats: ['json'])
+            return
+        }
+
+        // Si fue bien mandamos el mensaje
+        def msg
+        if(bloqueado) {
+            msg = messageSource.getMessage("default.cliente.bloqueado.message", [] as Object[], 'Default Message', LocaleContextHolder.locale)
+        } else {
+            msg = messageSource.getMessage("default.cliente.desbloqueado.message", [] as Object[], 'Default Message', LocaleContextHolder.locale)
+        }
+        respond([message: msg, bloqueado: bloqueado], status: CREATED, formats: ['json'])
+    }
 
     /**
      * Imprime la pantalla para cambiar la contraseña del cliente. Y recibe los datos del formulario.
@@ -247,6 +294,20 @@ class ClienteController {
         }
         redirect(uri: "/", permanent: true)
     }
+
+    /**
+     *
+     * @param cf
+     */
+    def listar(ClienteFiltro cf) {
+        Map clientes = clienteService.listar(cf)
+
+        render(view: "gson/listaClientes", model: [
+                clientes: clientes.lista,
+                total: clientes.total,
+                paginas: clientes.paginas
+        ])
+    }
 }
 
 /**
@@ -289,5 +350,28 @@ class ClientePasswordReset implements Validateable {
                 return errors.rejectValue('repetPassword', 'default.password.notmatch.message')
             }
         }
+    }
+}
+
+class ClienteFiltro implements Validateable {
+    @BindingFormat("yyyy-MM-dd")
+    Date fechaInicio
+
+    @BindingFormat("yyyy-MM-dd")
+    Date fechaFin
+
+    String busqueda
+    Integer offset
+    String sort = "fecha"
+    String order = "desc"
+
+
+    static constraints = {
+        busqueda nullable: true, blank: true
+        fechaInicio nullable: true, blank: true
+        fechaFin nullable: true, blank: true
+        offset nullable: true, blank: true
+        sort nullable: true, blank: true
+        order nullable: true, blank: true
     }
 }

@@ -18,12 +18,7 @@ class AdminController {
     PlatoService platoService
     WebSettingsService webSettingsService
 
-    /**
-     * Controla la vista de estadisticas.
-     */
-    def index() {
-
-    }
+    static  defaultAction = "platos"
 
     /**
      * Controla la vista de alergenos.
@@ -67,11 +62,7 @@ class AdminController {
      * Imprime las vista de las ventas.
      */
     def ventas() {
-        Date fecha = new Date() -31
-        String fechaInicio = fecha.format("yyyy-MM-dd")
-        render view: "ventas", model: [
-                fechaInicio: fechaInicio
-        ]
+        render view: "ventas"
     }
 
     /**
@@ -85,5 +76,12 @@ class AdminController {
         render view: "webSettings", model: [
                 webSettings: ws
         ]
+    }
+
+    /**
+     * Imprime la vista de clientes.
+     */
+    def clientes() {
+        render view: "clientes"
     }
 }

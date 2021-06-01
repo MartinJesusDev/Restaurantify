@@ -1,0 +1,13 @@
+import com.restaurantify.Cliente
+
+model {
+    List<Cliente> clientes
+    Integer total
+    Integer paginas
+}
+
+json {
+    clientes g.render(template: "cliente", collection: clientes, var: "cliente")
+    total total
+    paginas paginas
+}

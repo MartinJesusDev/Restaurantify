@@ -1,10 +1,6 @@
 <!-- Barra lateral de navegación admin -->
 <nav class="nav nav-pills border rounded p-2 bg-dark">
 
-    <g:link controller="admin" action="index" class="nav-link text-white ${actionName == "index" ? "active" : ""}">
-        <g:message code="default.button.admin.estadisticas.message" />
-    </g:link>
-
     <g:link controller="admin" action="platos" class="nav-link text-white ${request.forwardURI.contains("plato") ? "active" : ""}">
         <g:message code="default.button.admin.platos.message" />
     </g:link>

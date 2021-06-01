@@ -61,7 +61,7 @@ class PlatoController {
      */
     def show(Plato plato) {
         // Comprueba si se dio el id del plato
-        if(plato?.id == null) {
+        if(plato?.id == null || !plato.disponible) {
             redirect(controller: "plato", action: "lista")
             return
         }
