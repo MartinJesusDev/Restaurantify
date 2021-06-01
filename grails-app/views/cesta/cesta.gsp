@@ -11,9 +11,10 @@
 <section class="p-2 bg-white mx-xl-5" style="min-height: 80vh">
     <!-- Titulo de la página -->
     <div class="card">
-        <div>
+        <div id="resultado">
         <!-- Mensaje informativo plato --->
             <g:if test="${flash.message}">
+                <div>
                 <g:if test="${flash.error}" >
                     <div class="alert alert-danger alert-dismissible fade show" role="alert">
                         <g:message code="${flash.message}" />
@@ -30,6 +31,7 @@
                         </button>
                     </div>
                 </g:else>
+                </div>
             </g:if>
         </div>
         <h3 class="card-header bg-dark text-white font-titulo">

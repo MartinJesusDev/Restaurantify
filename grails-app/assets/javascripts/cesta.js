@@ -249,6 +249,13 @@ function actualizarCesta(idCesta, unidades) {
         data: datos,
         contentType: "application/json",
         complete: function (xhr, status) {
+            let error = status !== "success"
+            let data = {
+                message: xhr.responseJSON.message,
+                error: error
+            }
+
+            imprimirResultado(data, null, true)
             // Recarga la cesta para calcular los nuevos datos
             cesta.forEach((c)=>{
                 if(c.id === idCesta ){
@@ -273,6 +280,14 @@ function eliminarPlatoCesta(idCesta) {
         type: "DELETE",
         contentType: "application/json",
         complete: function (xhr, status) {
+            let error = status !== "success"
+            let data = {
+                message: xhr.responseJSON.message,
+                error: error
+            }
+
+            imprimirResultado(data, null, true)
+
             obtenerCesta().then(()=>{
                 document.querySelector(`#itemCesta${idCesta}`).remove()
                 imprimirTotalPedido()
