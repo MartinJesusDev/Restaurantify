@@ -148,6 +148,13 @@
                 </div>
             </div>
         </nav>
+        <g:if test="${cliente?.verificado == false}">
+        <div class="bg-primary text-whitex p-1 sticky-top" style="top: 76px;">
+            <p class="text-white mb-0 text-center">
+                <g:message code="defaul.cliente.noVerificado.message" args="${[cliente?.email]}" />
+            </p>
+        </div>
+        </g:if>
 
     <div class="modal fade" id="alertaModal" tabindex="-1" role="dialog" aria-labelledby="alertaModalTitle" aria-hidden="true"></div>
 
