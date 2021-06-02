@@ -106,7 +106,16 @@ class ClienteController {
         }
 
         // Validamos el cliente
-        Boolean logueado = clienteService.iniciarSesion(cl)
+        Boolean logueado
+        try {
+            logueado = clienteService.iniciarSesion(cl)
+        } catch(Exception e) {
+            flash.error = true
+            flash.message = e.message
+            render view: "login", model: [clienteLogin: cl]
+            return
+        }
+
         flash.error = !logueado
         if(logueado) {
             flash.message = "default.cliente.sesionIniciada.message"

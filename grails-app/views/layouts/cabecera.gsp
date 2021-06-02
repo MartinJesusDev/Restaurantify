@@ -149,7 +149,7 @@
             </div>
         </nav>
         <g:if test="${cliente?.verificado == false}">
-        <div class="bg-primary text-whitex p-1 sticky-top" style="top: 76px;">
+        <div class="bg-primary text-whitex p-1 sticky-top" style="top: 76px; z-index: 1;">
             <p class="text-white mb-0 text-center">
                 <g:message code="defaul.cliente.noVerificado.message" args="${[cliente?.email]}" />
             </p>

@@ -1,3 +1,5 @@
+import com.restaurantify.Cliente
+
 class SeguridadInterceptor {
 
     /**
@@ -25,6 +27,12 @@ class SeguridadInterceptor {
         if(!session.cliente) {
             redirect(controller: "cliente", action: "login")
             return false
+        } else {
+            Cliente c = Cliente.get(session?.cliente?.id)
+            if(c.bloqueado) {
+                session.invalidate()
+                redirect uri: "/"
+            }
         }
 
         return true
