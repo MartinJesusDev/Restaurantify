@@ -94,6 +94,26 @@ class ValoracionController {
         flash.valoracionMessage = "default.valoracion.eliminada.message"
         redirect(controller: "plato", action: "show", params: [id: idPlato])
     }
+
+    /**
+     * Elimina una valoración dado el id de la valoración.
+     */
+    def eliminarAdmin(Long id) {
+        // Si no tiene idValoracion redirigimos al index
+        if(id == null) {
+            redirect(uri: "/")
+            return
+        }
+
+        Plato p = platoService.findByValoracion(id)
+
+        // Borramos la valoración
+        valoracionService.eliminar(id)
+
+        // Imprimimos el mensaje
+        flash.valoracionCliente = "default.valoracion.cliente.eliminada.message"
+        redirect(controller: "plato", action: "show", params: [id: p.id])
+    }
 }
 
 class ValoracionCommand {

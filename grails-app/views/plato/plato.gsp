@@ -179,6 +179,26 @@
             <g:if test="${valoraciones.total > 0}">
             <div class="col-lg-7 col-12 ml-lg-5">
                 <h3 class="mb-4 font-titulo"><g:message code="default.input.valoraciones.label" /></h3>
+                <!-- Mensaje informativo plato --->
+                <g:if test="${flash?.valoracionCliente}">
+                    <g:if test="${flash.error}" >
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <g:message code="${flash?.valoracionCliente}" />
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    </g:if>
+                    <g:else>
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <g:message code="${flash?.valoracionCliente}" />
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    </g:else>
+                </g:if>
+
                 <g:each in="${valoraciones.lista}" var="v" status="i">
                     <div class="card mb-3">
                             <div class="card-header bg-dark text-white p-2 d-flex justify-content-between align-items-center">
@@ -188,6 +208,9 @@
                                 </div>
                                 <div class="mr-2" >
                                     ${v.fecha}
+                                    <g:if test="${session?.cliente?.rol == 1}">
+                                        <g:link class="btn btn-danger ml-2" controller="valoracion" action="eliminarAdmin" params="[id: v.id]"  onclick="return confirm('¿Seguro que desea borrar la valoración?')"><i class="fas fa-trash"></i></g:link>
+                                    </g:if>
                                 </div>
                             </div>
                             <div class="card-body p-3">

@@ -158,4 +158,13 @@ class PlatoService extends DefaultService {
 
         return query.list()
     }
+
+    /**
+     * Encuntra un plato dado el id de valoración.
+     * @param id
+     * @return Plato
+     */
+    Plato findByValoracion(Long id) {
+        return Valoracion.get(id).plato
+    }
 }

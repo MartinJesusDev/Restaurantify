@@ -31,7 +31,6 @@ class SeguridadInterceptor {
             Cliente c = Cliente.get(session?.cliente?.id)
             if(c.bloqueado) {
                 session.invalidate()
-                redirect uri: "/"
             }
         }
 

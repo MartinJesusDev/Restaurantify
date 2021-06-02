@@ -141,11 +141,6 @@ class ClienteService  extends DefaultService{
         // Obtenemos el cliente con ese email
         Cliente c = Cliente.findByEmail(cl.email)
 
-        // comprobamos si el cliente no esta bloqueado
-        if(c.bloqueado) {
-            throw new Exception("default.cliente.accesoBloqueado.message")
-        }
-
         // Si no es nulo comprobamos la contraseña
         if (c){
             BCrypt.Result result = BCrypt.verifyer().verify(cl.password.toCharArray(), c.password)
@@ -154,6 +149,11 @@ class ClienteService  extends DefaultService{
 
         // Si se logueo lo guardamos en sessión
         if (logueado) {
+            // comprobamos si el cliente no esta bloqueado
+            if(c.bloqueado) {
+                throw new Exception("default.cliente.accesoBloqueado.message")
+            }
+
             session.setAttribute("cliente", Cliente.findByEmail(cl.email))
         }
 

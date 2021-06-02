@@ -84,11 +84,6 @@ class ValoracionService extends DefaultService {
         List<Valoracion> lista = dc.list(max: max, offset: params?.offset, sort: "fecha", order: "desc")
 
 
-        //List<Valoracion> lista = Valoracion.findAllByPlato(p, params)
-
-
-
-
         Integer total = Valoracion.countByPlato(p) ?: 0
 
         Integer puntuacionTotal = Valoracion.executeQuery(
