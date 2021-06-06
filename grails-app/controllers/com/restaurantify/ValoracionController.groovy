@@ -12,7 +12,6 @@ import groovy.transform.CompileStatic
 @CompileStatic
 class ValoracionController {
     ValoracionService valoracionService
-    ClienteService clienteService
     PlatoService platoService
 
     /**

@@ -1,5 +1,6 @@
 package com.restaurantify
 
+import groovy.transform.CompileDynamic
 import groovy.transform.CompileStatic
 
 @CompileStatic
@@ -30,5 +31,15 @@ class InicioController {
      */
     def notFound() {
         render view: "/notFound"
+    }
+
+    /**
+     * Imprime el pdf de ayuda.
+     */
+    @CompileDynamic
+    def ayuda() {
+        String documentsPath = grailsApplication.config.getProperty("grails.config.docsPath")
+        File fileToReturn = new File(documentsPath + "manual_del_usuario.pdf")
+        render(contentType: "application/pdf", file: fileToReturn)
     }
 }

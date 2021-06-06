@@ -82,7 +82,7 @@
                         </g:link>
                     </li>
                     <li class="nav-item ${request.forwardURI == "/inicio/ayuda" ? "active" : "" }">
-                        <g:link class="nav-link d-inline-block" controller="inicio" action="ayuda" >
+                        <g:link class="nav-link d-inline-block" controller="inicio" action="ayuda" target="_blank" >
                             <g:message code="default.title.ayuda.label"/>
                         </g:link>
                     </li>

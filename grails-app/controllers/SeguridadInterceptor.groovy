@@ -8,6 +8,7 @@ class SeguridadInterceptor {
     SeguridadInterceptor() {
         matchAll()
         .except(controller: "cliente", action: "login")
+        .except(controller: "inicio", action: "ayuda")
         .except(controller: "cliente", action: "registro")
         .except(controller: "cliente", action: "verificar")
         .except(controller: "cliente", action: "contacto")

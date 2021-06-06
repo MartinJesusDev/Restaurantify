@@ -15,6 +15,7 @@ grails:
             maxRequestSize: 26214400
     config:
         assetsPath: D:\xdddd\Documents\Trabajo\TFG\Restaurantify\grails-app\assets\
+        docsPath: D:\xdddd\Documents\Trabajo\TFG\Restaurantify\grails-app\views\documents\
 
 info:
     app:

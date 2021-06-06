@@ -37,7 +37,7 @@ class WebSettingsService extends DefaultService {
     @Transactional
     void modificar(WebSettings ws) {
         // Comprobamos si se quiere subir una foto
-        uploadFileAlergeno(ws)
+        uploadFileWebSettings(ws)
 
         // Lo guardamos
         ws.save()
@@ -46,7 +46,7 @@ class WebSettingsService extends DefaultService {
     /**
      * Controla la subida de una imagén de la web.
      */
-    void uploadFileAlergeno(WebSettings ws) {
+    void uploadFileWebSettings(WebSettings ws) {
         try {
             // Guardamos el fichero si existe
             MultipartFile f = request.getFile('imagen')
